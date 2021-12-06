@@ -1,0 +1,56 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "target": "es5",
+    "incremental": true
+  },
+  "types": [
+    "jest",
+    "node",
+    "react"
+  ],
+  "exclude": [
+    "node_modules",
+    ".vscode",
+    "build",
+    ".next",
+    ".dependabot",
+    "public"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "*/**.*",
+    "**/*.tsx"
+  ]
+}
