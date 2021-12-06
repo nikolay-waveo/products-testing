@@ -1,8 +1,5 @@
 import React from 'react'
-
-interface ITitle {
-  children: React.ReactNode,
-}
+import { ITitle } from 'types'
 
 const Title: React.FC<ITitle> = ({
   children,
