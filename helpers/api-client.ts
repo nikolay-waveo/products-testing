@@ -1,3 +1,9 @@
+/** Usage:
+  import { client } from "helpers/api-client";
+ 
+  const qry =  await client.get(`https://myapi.io/products`);
+ */
+
 const fetcher = (url: string, options?: RequestInit) =>
   fetch(url, {
     headers: options?.headers || {
