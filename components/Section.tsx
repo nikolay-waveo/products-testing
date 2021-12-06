@@ -1,9 +1,5 @@
 import React from 'react'
-
-interface ISection {
-  sectionTitle: string,
-  children?: React.ReactNode,
-}
+import { ISection } from 'types'
 
 const Section: React.FC<ISection> = ({
   sectionTitle,
