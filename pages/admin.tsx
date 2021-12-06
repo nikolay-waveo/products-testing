@@ -1,7 +1,10 @@
+import Title from "components/Title"
+
+
 const admin: React.FC = () => {
   return (
     <div>
-      test
+      <Title>Store Product Sync</Title>
     </div>
   )
 }
