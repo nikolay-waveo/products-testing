@@ -5,7 +5,7 @@ const Title: React.FC<ITitle> = ({
   children,
 }) => {
   return (
-    <h1 className="">{ children }</h1>
+    <h1 className="font-sans text-4xl font-bold">{ children }</h1>
   )
 }
 
