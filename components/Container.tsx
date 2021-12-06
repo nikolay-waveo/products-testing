@@ -1,8 +1,5 @@
 import React from 'react'
-
-interface IContainer {
-  children: React.ReactNode
-}
+import { IContainer } from 'types'
 
 const Container: React.FC<IContainer> = ({
   children
