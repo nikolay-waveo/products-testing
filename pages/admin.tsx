@@ -1,11 +1,12 @@
+import Container from "components/Container"
 import Title from "components/Title"
 
 
 const admin: React.FC = () => {
   return (
-    <div>
+    <Container>
       <Title>Store Product Sync</Title>
-    </div>
+    </Container>
   )
 }
 
