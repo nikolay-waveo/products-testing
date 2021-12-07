@@ -15,7 +15,7 @@ const Main = () => {
 
   useEffect(() => {
     client
-      .post("/api/settings?publish=true", {
+      .post("/api/settings", {
         body: JSON.stringify({ publish: true }),
       })
       .then((res) => console.log("res ", res));

@@ -13,9 +13,9 @@ const settings = {
 };
 
 export default function handler(req, res) {
-  console.log("req.query ", req.query);
+  console.log("req.query ", req.body);
 
-  const isPublished = req.query?.publish;
+  const isPublished = req.body?.publish;
 
   if (req.method === "POST") {
     return res.status(200).json({ publish: isPublished });
