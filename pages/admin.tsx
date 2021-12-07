@@ -9,18 +9,29 @@ import { ISubscriptions } from "types"
 
 const Admin: React.FC = () => {
 
-  const [incomingPendingSubs, setincomingPendingSubs] = useState<ISubscriptions['subscriptions']>([
+  const [incomingPendingSubs, setIncomingPendingSubs] = useState<ISubscriptions['subscriptions']>([
     { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
     { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
     { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
   ]);
 
   const [incomingSubs, setIncomingSubs] = useState<ISubscriptions['subscriptions']>([
-    { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
-    { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
-    { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
+    { name: "Shopify Store 4", id: "6AC", URL: "test.com" },
+    { name: "Shopify Store 5", id: "5BD", URL: "test.com" },
+    { name: "Shopify Store 6", id: "4C0", URL: "test.com" },
   ]);
-  const [outgoingSubs, setOutgoingSubs] = useState<ISubscriptions['subscriptions']>([]);
+
+  const [outgoingPendingSubs, setOutgoingPendingSubs] = useState<ISubscriptions['subscriptions']>([
+    { name: "Shopify Store 7", id: "1AXC", URL: "test.com" },
+    { name: "Shopify Store 8", id: "2BXD", URL: "test.com" },
+    { name: "Shopify Store 9", id: "3CX0", URL: "test.com" },
+  ]);
+
+  const [outgoingSubs, setOutgoingSubs] = useState<ISubscriptions['subscriptions']>([
+    { name: "Shopify Store 10", id: "6A44", URL: "test.com" },
+    { name: "Shopify Store 11", id: "5B44", URL: "test.com" },
+    { name: "Shopify Store 12", id: "4C44", URL: "test.com" },
+  ]);
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
     //TODO GET store info and check for existance/duplicate subscription
@@ -62,9 +73,9 @@ const Admin: React.FC = () => {
 
       <Section sectionTitle="Publish">
         <SubscriptionList 
-          listTitle="Subscribers"
-          list={incomingSubs}
-          updateListHandler={setIncomingSubs}
+          listTitle="Pending"
+          list={incomingPendingSubs}
+          updateListHandler={setIncomingPendingSubs}
           emptyListMessage="There are no subscribers." />
 
         <SubscriptionList 
@@ -80,6 +91,12 @@ const Admin: React.FC = () => {
           labelName="subscribeToStore"
           placeholder="Add store URL"
           addToListHandler={outgoingSubscriptionsHandler}/>
+
+        <SubscriptionList
+          listTitle="Pending" 
+          list={outgoingPendingSubs}
+          updateListHandler={setOutgoingPendingSubs}
+          emptyListMessage="There are no subscriptions." />
           
         <SubscriptionList
           listTitle="Subscriptions" 
