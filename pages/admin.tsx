@@ -1,3 +1,4 @@
+import AddToList from "components/AddToList"
 import Container from "components/Container"
 import List from "components/List"
 import Section from "components/Section"
@@ -7,7 +8,11 @@ import { useState } from "react"
 
 const Admin: React.FC = () => {
 
-  const [incomingSubscriptions, setIncomingSubscriptions] = useState([]);
+  const [incomingSubscriptions, setIncomingSubscriptions] = useState([
+    { name: "Shopify Store", URL: "test.com" },
+    { name: "Shopify Store", URL: "test.com" },
+    { name: "Shopify Store", URL: "test.com" },
+  ]);
   const [outgoingSubscriptions, setOutgoingSubscriptions] = useState([]);
 
   return (
@@ -18,13 +23,18 @@ const Admin: React.FC = () => {
         <List 
           list={incomingSubscriptions}
           emptyListMessage="There are no subscribers." />
-
       </Section>
 
       <Section sectionTitle="Subscribe">
+        <AddToList 
+          label="Subscribe to store"
+          labelName="subscribeToStore"
+          placeholder="Add store URL"
+          addToListHandler={setOutgoingSubscriptions}/>
+          
         <List 
-            list={outgoingSubscriptions}
-            emptyListMessage="There are no subscriptions." />
+          list={outgoingSubscriptions}
+          emptyListMessage="There are no subscriptions." />
       </Section>
     </Container>
   )
