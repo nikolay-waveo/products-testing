@@ -1,7 +1,7 @@
 import React from 'react';
-import Item from './Item';
+import SubscriptionItem from './SubscriptionItem';
 
-interface IList {
+interface ISubscriptionList {
   list: {
     name: string,
     id: string,
@@ -15,7 +15,7 @@ interface IList {
   emptyListMessage: string,
 }
 
-const List: React.FC<IList> = ({
+const SubscriptionList: React.FC<ISubscriptionList> = ({
   list,
   updateListHandler,
   emptyListMessage,
@@ -31,7 +31,7 @@ const List: React.FC<IList> = ({
     <ul>
       { list.length > 0
         ? list.map((item) => 
-          <Item key={item.id} item={item} onRemove={ onRemove }/>
+          <SubscriptionItem key={item.id} item={item} onRemove={ onRemove }/>
         )
         : <li>{ emptyListMessage }</li>
       }
@@ -39,4 +39,4 @@ const List: React.FC<IList> = ({
   )
 }
 
-export default List
+export default SubscriptionList

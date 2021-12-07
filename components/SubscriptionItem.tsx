@@ -2,7 +2,7 @@ import { Icon } from '@shopify/polaris'
 import { CancelSmallMinor } from '@shopify/polaris-icons'
 import React from 'react'
 
-interface IItem {
+interface ISubscriptionItem {
   item: {
     name: string,
     id: string, 
@@ -11,7 +11,7 @@ interface IItem {
   onRemove(id: string): void
 }
 
-const Item: React.FC<IItem> = ({
+const SubscriptionItem: React.FC<ISubscriptionItem> = ({
   item, 
   onRemove,
 }) => {
@@ -38,4 +38,4 @@ const Item: React.FC<IItem> = ({
   )
 }
 
-export default Item
+export default SubscriptionItem

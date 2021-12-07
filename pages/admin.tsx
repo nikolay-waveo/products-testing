@@ -1,7 +1,7 @@
 import AddToList from "components/AddToList"
 import Container from "components/Container"
-import List from "components/List"
 import Section from "components/Section"
+import SubscriptionList from "components/SubscriptionList"
 import Title from "components/Title"
 import { useState } from "react"
 import { ISubscriptions } from "types"
@@ -55,7 +55,7 @@ const Admin: React.FC = () => {
       <Title>Store Product Sync</Title>
 
       <Section sectionTitle="Publish">
-        <List 
+        <SubscriptionList 
           list={incomingSubscriptions}
           updateListHandler={setIncomingSubscriptions}
           emptyListMessage="There are no subscribers." />
@@ -68,7 +68,7 @@ const Admin: React.FC = () => {
           placeholder="Add store URL"
           addToListHandler={outgoingSubscriptionsHandler}/>
           
-        <List 
+        <SubscriptionList 
           list={outgoingSubscriptions}
           updateListHandler={setOutgoingSubscriptions}
           emptyListMessage="There are no subscriptions." />
