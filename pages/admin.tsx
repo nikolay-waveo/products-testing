@@ -9,12 +9,18 @@ import { ISubscriptions } from "types"
 
 const Admin: React.FC = () => {
 
-  const [incomingSubscriptions, setIncomingSubscriptions] = useState<ISubscriptions['subscriptions']>([
+  const [incomingPendingSubs, setincomingPendingSubs] = useState<ISubscriptions['subscriptions']>([
     { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
     { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
     { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
   ]);
-  const [outgoingSubscriptions, setOutgoingSubscriptions] = useState<ISubscriptions['subscriptions']>([]);
+
+  const [incomingSubs, setIncomingSubs] = useState<ISubscriptions['subscriptions']>([
+    { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
+    { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
+    { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
+  ]);
+  const [outgoingSubs, setOutgoingSubs] = useState<ISubscriptions['subscriptions']>([]);
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
     //TODO GET store info and check for existance/duplicate subscription
@@ -41,8 +47,8 @@ const Admin: React.FC = () => {
       id: "44AF",
     }
 
-    setOutgoingSubscriptions([
-      ...outgoingSubscriptions,
+    setOutgoingSubs([
+      ...outgoingSubs,
       newSubscriptionItem,      
     ])
 
@@ -57,8 +63,14 @@ const Admin: React.FC = () => {
       <Section sectionTitle="Publish">
         <SubscriptionList 
           listTitle="Subscribers"
-          list={incomingSubscriptions}
-          updateListHandler={setIncomingSubscriptions}
+          list={incomingSubs}
+          updateListHandler={setIncomingSubs}
+          emptyListMessage="There are no subscribers." />
+
+        <SubscriptionList 
+          listTitle="Subscribers"
+          list={incomingSubs}
+          updateListHandler={setIncomingSubs}
           emptyListMessage="There are no subscribers." />
       </Section>
 
@@ -71,8 +83,8 @@ const Admin: React.FC = () => {
           
         <SubscriptionList
           listTitle="Subscriptions" 
-          list={outgoingSubscriptions}
-          updateListHandler={setOutgoingSubscriptions}
+          list={outgoingSubs}
+          updateListHandler={setOutgoingSubs}
           emptyListMessage="There are no subscriptions." />
       </Section>
     </Container>
