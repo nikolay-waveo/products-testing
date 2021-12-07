@@ -1,3 +1,15 @@
+export interface ISubscription {
+  subscription: {
+    name: string,
+    id: string,
+    URL: string,
+  },
+}
+
+export interface ISubscriptions {
+  subscriptions: ISubscription['subscription'][],
+}
+
 export interface IContainer {
   children: React.ReactNode,
 }

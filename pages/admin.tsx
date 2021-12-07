@@ -4,23 +4,17 @@ import List from "components/List"
 import Section from "components/Section"
 import Title from "components/Title"
 import { useState } from "react"
+import { ISubscriptions } from "types"
 
-interface ISubscription {
-  subscription: {
-    name: string,
-    id: string,
-    URL: string,
-  },
-}
 
 const Admin: React.FC = () => {
 
-  const [incomingSubscriptions, setIncomingSubscriptions] = useState<ISubscription['subscription'][]>([
+  const [incomingSubscriptions, setIncomingSubscriptions] = useState<ISubscriptions['subscriptions']>([
     { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
     { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
     { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
   ]);
-  const [outgoingSubscriptions, setOutgoingSubscriptions] = useState<ISubscription['subscription'][]>([]);
+  const [outgoingSubscriptions, setOutgoingSubscriptions] = useState<ISubscriptions['subscriptions']>([]);
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
     //TODO GET store info and check for existance/duplicate subscription
