@@ -16,21 +16,16 @@ const SubscriptionItem: React.FC<ISubscriptionItem> = ({
   return (
     <li
       className="flex justify-between my-3" >
-        { item.URL 
-          ? <>
-            <a href={ item.URL }
-               className="overflow-hidden">
-               { item.name }
-            </a>
-            <button
-              onClick={ () => onRemove(item.id) } >
-              <Icon
-                source={ CancelSmallMinor }
-                color="base" />
-            </button>
-          </>
-          : item.name
-        }
+      <a href={ item.URL }
+          className="overflow-hidden">
+          { item.name }
+      </a>
+      <button
+        onClick={ () => onRemove(item.id) } >
+        <Icon
+          source={ CancelSmallMinor }
+          color="base" />
+      </button>
     </li>
   )
 }
