@@ -1,6 +1,6 @@
 import Container from "components/Container"
+import List from "components/List"
 import Section from "components/Section"
-import SubscriptionList from "components/SubscriptionList"
 import Title from "components/Title"
 
 
@@ -10,13 +10,22 @@ const admin: React.FC = () => {
       <Title>Store Product Sync</Title>
 
       <Section sectionTitle="Publish">
-        <SubscriptionList 
+        <List 
+          list={[
+            {listItem: "test"},
+            {listItem: "shopify shop", listItemURL: "test.com"}
+          ]}
           emptyListMessage="There are no subscribers." />
+
       </Section>
 
       <Section sectionTitle="Subscribe">
-        <SubscriptionList 
-          emptyListMessage="There are no subscriptions." />
+        <List 
+            list={[
+              {listItem: "test"},
+              {listItem: "shopify shop", listItemURL: "test.com"}
+            ]}
+            emptyListMessage="There are no subscriptions." />
       </Section>
     </Container>
   )
