@@ -5,15 +5,22 @@ import Section from "components/Section"
 import Title from "components/Title"
 import { useState } from "react"
 
+interface ISubscription {
+  subscription: {
+    name: string,
+    id: string,
+    URL: string,
+  },
+}
 
 const Admin: React.FC = () => {
 
-  const [incomingSubscriptions, setIncomingSubscriptions] = useState([
-    { name: "Shopify Store", URL: "test.com" },
-    { name: "Shopify Store", URL: "test.com" },
-    { name: "Shopify Store", URL: "test.com" },
+  const [incomingSubscriptions, setIncomingSubscriptions] = useState<ISubscription['subscription'][]>([
+    { name: "Shopify Store 1", id: "1AC", URL: "test.com" },
+    { name: "Shopify Store 2", id: "2BD", URL: "test.com" },
+    { name: "Shopify Store 3", id: "3C0", URL: "test.com" },
   ]);
-  const [outgoingSubscriptions, setOutgoingSubscriptions] = useState([]);
+  const [outgoingSubscriptions, setOutgoingSubscriptions] = useState<ISubscription['subscription'][]>([]);
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
     //TODO GET store info and check for existance/duplicate subscription
@@ -29,7 +36,7 @@ const Admin: React.FC = () => {
 
       // NO:
       // PUSH new subscription to backend store list
-      // return {name: string, URL: string}
+      // return {name: string, URL: string, id: string}
 
     // NO:
     // return error "This store doesn't exist."
@@ -37,6 +44,7 @@ const Admin: React.FC = () => {
     const newSubscriptionItem = {
       name: "New Shopify Store",
       URL: "test.com",
+      id: "44AF",
     }
 
     setOutgoingSubscriptions([
@@ -55,6 +63,7 @@ const Admin: React.FC = () => {
       <Section sectionTitle="Publish">
         <List 
           list={incomingSubscriptions}
+          updateListHandler={setIncomingSubscriptions}
           emptyListMessage="There are no subscribers." />
       </Section>
 
@@ -67,6 +76,7 @@ const Admin: React.FC = () => {
           
         <List 
           list={outgoingSubscriptions}
+          updateListHandler={setOutgoingSubscriptions}
           emptyListMessage="There are no subscriptions." />
       </Section>
     </Container>
