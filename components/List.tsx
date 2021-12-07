@@ -4,8 +4,8 @@ import React from 'react';
 
 interface IList {
   list: {
-    listItem: string,
-    listItemURL?: string,
+    name: string,
+    URL?: string,
   }[],
   emptyListMessage: string,
 }
@@ -16,18 +16,18 @@ const List: React.FC<IList> = ({
 }) => {
  
   return (
-    <ul className="p-5">
+    <ul>
       { list.length > 0
         ? list.map((item, key) => {
           return(
             <li 
               key={key}
               className="flex justify-between my-3" >
-              { item.listItemURL 
+              { item.URL 
                 ? <> 
-                  <a href={ item.listItemURL }
+                  <a href={ item.URL }
                     className="overflow-hidden">
-                    { item.listItem }
+                    { item.name }
                   </a> 
                   <button
 //TODO Remove testing script
@@ -36,7 +36,7 @@ const List: React.FC<IList> = ({
                     source={CancelSmallMinor}
                     color="base" />
                   </button> </>
-                : item.listItem }
+                : item.name }
             </li>
           )
         })
