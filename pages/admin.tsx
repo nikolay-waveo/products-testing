@@ -56,6 +56,7 @@ const Admin: React.FC = () => {
 
       <Section sectionTitle="Publish">
         <SubscriptionList 
+          listTitle="Subscribers"
           list={incomingSubscriptions}
           updateListHandler={setIncomingSubscriptions}
           emptyListMessage="There are no subscribers." />
@@ -68,7 +69,8 @@ const Admin: React.FC = () => {
           placeholder="Add store URL"
           addToListHandler={outgoingSubscriptionsHandler}/>
           
-        <SubscriptionList 
+        <SubscriptionList
+          listTitle="Subscriptions" 
           list={outgoingSubscriptions}
           updateListHandler={setOutgoingSubscriptions}
           emptyListMessage="There are no subscriptions." />

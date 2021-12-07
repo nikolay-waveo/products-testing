@@ -10,12 +10,14 @@ interface ISubscriptionList {
     URL: string;
   }[]>>,
   emptyListMessage: string,
+  listTitle: string,
 }
 
 const SubscriptionList: React.FC<ISubscriptionList> = ({
   list,
   updateListHandler,
   emptyListMessage,
+  listTitle,
 }) => {
  
   const onRemove = (id: string) => {
@@ -25,14 +27,17 @@ const SubscriptionList: React.FC<ISubscriptionList> = ({
   }
 
   return (
-    <ul>
-      { list.length > 0
-        ? list.map((item) => 
-          <SubscriptionItem key={item.id} item={item} onRemove={ onRemove }/>
-        )
-        : <li>{ emptyListMessage }</li>
-      }
-    </ul>
+    <>
+      <h3 className="font-bold" >{ listTitle }</h3>
+      <ul>
+        { list.length > 0
+          ? list.map((item) => 
+            <SubscriptionItem key={ item.id } item={ item } onRemove={ onRemove }/>
+          )
+          : <li>{ emptyListMessage }</li>
+        }
+      </ul>
+    </>
   )
 }
 
