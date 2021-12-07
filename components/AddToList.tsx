@@ -1,12 +1,9 @@
 import { Icon } from '@shopify/polaris';
 import { MobilePlusMajor } from '@shopify/polaris-icons';
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 
 interface IAddToList {
-  addToListHandler: React.Dispatch<React.SetStateAction<{
-    name: string;
-    URL: string;
-  }[]>>,
+  addToListHandler(input: string): void,
   label: string, 
   labelName: string,
   showLabel?: boolean,
@@ -21,10 +18,12 @@ const AddToList: React.FC<IAddToList> = ({
   placeholder,
 }) => {
 
-  const handleSubmit = (e) => {
+  const [input, setInput] = useState('');
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("submit")
-    // addToListHandler()
+    addToListHandler(input)
+    setInput('')
   }
 
   return (
@@ -38,11 +37,12 @@ const AddToList: React.FC<IAddToList> = ({
       </label>
       <div className="flex justify-between">
         <input 
-          type="text"
-          value=""
+          type="url"
+          value={ input }
           id={ labelName }
           placeholder={ placeholder }
-          onChange={(e) => {}} />
+          required
+          onChange={(e) => setInput(e.target.value)} />
         
         <button type="submit">
           <Icon

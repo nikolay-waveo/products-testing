@@ -15,6 +15,39 @@ const Admin: React.FC = () => {
   ]);
   const [outgoingSubscriptions, setOutgoingSubscriptions] = useState([]);
 
+  const outgoingSubscriptionsHandler = (subscription: string) => {
+    //TODO GET store info and check for existance/duplicate subscription
+
+    // Does store exist?
+    // GET(subscription: string)
+
+    // YES: 
+      // Is the user already subscribed?
+
+      // YES:
+      // return error "You are already subscribed to this store."
+
+      // NO:
+      // PUSH new subscription to backend store list
+      // return {name: string, URL: string}
+
+    // NO:
+    // return error "This store doesn't exist."
+
+    const newSubscriptionItem = {
+      name: "New Shopify Store",
+      URL: "test.com",
+    }
+
+    setOutgoingSubscriptions([
+      ...outgoingSubscriptions,
+      newSubscriptionItem,      
+    ])
+
+    //TODO Remove debugging script
+    alert(subscription)
+  }
+
   return (
     <Container>
       <Title>Store Product Sync</Title>
@@ -30,7 +63,7 @@ const Admin: React.FC = () => {
           label="Subscribe to store"
           labelName="subscribeToStore"
           placeholder="Add store URL"
-          addToListHandler={setOutgoingSubscriptions}/>
+          addToListHandler={outgoingSubscriptionsHandler}/>
           
         <List 
           list={outgoingSubscriptions}
