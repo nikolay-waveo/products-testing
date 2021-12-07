@@ -23,7 +23,7 @@ const Section: React.FC<ISection> = ({
           onChange={() => setToggleOn(!toggleOn)} />
       </div>
 
-      { toggleOn && <div> { children } </div> }
+      { toggleOn && <div className="p-5" > { children } </div> }
 
     </section>
   )
