@@ -1,13 +1,10 @@
 import { Icon } from '@shopify/polaris'
 import { CancelSmallMinor } from '@shopify/polaris-icons'
 import React from 'react'
+import { ISubscription } from 'types'
 
 interface ISubscriptionItem {
-  item: {
-    name: string,
-    id: string, 
-    URL?: string,
-  },
+  item: ISubscription['subscription'],
   onRemove(id: string): void
 }
 

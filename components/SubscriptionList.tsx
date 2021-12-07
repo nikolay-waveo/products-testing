@@ -1,12 +1,9 @@
 import React from 'react';
+import { ISubscriptions } from 'types';
 import SubscriptionItem from './SubscriptionItem';
 
 interface ISubscriptionList {
-  list: {
-    name: string,
-    id: string,
-    URL: string,
-  }[],
+  list: ISubscriptions['subscriptions'],
   updateListHandler: React.Dispatch<React.SetStateAction<{
     name: string;
     id: string;
