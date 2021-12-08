@@ -29,20 +29,21 @@ const AddToList: React.FC<IAddToList> = ({
   return (
     <form 
       onSubmit={handleSubmit}
-      className="flex flex-col">
+      className="flex flex-col p-5">
       <label 
         htmlFor={ labelName } 
-        className={ showLabel ? "" : "sr-only" } >
+        className={ "text-xl font-semibold mb-4 " + (showLabel ? "" : "sr-only") } >
         { label }
       </label>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-x-11">
         <input 
           type="url"
           value={ input }
           id={ labelName }
           placeholder={ placeholder }
           required
-          onChange={(e) => setInput(e.target.value)} />
+          onChange={(e) => setInput(e.target.value)} 
+          className="border-solid border border-gray-400 px-2 py-1 flex-grow" />
         
         <button type="submit">
           <Icon

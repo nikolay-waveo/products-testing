@@ -51,8 +51,8 @@ const SubscriptionList: React.FC<ISubscriptionList> = ({
 
 
   return (
-    <>
-      <h3 className="font-bold" >{ listTitle }</h3>
+    <div className="p-5">
+      <h3 className="mb-6 font-bold" >{ listTitle }</h3>
       <ul>
         { list.length > 0
           ? list.map((item) => 
@@ -64,7 +64,7 @@ const SubscriptionList: React.FC<ISubscriptionList> = ({
           : <li>{ emptyListMessage }</li>
         }
       </ul>
-    </>
+    </div>
   )
 }
 
