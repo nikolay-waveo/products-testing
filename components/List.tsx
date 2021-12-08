@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { ISubscription } from 'types'
+import Item from './Item'
 
 interface IList {
   list: ISubscription['subscription'][],
@@ -21,8 +22,10 @@ const List: React.FC<IList> = ({
       <h3 className="mb-6 font-bold" >{ listTitle }</h3>
       <ul>
         { list.length > 0
-          ? list.map((item) => {return(<li key={item.id}>{item.name}</li>)}
-            
+          ? list.map((item) => 
+            <Item 
+              key={ item.id }
+              item={ item } />
           )
           : <li>{ emptyListMessage }</li>
         }
