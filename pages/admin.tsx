@@ -2,15 +2,7 @@ import Container from "components/Container"
 import Section from "components/Section"
 import Title from "components/Title"
 import { useState } from "react"
-
-interface ISubscription {
-  subscription: {
-    name: string, 
-    id: string, 
-    URL: string, 
-    status: string,
-  },
-}
+import { ISubscription } from "types"
 
 const Admin: React.FC = () => {
 
@@ -49,6 +41,7 @@ const Admin: React.FC = () => {
       name: "New Shopify Store",
       URL: "test.com",
       id: "44AF",
+      status: "active"
     }
 
     setOutgoingSubs([

@@ -3,11 +3,8 @@ export interface ISubscription {
     name: string,
     id: string,
     URL: string,
+    status: string,
   },
-}
-
-export interface ISubscriptions {
-  subscriptions: ISubscription['subscription'][],
 }
 
 export interface IContainer {
