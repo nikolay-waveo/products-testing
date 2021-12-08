@@ -75,13 +75,15 @@ const Admin: React.FC = () => {
         <SubscriptionList 
           listTitle="Pending"
           list={incomingPendingSubs}
-          updateListHandler={setIncomingPendingSubs}
+          ListUpdateHandler={setIncomingPendingSubs}
+          linkedList={incomingSubs}
+          LinkedListUpdateHandler={setIncomingSubs}
           emptyListMessage="There are no subscribers." />
 
         <SubscriptionList 
           listTitle="Subscribers"
           list={incomingSubs}
-          updateListHandler={setIncomingSubs}
+          ListUpdateHandler={setIncomingSubs}
           emptyListMessage="There are no subscribers." />
       </Section>
 
@@ -95,13 +97,15 @@ const Admin: React.FC = () => {
         <SubscriptionList
           listTitle="Pending" 
           list={outgoingPendingSubs}
-          updateListHandler={setOutgoingPendingSubs}
+          ListUpdateHandler={setOutgoingPendingSubs}
+          linkedList={outgoingSubs}
+          LinkedListUpdateHandler={setOutgoingSubs}
           emptyListMessage="There are no subscriptions." />
           
         <SubscriptionList
           listTitle="Subscriptions" 
           list={outgoingSubs}
-          updateListHandler={setOutgoingSubs}
+          ListUpdateHandler={setOutgoingSubs}
           emptyListMessage="There are no subscriptions." />
       </Section>
     </Container>

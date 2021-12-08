@@ -4,13 +4,13 @@ import SubscriptionItem from './SubscriptionItem';
 
 interface ISubscriptionList {
   list: ISubscriptions['subscriptions'],
-  updateListHandler: React.Dispatch<React.SetStateAction<{
+  ListUpdateHandler: React.Dispatch<React.SetStateAction<{
     name: string;
     id: string;
     URL: string;
   }[]>>,
   linkedList?: ISubscriptions['subscriptions'],
-  updateLinkedListHandler?: React.Dispatch<React.SetStateAction<{
+  LinkedListUpdateHandler?: React.Dispatch<React.SetStateAction<{
     name: string;
     id: string;
     URL: string;
@@ -21,9 +21,9 @@ interface ISubscriptionList {
 
 const SubscriptionList: React.FC<ISubscriptionList> = ({
   list,
-  updateListHandler,
+  ListUpdateHandler,
   linkedList,
-  updateLinkedListHandler,
+  LinkedListUpdateHandler,
   emptyListMessage,
   listTitle,
 }) => {
@@ -31,16 +31,15 @@ const SubscriptionList: React.FC<ISubscriptionList> = ({
   const onRemove = (id: string) => {
     const newList = list.filter((item) => item.id !== id);
     console.log(newList)
-    updateListHandler(newList);
+    ListUpdateHandler(newList);
   }
 
   const onAddToLinkedList = (item: ISubscription['subscription']) => {
-    alert('linked');
-    updateLinkedListHandler([...linkedList, item]);
+    LinkedListUpdateHandler([...linkedList, item]);
     onRemove(item.id);
   }
 
-  const isLinked = linkedList && updateLinkedListHandler;
+  const isLinked = linkedList && LinkedListUpdateHandler;
 
   let eventProps = {
     onRemove: onRemove,
