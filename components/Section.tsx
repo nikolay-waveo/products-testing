@@ -6,6 +6,7 @@ import { ISection } from 'types'
 
 const Section: React.FC<ISection> = ({
   sectionTitle,
+  toggle,
   children
 }) => {
 
@@ -17,10 +18,11 @@ const Section: React.FC<ISection> = ({
       <div className="flex justify-between content-center my-5">
         <h2 className="text-2xl font-semibold">{ sectionTitle }</h2>
 
-        <Toggle 
-          defaultChecked={toggleOn}
-          icons={false}
-          onChange={() => setToggleOn(!toggleOn)} />
+        { toggle && 
+          <Toggle 
+            defaultChecked={toggleOn}
+            icons={false}
+            onChange={() => setToggleOn(!toggleOn)} /> }
       </div>
 
       { toggleOn && <div className="grid gap-y-3 divide-y" > { children } </div> }
