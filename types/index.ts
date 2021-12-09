@@ -28,3 +28,11 @@ export interface IAddToList {
   showLabel?: boolean,
   placeholder: string,
 }
+
+export interface IButton {
+  item: ISubscription['subscription'],
+  type: ActionType,
+  onAction(id: string): void,
+}
+
+export type ActionType = "cancel" | "accept";

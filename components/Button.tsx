@@ -1,15 +1,7 @@
 import { Icon } from '@shopify/polaris';
 import { CancelSmallMinor, TickMinor } from '@shopify/polaris-icons';
 import React from 'react';
-import { ISubscription } from 'types';
-
-type ActionType = "cancel" | "accept";
-
-interface IButton {
-  item: ISubscription['subscription'],
-  type: ActionType,
-  onAction(id: string): void,
-}
+import { IButton } from 'types';
 
 const Button: React.FC<IButton> = ({
   item,
