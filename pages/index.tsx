@@ -1,4 +1,5 @@
 import { Button } from "@shopify/polaris";
+import { client } from "helpers/api-client";
 import { usePublish } from "hooks/usePublish";
 import { useSettings } from "hooks/useSettings";
 import { useEffect } from "react";
@@ -17,7 +18,7 @@ const shop = "dev-subscriber.myshopify.com";
 
 const Main = () => {
   const { useGetShopSettings, setShopSettings } = useSettings();
-  const { setShopPublishSettings } = usePublish();
+  const { setShopPublishSettings, deleteShopPublishSettings } = usePublish();
 
   // const { data } = useGetShopSettings(shop);
 
@@ -25,46 +26,55 @@ const Main = () => {
   //   console.log("shop settings ", data);
   // }, [data]);
 
-  useEffect(() => {
-    setShopPublishSettings({
-      publisherShop: "joel-dev-subscriber.myshopify.com",
-      subscriberShop: "dev-publisher.myshopify.com",
-      accept: true,
-    }).then((res) => console.log("set shop publish settings response  ", res));
-  }, [setShopPublishSettings]);
+  // useEffect(() => {
+  //   deleteShopPublishSettings({
+  //     publisherShop: "joel-dev-subscriber.myshopify.com",
+  //     subscriberShop: "dev-publisher.myshopify.com",
+  //   }).then((res) =>
+  //     console.log("delete shop publish settings response  ", res)
+  //   );
+  // }, [deleteShopPublishSettings]);
+
+  // useEffect(() => {
+  //   setShopPublishSettings({
+  //     publisherShop: "joel-dev-subscriber.myshopify.com",
+  //     subscriberShop: "dev-publisher.myshopify.com",
+  //     accept: true,
+  //   }).then((res) => console.log("set shop publish settings response  ", res));
+  // }, [setShopPublishSettings]);
 
   useEffect(() => {
-    // client
-    //   .put("https://shopify.perkd.io/products-pubsub-app-dev/subcribe", {
-    //     headers: {
-    //       "x-shopify-shop-domain": `${shop}`,
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       inventoryLocationId: "62489591961",
-    //       shop: "dev-subscriber.myshopify.com",
-    //     }),
-    //   })
-    // .delete("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
-    //   headers: {
-    //     "x-shopify-shop-domain": `${shop}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     shop: "dev-publisher.myshopify.com",
-    //   }),
-    // })
-    // .put("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
-    //   headers: {
-    //     "x-shopify-shop-domain": "dev-subscriber.myshopify.com",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     accept: true,
-    //     shop: "dev-publisher.myshopify.com",
-    //   }),
-    // })
-    // .then((res) => console.log(" response ", res));
+    client
+      .put("https://shopify.perkd.io/products-pubsub-app-dev/subcribe", {
+        headers: {
+          "x-shopify-shop-domain": `${shop}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inventoryLocationId: "62489591961",
+          shop: "dev-subscriber.myshopify.com",
+        }),
+      })
+      // .delete("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
+      //   headers: {
+      //     "x-shopify-shop-domain": `${shop}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     shop: "dev-publisher.myshopify.com",
+      //   }),
+      // })
+      // .put("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
+      //   headers: {
+      //     "x-shopify-shop-domain": "dev-subscriber.myshopify.com",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     accept: true,
+      //     shop: "dev-publisher.myshopify.com",
+      //   }),
+      // })
+      .then((res) => console.log(" response ", res));
   }, []);
 
   return (

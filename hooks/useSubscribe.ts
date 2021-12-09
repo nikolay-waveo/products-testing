@@ -3,7 +3,7 @@ import { client } from "helpers/api-client";
 type TPublishProps = {
   publisherShop: string;
   subscriberShop: string;
-  accept?: boolean;
+  accept: boolean;
 };
 
 async function setShopPublishSettings(props: TPublishProps) {
@@ -18,20 +18,8 @@ async function setShopPublishSettings(props: TPublishProps) {
   });
 }
 
-async function deleteShopPublishSettings(props: Omit<TPublishProps, "accept">) {
-  return await client.delete(`api/publish`, {
-    headers: {
-      "x-shopify-shop-domain": `${props.publisherShop}`,
-    },
-    body: JSON.stringify({
-      shop: props.subscriberShop,
-    }),
-  });
-}
-
 export function usePublish() {
   return {
     setShopPublishSettings,
-    deleteShopPublishSettings,
   };
 }
