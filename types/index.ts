@@ -29,6 +29,12 @@ export interface IAddToList {
   placeholder: string,
 }
 
+export interface IItem {
+  item: ISubscription['subscription'],
+  onCancel?(id: string): void, 
+  onAccept?(id: string): void,
+}
+
 export interface IButton {
   item: ISubscription['subscription'],
   type: ActionType,

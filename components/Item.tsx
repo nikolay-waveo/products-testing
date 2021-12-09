@@ -1,12 +1,6 @@
 import React from 'react'
-import { ISubscription } from 'types'
+import { IItem } from 'types'
 import Button from './Button'
-
-interface IItem {
-  item: ISubscription['subscription'],
-  onCancel?(id: string): void, 
-  onAccept?(id: string): void,
-}
 
 const Item: React.FC<IItem> = ({
   item,
