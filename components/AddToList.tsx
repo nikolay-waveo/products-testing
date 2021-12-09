@@ -29,7 +29,7 @@ const AddToList: React.FC<IAddToList> = ({
   return (
     <form 
       onSubmit={handleSubmit}
-      className="flex flex-col p-5">
+      className="flex flex-col p-5 pt-0 bg-white">
       <label 
         htmlFor={ labelName } 
         className={ "text-xl font-semibold mb-4 " + (showLabel ? "" : "sr-only") } >
@@ -43,12 +43,14 @@ const AddToList: React.FC<IAddToList> = ({
           placeholder={ placeholder }
           required
           onChange={(e) => setInput(e.target.value)} 
-          className="border-solid border rounded border-gray-200 px-2 py-1 flex-grow" />
+          className="text-xl tracking-wide border-solid border rounded border-gray-200 p-5 flex-grow" />
         
-        <button type="submit">
+        <button 
+          type="submit"
+          className="p-5 pl-0 border-indigo-600" >
           <Icon
             source={ MobilePlusMajor }
-            color="base" />
+            color="interactive" />
         </button>
       </div>
     </form>

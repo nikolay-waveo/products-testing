@@ -15,9 +15,9 @@ const Item: React.FC<IItem> = ({
 }) => {
   return (
     <li
-      className="flex justify-between my-3" >
+      className="flex justify-between items-center p-5 bg-white" >
       <a href={ item.URL }
-         className="overflow-hidden">
+         className="text-xl font-semibold overflow-hidden">
          { item.name }
       </a>
       <div className="flex space-x-2">

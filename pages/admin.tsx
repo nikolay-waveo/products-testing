@@ -71,19 +71,19 @@ const Admin: React.FC = () => {
     <Container>
       <Title>Store Product Sync</Title>
 
-      <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 p-5">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 p-5 pt-0">
         <Section 
           sectionTitle="Publish"
           toggle >
           <List 
-            listTitle="Pending"
+            listTitle="PENDING"
             listType="pending"
             list={incomingSubs} 
             listUpdateHandler={setIncomingSubs}
             action={["cancel", "accept"]} />
 
           <List 
-            listTitle="Subscribers"
+            listTitle="SUBSCRIBERS"
             listType="active"
             list={incomingSubs} 
             listUpdateHandler={setIncomingSubs}
@@ -95,18 +95,18 @@ const Admin: React.FC = () => {
           <AddToList 
             label="Add New Subscriber"
             labelName="addSubscriber"
-            placeholder="Add Subscriber" 
+            placeholder="Subscribe to a shop..." 
             addToListHandler={outgoingSubscriptionsHandler}/>
 
           <List 
-            listTitle="Pending"
+            listTitle="PENDING"
             listType="pending"
             list={outgoingSubs} 
             listUpdateHandler={setOutgoingSubs}
             action={["cancel"]} />
 
           <List 
-            listTitle="Subscriptions"
+            listTitle="SUBSCRIPTIONS"
             listType="active"
             list={outgoingSubs} 
             listUpdateHandler={setOutgoingSubs}

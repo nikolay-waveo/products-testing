@@ -46,9 +46,9 @@ const List: React.FC<IList> = ({
   if(isEmpty) return(<></>)
 
   return (
-    <div className="p-5">
-      <h3 className="mb-6 font-bold" >{ listTitle }</h3>
-      <ul>
+    <div>
+      <h3 className="text-xl p-5 font-semibold text-white tracking-wide bg-indigo-500" >{ listTitle }</h3>
+      <ul className="space-y-1">
         { filteredList.length > 0
           ? filteredList
             .map((item) => 
@@ -57,7 +57,8 @@ const List: React.FC<IList> = ({
                 item={ item } 
                 {...itemProps} />
             )
-          : <li>{ emptyListMessage || "" }</li>
+          : <li 
+              className="text-2xl p-5 font-normal bg-white" >{ emptyListMessage || "" }</li>
         }
       </ul>
     </div>

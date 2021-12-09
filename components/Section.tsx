@@ -13,10 +13,10 @@ const Section: React.FC<ISection> = ({
   const [toggleOn, setToggleOn] = useState(true)
 
   return (
-    <section className="divide-y-2 divide-gray-300 divide-solid">
+    <section className="max-h-full border border-gray-100">
 
-      <div className="flex justify-between content-center my-5">
-        <h2 className="h-10 text-2xl font-semibold">{ sectionTitle }</h2>
+      <div className="flex justify-between content-center p-5 pt-6 bg-white">
+        <h2 className="h-10 text-3xl font-bold text-gray-800">{ sectionTitle }</h2>
 
         { toggle && 
           <Toggle 
@@ -25,7 +25,7 @@ const Section: React.FC<ISection> = ({
             onChange={() => setToggleOn(!toggleOn)} /> }
       </div>
 
-      { toggleOn && <div className="grid gap-y-3 divide-y" > { children } </div> }
+      { toggleOn && <div className="bg-indigo-50" > { children } </div> }
 
     </section>
   )
