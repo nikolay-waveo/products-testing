@@ -1,27 +1,46 @@
-const settings = {
-  published: [
-    {
-      shop: "dev-subscriber.myshopify.com",
-      status: "active",
-      enabled: true,
-      inventoryLocationId: "61576970293",
-      updatedAt: "2021-12-03T05:14:10.140Z",
-    },
-  ],
-  subscribed: [],
-  publish: true,
-};
+import { client } from "helpers/api-client";
 
-export default function handler(req, res) {
-  console.log("req.query ", req.body);
+/**
+ *
+ * @param {any} req  - An instance of http.IncomingMessage
+ * @param {any} res - An instance of http.ServerResponse
+ *
+ */
+export default async function handler(req, res) {
+  let response = null;
 
-  const isPublished = req.body?.publish;
+  const { API_ENDPOINT } = process.env;
+  const shop = req.query?.shop;
 
   if (req.method === "POST") {
-    return res.status(200).json({ publish: isPublished });
-  }
-  // if (req.method === 'GET') { }
+    console.info("[POST]:: settings ");
+    const domain = req.headers["x-shopify-shop-domain"];
 
-  // TODO: proxy actual api endpoint
-  return res.status(200).json(settings);
+    console.log("[POST] request body ", req.body);
+    console.log("[POST] settings header domain ", domain);
+
+    try {
+      response = await client.post(`${API_ENDPOINT}/settings`, {
+        body: req.body,
+        headers: {
+          "x-shopify-shop-domain": `${domain}`,
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(" error ", e);
+    }
+
+    return res.status(200).json(response);
+  }
+
+  if (!shop) {
+    return res
+      .status(200)
+      .json({ status: "failed", error: "shop parameter is missing" });
+  }
+
+  // GET (default response)
+  response = await client.get(`${API_ENDPOINT}/settings?shop=${shop}`);
+  return res.status(200).json(response);
 }

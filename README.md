@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Perkd Product Pub/Sub for Shopify
+
+## Folder structure guide
+
+    .
+    ├── hooks         # React Hooks
+    ├── pages         # UI
+    ├────── api       # API proxy
+    ├── helpers       # App helpers
+    ├── styles        # Stylesheet (TailwindCSS) configuration
+    ├── LICENSE
+    └── README.md
 
 ## Getting Started
 

@@ -2,10 +2,12 @@ import useSWR from "swr";
 
 const fetcher = (url: string, options?: RequestInit) =>
   fetch(url, {
-    headers: options?.headers || {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers:
+      options?.headers ||
+      {
+        // Accept: "application/json",
+        // "Content-Type": "application/json",
+      },
     method: options?.method || "GET",
     ...options,
   }).then((r) => {
