@@ -2,14 +2,16 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { ISubscription } from 'types';
 import Item from './Item';
 
+type ActionType = "cancel" | "accept";
+
+
 interface IList {
   list: ISubscription['subscription'][],
   listUpdateHandler: Dispatch<SetStateAction<IList['list']>>,
   listTitle: string,
   listType?: string,
   emptyListMessage?: string,
-  hasCancelAction?: boolean,
-  hasAcceptAction?: boolean,
+  action?: ActionType[],
 }
 
 const List: React.FC<IList> = ({
@@ -18,8 +20,7 @@ const List: React.FC<IList> = ({
   listTitle,
   listType="active",
   emptyListMessage,
-  hasCancelAction,
-  hasAcceptAction,
+  action=[],
 }) => {
 
   const onCancel = (id: string) => {
@@ -33,9 +34,9 @@ const List: React.FC<IList> = ({
 
   const itemProps = {}
 
-  if(hasCancelAction) itemProps["onCancel"] = onCancel;
+  if(action.includes("cancel")) itemProps["onCancel"] = onCancel;
 
-  if(hasAcceptAction) itemProps["onAccept"] = onAccept;
+  if(action.includes("accept")) itemProps["onAccept"] = onAccept;
 
   const filteredList = list.filter(item => item.status === listType);
 

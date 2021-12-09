@@ -65,8 +65,7 @@ const Admin: React.FC = () => {
             listType="pending"
             list={incomingSubs} 
             listUpdateHandler={setIncomingSubs}
-            hasCancelAction
-            hasAcceptAction />
+            action={["cancel", "accept"]} />
 
           <List 
             listTitle="Subscribers"
@@ -74,7 +73,7 @@ const Admin: React.FC = () => {
             list={incomingSubs} 
             listUpdateHandler={setIncomingSubs}
             emptyListMessage="There are no subscribers."
-            hasCancelAction />
+            action={["cancel"]} />
         </Section>
 
         <Section sectionTitle="Subscribe">
@@ -83,7 +82,7 @@ const Admin: React.FC = () => {
             listType="pending"
             list={outgoingSubs} 
             listUpdateHandler={setOutgoingSubs}
-            hasCancelAction />
+            action={["cancel"]} />
 
           <List 
             listTitle="Subscriptions"
@@ -91,7 +90,7 @@ const Admin: React.FC = () => {
             list={outgoingSubs} 
             listUpdateHandler={setOutgoingSubs}
             emptyListMessage="There are no subscriptions."
-            hasCancelAction />
+            action={["cancel"]} />
         </Section>
       </div>
     </Container>
