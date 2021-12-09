@@ -1,3 +1,4 @@
+import AddToList from "components/AddToList"
 import Container from "components/Container"
 import List from "components/List"
 import Section from "components/Section"
@@ -8,15 +9,27 @@ import { ISubscription } from "types"
 const Admin: React.FC = () => {
 
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
-    { name: "Shopify Store 1", id: "1AC", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 2", id: "2BD", URL: "test.com", status: "active" },
-    { name: "Shopify Store 3", id: "3C0", URL: "test.com", status: "active" },
+    { name: "Shopify Store 1", id: "1ACA", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 2", id: "2BDA", URL: "test.com", status: "active" },
+    { name: "Shopify Store 3", id: "3C0A", URL: "test.com", status: "active" },
+    { name: "Shopify Store 1", id: "1ACD", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 2", id: "2BDD", URL: "test.com", status: "active" },
+    { name: "Shopify Store 3", id: "3C0D", URL: "test.com", status: "active" },
+    { name: "Shopify Store 1", id: "1ACQ", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 2", id: "2BDQ", URL: "test.com", status: "active" },
+    { name: "Shopify Store 3", id: "3C0Q", URL: "test.com", status: "active" },
   ]);
 
   const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([
     { name: "Shopify Store 4", id: "1AC0", URL: "test.com", status: "pending" },
     { name: "Shopify Store 5", id: "2BD0", URL: "test.com", status: "active" },
     { name: "Shopify Store 6", id: "3C00", URL: "test.com", status: "active" },
+    { name: "Shopify Store 4", id: "1AC1", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 5", id: "2BD1", URL: "test.com", status: "active" },
+    { name: "Shopify Store 6", id: "3C01", URL: "test.com", status: "active" },
+    { name: "Shopify Store 4", id: "1AC2", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
+    { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
   ]);
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
@@ -42,7 +55,7 @@ const Admin: React.FC = () => {
       name: "New Shopify Store",
       URL: "test.com",
       id: "44AF",
-      status: "active"
+      status: "pending"
     }
 
     setOutgoingSubs([
@@ -77,6 +90,13 @@ const Admin: React.FC = () => {
         </Section>
 
         <Section sectionTitle="Subscribe">
+          <AddToList 
+            label="Add New Subscriber"
+            labelName="addSubscriber"
+            placeholder="Add Subscriber" 
+            showLabel
+            addToListHandler={outgoingSubscriptionsHandler}/>
+
           <List 
             listTitle="Pending"
             listType="pending"
