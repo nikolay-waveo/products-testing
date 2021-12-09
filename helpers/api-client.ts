@@ -1,8 +1,4 @@
-/** Usage:
-  import { client } from "helpers/api-client";
- 
-  const qry =  await client.get(`https://myapi.io/products`);
- */
+import useSWR from "swr";
 
 const fetcher = (url: string, options?: RequestInit) =>
   fetch(url, {
@@ -18,6 +14,7 @@ const fetcher = (url: string, options?: RequestInit) =>
     }
   });
 
+// Utilities
 export const client = {
   get: (url: string, options?: RequestInit) => fetcher(url, options),
   post: (url: string, options?: RequestInit) =>
@@ -28,4 +25,4 @@ export const client = {
     fetcher(url, { ...options, method: "DELETE" }),
 };
 
-export default fetcher;
+export { useSWR, fetcher };
