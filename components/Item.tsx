@@ -1,7 +1,6 @@
-import { Icon } from '@shopify/polaris'
-import { CancelSmallMinor, TickMinor } from '@shopify/polaris-icons'
 import React from 'react'
 import { ISubscription } from 'types'
+import Button from './Button'
 
 interface IItem {
   item: ISubscription['subscription'],
@@ -23,24 +22,10 @@ const Item: React.FC<IItem> = ({
       </a>
       <div className="flex space-x-2">
         { onAccept && 
-          <button
-            onClick={() => onAccept(item.id)} 
-            className="flex items-center space-x-1 p-2 text-xl font-semibold text-shopify-success border-2 border-shopify-success rounded-lg" >
-            ACCEPT
-            <Icon
-              source={ TickMinor }
-              color="success" />
-          </button>
+          <Button type="accept" item={item} onAction={onAccept} />
         }
         { onCancel && 
-          <button
-            onClick={() => onCancel(item.id)} 
-            className="flex items-center space-x-1 p-2 text-xl font-semibold text-red-600 border-2 border-red-600 rounded-lg" >
-            CANCEL
-            <Icon
-              source={ CancelSmallMinor }
-              color="critical" />
-          </button>
+          <Button type="cancel" item={item} onAction={onCancel} />
         }
       </div>
     </li>
