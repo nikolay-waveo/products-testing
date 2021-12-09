@@ -20,3 +20,11 @@ export interface ISection {
   toggle?: boolean,
   children?: React.ReactNode,
 }
+
+export interface IAddToList {
+  addToListHandler(input: string): void,
+  label: string, 
+  labelName: string,
+  showLabel?: boolean,
+  placeholder: string,
+}

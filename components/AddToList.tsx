@@ -1,14 +1,7 @@
 import { Icon } from '@shopify/polaris';
 import { MobilePlusMajor } from '@shopify/polaris-icons';
 import React, { FormEvent, useState } from 'react';
-
-interface IAddToList {
-  addToListHandler(input: string): void,
-  label: string, 
-  labelName: string,
-  showLabel?: boolean,
-  placeholder: string,
-}
+import { IAddToList } from 'types';
 
 const AddToList: React.FC<IAddToList> = ({
   addToListHandler,
