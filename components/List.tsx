@@ -1,18 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { ISubscription } from 'types';
+import React from 'react';
+import { IList } from 'types';
 import Item from './Item';
-
-type ActionType = "cancel" | "accept";
-
-
-interface IList {
-  list: ISubscription['subscription'][],
-  listUpdateHandler: Dispatch<SetStateAction<IList['list']>>,
-  listTitle: string,
-  listType?: string,
-  emptyListMessage?: string,
-  action?: ActionType[],
-}
 
 const List: React.FC<IList> = ({
   list,

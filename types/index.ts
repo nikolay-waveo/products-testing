@@ -29,6 +29,15 @@ export interface IAddToList {
   placeholder: string,
 }
 
+export interface IList {
+  list: ISubscription['subscription'][],
+  listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
+  listTitle: string,
+  listType?: string,
+  emptyListMessage?: string,
+  action?: ActionType[],
+}
+
 export interface IItem {
   item: ISubscription['subscription'],
   onCancel?(id: string): void, 
