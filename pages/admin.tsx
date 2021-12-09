@@ -64,14 +64,17 @@ const Admin: React.FC = () => {
             listTitle="Pending"
             listType="pending"
             list={incomingSubs} 
-            listUpdateHandler={setIncomingSubs} />
+            listUpdateHandler={setIncomingSubs}
+            hasCancelAction
+            hasAcceptAction />
 
           <List 
             listTitle="Subscribers"
             listType="active"
             list={incomingSubs} 
             listUpdateHandler={setIncomingSubs}
-            emptyListMessage="There are no subscribers." />
+            emptyListMessage="There are no subscribers."
+            hasCancelAction />
         </Section>
 
         <Section sectionTitle="Subscribe">
@@ -79,14 +82,16 @@ const Admin: React.FC = () => {
             listTitle="Pending"
             listType="pending"
             list={outgoingSubs} 
-            listUpdateHandler={setOutgoingSubs} />
+            listUpdateHandler={setOutgoingSubs}
+            hasCancelAction />
 
           <List 
             listTitle="Subscriptions"
             listType="active"
             list={outgoingSubs} 
             listUpdateHandler={setOutgoingSubs}
-            emptyListMessage="There are no subscriptions." />
+            emptyListMessage="There are no subscriptions."
+            hasCancelAction />
         </Section>
       </div>
     </Container>

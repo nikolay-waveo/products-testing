@@ -8,6 +8,8 @@ interface IList {
   listTitle: string,
   listType?: string,
   emptyListMessage?: string,
+  hasCancelAction?: boolean,
+  hasAcceptAction?: boolean,
 }
 
 const List: React.FC<IList> = ({
@@ -16,7 +18,24 @@ const List: React.FC<IList> = ({
   listTitle,
   listType="active",
   emptyListMessage,
+  hasCancelAction,
+  hasAcceptAction,
 }) => {
+
+  const onCancel = (id: string) => {
+    const newList = list.filter((item) => item.id !== id);
+    listUpdateHandler(newList);
+  }
+
+  const onAccept = (id: string) => {
+    alert(id)
+  }
+
+  const itemProps = {}
+
+  if(hasCancelAction) itemProps["onCancel"] = onCancel;
+
+  if(hasAcceptAction) itemProps["onAccept"] = onAccept;
 
   const filteredList = list.filter(item => item.status === listType);
 
@@ -33,7 +52,8 @@ const List: React.FC<IList> = ({
             .map((item) => 
               <Item 
                 key={ item.id }
-                item={ item } />
+                item={ item } 
+                {...itemProps} />
             )
           : <li>{ emptyListMessage || "" }</li>
         }
