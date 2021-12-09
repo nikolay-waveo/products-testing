@@ -19,33 +19,39 @@ const Button: React.FC<IButton> = ({
 
   const buttonType = type.toUpperCase();
 
-  if(buttonType === "ACCEPT") {
+  let buttonStyle = "flex items-center space-x-1 p-2 text-xl font-semibold border-2 rounded-lg"
+
+  switch(buttonType) {
+    case "ACCEPT": 
+      buttonStyle += " text-shopify-success border-shopify-success";
+      break;
+    case "CANCEL":
+      buttonStyle += " text-red-600 border-red-600"
+      break;
+    default:
+      break;
+  }
+
+  console.log(buttonStyle)
+
     return (
       <button
         onClick={() => onAction(item.id)} 
-        className="flex items-center space-x-1 p-2 text-xl font-semibold text-shopify-success border-2 border-shopify-success rounded-lg" >
+        className={buttonStyle} >
         { buttonType }
-        <Icon
-          source={ TickMinor }
-          color="success" />
+        { buttonType === "ACCEPT" && 
+          <Icon
+            source={ TickMinor }
+            color={"success"} /> }
+        { buttonType === "CANCEL" && 
+          <Icon
+            source={ CancelSmallMinor }
+            color={"critical"} /> }
+        
       </button>
     )
-  }
 
-  if(buttonType === "CANCEL") {
-    return (
-      <button
-        onClick={() => onAction(item.id)} 
-        className="flex items-center space-x-1 p-2 text-xl font-semibold text-red-600 border-2 border-red-600 rounded-lg" >
-        { buttonType }
-        <Icon
-          source={ CancelSmallMinor }
-          color="critical" />
-      </button>
-    )
-  }
 
-  return ( <></> )
 }
 
 export default Button
