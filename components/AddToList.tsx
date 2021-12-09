@@ -43,7 +43,7 @@ const AddToList: React.FC<IAddToList> = ({
           placeholder={ placeholder }
           required
           onChange={(e) => setInput(e.target.value)} 
-          className="border-solid border border-gray-400 px-2 py-1 flex-grow" />
+          className="border-solid border rounded border-gray-200 px-2 py-1 flex-grow" />
         
         <button type="submit">
           <Icon

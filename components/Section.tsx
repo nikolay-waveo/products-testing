@@ -16,7 +16,7 @@ const Section: React.FC<ISection> = ({
     <section className="divide-y-2 divide-gray-300 divide-solid">
 
       <div className="flex justify-between content-center my-5">
-        <h2 className="text-2xl font-semibold">{ sectionTitle }</h2>
+        <h2 className="h-10 text-2xl font-semibold">{ sectionTitle }</h2>
 
         { toggle && 
           <Toggle 

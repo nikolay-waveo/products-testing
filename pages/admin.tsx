@@ -71,8 +71,10 @@ const Admin: React.FC = () => {
     <Container>
       <Title>Store Product Sync</Title>
 
-      <div className="p-5">
-        <Section sectionTitle="Publish">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 p-5">
+        <Section 
+          sectionTitle="Publish"
+          toggle >
           <List 
             listTitle="Pending"
             listType="pending"
@@ -94,7 +96,6 @@ const Admin: React.FC = () => {
             label="Add New Subscriber"
             labelName="addSubscriber"
             placeholder="Add Subscriber" 
-            showLabel
             addToListHandler={outgoingSubscriptionsHandler}/>
 
           <List 
