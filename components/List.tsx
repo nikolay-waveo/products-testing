@@ -29,7 +29,8 @@ const List: React.FC<IList> = ({
   }
 
   const onAccept = (id: string) => {
-    alert(id)
+    const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
+    listUpdateHandler(newList);
   }
 
   const itemProps = {}
