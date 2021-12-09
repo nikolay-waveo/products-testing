@@ -1,6 +1,7 @@
 import { Button } from "@shopify/polaris";
+import { usePublish } from "hooks/usePublish";
 import { useSettings } from "hooks/useSettings";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // todo: get shop dynamically
 // const shop = "fe-dev-publisher.myshopify.com";
@@ -16,30 +17,58 @@ const shop = "dev-subscriber.myshopify.com";
 
 const Main = () => {
   const { useGetShopSettings, setShopSettings } = useSettings();
-  const { data } = useGetShopSettings(shop);
+  const { setShopPublishSettings } = usePublish();
 
-  const [domain, setDomain] = useState("");
+  // const { data } = useGetShopSettings(shop);
 
   // useEffect(() => {
-  //   console.log("data ", data);
+  //   console.log("shop settings ", data);
   // }, [data]);
 
   useEffect(() => {
-    setShopSettings(shop, { publish: true }).then((res) =>
-      console.log("set shop settings result  ", res)
-    );
-  }, [setShopSettings]);
+    setShopPublishSettings({
+      publisherShop: "joel-dev-subscriber.myshopify.com",
+      subscriberShop: "dev-publisher.myshopify.com",
+      accept: true,
+    }).then((res) => console.log("set shop publish settings response  ", res));
+  }, [setShopPublishSettings]);
+
+  useEffect(() => {
+    // client
+    //   .put("https://shopify.perkd.io/products-pubsub-app-dev/subcribe", {
+    //     headers: {
+    //       "x-shopify-shop-domain": `${shop}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       inventoryLocationId: "62489591961",
+    //       shop: "dev-subscriber.myshopify.com",
+    //     }),
+    //   })
+    // .delete("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
+    //   headers: {
+    //     "x-shopify-shop-domain": `${shop}`,
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     shop: "dev-publisher.myshopify.com",
+    //   }),
+    // })
+    // .put("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
+    //   headers: {
+    //     "x-shopify-shop-domain": "dev-subscriber.myshopify.com",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     accept: true,
+    //     shop: "dev-publisher.myshopify.com",
+    //   }),
+    // })
+    // .then((res) => console.log(" response ", res));
+  }, []);
 
   return (
     <div className="flex flex-col p-10">
-      <div className="mb-8 p-4 flex">
-        <span className="mr-4"> x-shopify-domain </span>
-        <input
-          type="text"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-        />
-      </div>
       <div className="flex mt-8">
         <Button primary> I am Polaris button </Button>
       </div>

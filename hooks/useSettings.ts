@@ -24,6 +24,14 @@ function useGetShopSettings(shop: string) {
   };
 }
 
+/**
+ * setShopSettings - Enable/Disable Shop publish mode
+ *
+ * @param {string} shop
+ * @param {TShopSettings} settings
+ * @returns
+ */
+
 async function setShopSettings(shop: string, settings: TShopSettings) {
   return await client.post(`api/settings`, {
     headers: {
