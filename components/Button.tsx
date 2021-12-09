@@ -24,24 +24,22 @@ const Button: React.FC<IButton> = ({
       break;
   }
 
-  console.log(buttonStyle)
-
-    return (
-      <button
-        onClick={() => onAction(item.id)} 
-        className={buttonStyle} >
-        { buttonType }
-        { buttonType === "ACCEPT" && 
-          <Icon
-            source={ TickMinor }
-            color={"success"} /> }
-        { buttonType === "CANCEL" && 
-          <Icon
-            source={ CancelSmallMinor }
-            color={"critical"} /> }
-        
-      </button>
-    )
+  return (
+    <button
+      onClick={() => onAction(item.id)} 
+      className={buttonStyle} >
+      { buttonType }
+      { buttonType === "ACCEPT" && 
+        <Icon
+          source={ TickMinor }
+          color={"success"} /> }
+      { buttonType === "CANCEL" && 
+        <Icon
+          source={ CancelSmallMinor }
+          color={"critical"} /> }
+      
+    </button>
+  )
 
 
 }
