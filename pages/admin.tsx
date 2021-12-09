@@ -1,4 +1,5 @@
 import Container from "components/Container"
+import List from "components/List"
 import Section from "components/Section"
 import Title from "components/Title"
 import { useState } from "react"
@@ -57,13 +58,37 @@ const Admin: React.FC = () => {
     <Container>
       <Title>Store Product Sync</Title>
 
-      <Section sectionTitle="Publish">
+      <div className="p-5">
+        <Section sectionTitle="Publish">
+          <List 
+            listTitle="Pending"
+            listType="pending"
+            list={incomingSubs} 
+            listUpdateHandler={setIncomingSubs} />
 
-      </Section>
+          <List 
+            listTitle="Subscribers"
+            listType="active"
+            list={incomingSubs} 
+            listUpdateHandler={setIncomingSubs}
+            emptyListMessage="There are no subscribers." />
+        </Section>
 
-      <Section sectionTitle="Subscribe">
-  
-      </Section>
+        <Section sectionTitle="Subscribe">
+          <List 
+            listTitle="Pending"
+            listType="pending"
+            list={outgoingSubs} 
+            listUpdateHandler={setOutgoingSubs} />
+
+          <List 
+            listTitle="Subscriptions"
+            listType="active"
+            list={outgoingSubs} 
+            listUpdateHandler={setOutgoingSubs}
+            emptyListMessage="There are no subscriptions." />
+        </Section>
+      </div>
     </Container>
   )
 }
