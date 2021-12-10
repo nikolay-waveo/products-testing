@@ -1,3 +1,5 @@
+import { Button, Icon } from '@shopify/polaris';
+import { MobilePlusMajor } from '@shopify/polaris-icons';
 import React from 'react';
 import { IList } from 'types';
 import Item from './Item';
@@ -35,9 +37,30 @@ const List: React.FC<IList> = ({
       return 1
     })
 
+    const canAddToList = true;
+
   return (
     <div>
-      <h3 className="text-xl p-5 font-semibold text-white tracking-wide bg-indigo-500" >{ listTitle }</h3>
+      <div className="flex justify-between items-center p-5 bg-indigo-500">
+        <h3 className="text-2xl font-semibold text-white tracking-wide" >{ listTitle }</h3>
+        { canAddToList &&
+          <div className="text-white">
+            <Button 
+              monochrome
+              outline
+              size="medium" 
+              icon={
+                <Icon
+                  source={ MobilePlusMajor }
+                  color="interactive" /> }
+              onClick={() => {
+                alert('click')
+              }} >
+              New Subscriptioin
+            </Button>
+          </div>
+        }
+      </div>
       <ul className="space-y-1">
         { sortedList.length > 0
           ? sortedList
