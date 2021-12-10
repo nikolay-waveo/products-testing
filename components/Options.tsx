@@ -7,13 +7,16 @@ import {
 import React, { useCallback, useState } from 'react';
 
 interface IOptions {
-  actionHandlers?: {
-    action: string, 
-    actionHandler(id: string): void
-  }[]
+  id: string,
+  onConnect(id: string): void,
+  onDisconnect(id: string): void,
 }
 
-const Options: React.FC<IOptions> = () => {
+const Options: React.FC<IOptions> = ({
+  id,
+  onConnect,
+  onDisconnect,
+}) => {
   const [popoverActive, setPopoverActive] = useState(false);
 
   const togglePopoverActive = useCallback(() => setPopoverActive(popoverActive => !popoverActive), []);
@@ -24,24 +27,31 @@ const Options: React.FC<IOptions> = () => {
         color="interactive" />
     </button>;
 
-  const acceptAction = {
-    content: 'Accept',
+  const connectAction = {
+    content: 'Connect',
     icon: TickMinor,
     active: true,
-    helpText: "Accept subscription to your store"
+    helpText: "Accept subscription to your store",
+    onAction: () => onConnect(id),
   }
 
-  const cancelAction = {
-    content: 'Deny',
+  const disconnectAction = {
+    content: 'Disconnect',
     icon: CancelSmallMinor,
-    helpText: "Deny subscription to your store"
+    helpText: "Deny subscription to your store",
+    onAction: () => onDisconnect(id),
+    destructive: true,
   }
 
-  const actionListItems = [acceptAction, cancelAction]
+  const actionListItems = [connectAction, disconnectAction]
 
   return (
     <Popover active={popoverActive} activator={activator} onClose={togglePopoverActive}>
-      <ActionList items={actionListItems} />
+      <ActionList 
+        items={actionListItems} 
+        onActionAnyItem={() => {
+          setPopoverActive(false)
+        }}/>
     </Popover>
   )
 }

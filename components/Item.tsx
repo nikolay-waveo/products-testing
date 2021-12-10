@@ -8,22 +8,6 @@ const Item: React.FC<IItem> = ({
   onConnect,
 }) => {
 
-  const actions = [];
-
-  if(onDisconnect) {
-    actions.push({
-      action: "disconnect",
-      actionHandler: onDisconnect(item.id)
-    })
-  }
-
-  if(onConnect) {
-    actions.push({
-      action: "disconnect",
-      actionHandler: onConnect(item.id)
-    })
-  }
-
   return (
     <li
       className="grid grid-flow-col grid-cols-9 justify-between items-center p-5 bg-white" >
@@ -37,7 +21,7 @@ const Item: React.FC<IItem> = ({
       </span>
       <span className="col-span-5"></span>
       <div className="col-span-1 ml-auto">
-        <Options />
+        <Options id={item.id} onConnect={onConnect} onDisconnect={onDisconnect} />
       </div>
     </li>
   )
