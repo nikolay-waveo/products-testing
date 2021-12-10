@@ -25,12 +25,6 @@ const List: React.FC<IList> = ({
     listUpdateHandler(newList);
   }
 
-  const itemProps = {
-    onDisconnect: onDisconnect,
-  }
-
-  if(canAcceptConnection) itemProps['onConnect'] = onConnect;
-
   const sortedList = list
     .map((item) => { 
       return {...item, status: item.status.toUpperCase()}
@@ -152,12 +146,20 @@ const List: React.FC<IList> = ({
       <ul className="space-y-1">
         { sortedList.length > 0
           ? sortedList
-            .map((item) => 
-              <Item 
-                key={ item.id }
-                item={ item } 
-                {...itemProps} />
-            )
+            .map((item) => {
+              const itemProps = {
+                onDisconnect: onDisconnect,
+              }
+              if(canAcceptConnection && item.status === 'PENDING') {
+                itemProps['onConnect'] = onConnect
+              }
+              return (
+                <Item 
+                  key={ item.id }
+                  item={ item } 
+                  {...itemProps} />
+              )
+            })
           : <li 
               className="text-2xl p-5 font-normal bg-white" >{ emptyListMessage || "" }</li>
         }

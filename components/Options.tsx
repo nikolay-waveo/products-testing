@@ -49,10 +49,11 @@ const Options: React.FC<IOptions> = ({
 
   actionListItems.push(disconnectAction);
 
-  console.log(actionListItems)
-
   return (
-    <Popover active={popoverActive} activator={activator} onClose={togglePopoverActive}>
+    <Popover 
+      active={popoverActive} 
+      activator={activator} 
+      onClose={togglePopoverActive}>
       <ActionList 
         items={actionListItems} 
         onActionAnyItem={() => {
