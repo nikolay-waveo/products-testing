@@ -33,6 +33,12 @@ const Section: React.FC<ISection> = ({
       { toggleOn 
         ? <div className="col-span-2 bg-indigo-50 rounded-md overflow-hidden custom-drop-shadow" > { children } </div> 
         : <div className="md:flex hidden flex-col space-y-5 justify-center content-center p-10 col-span-2 bg-gray-50 rounded-md overflow-hidden custom-drop-shadow" > 
+            <div className="flex self-center h-40 w-40 bg-gray-200">
+              <p
+                className="text-center self-center font-semibold text-gray-500">
+               Placeholder Graphic
+              </p>
+            </div>
             <h3
               className="text-4xl text-gray-700 text-center">
               Your store is hiding.
