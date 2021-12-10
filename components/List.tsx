@@ -9,6 +9,7 @@ const List: React.FC<IList> = ({
   listUpdateHandler,
   listTitle,
   emptyListMessage,
+  canAddToList,
 }) => {
 
   const onDisconnect = (id: string) => {
@@ -37,11 +38,9 @@ const List: React.FC<IList> = ({
       return 1
     })
 
-    const canAddToList = true;
-
   return (
     <div>
-      <div className="flex justify-between items-center p-5 bg-indigo-500">
+      <div className="flex justify-between items-center h-24 p-5 bg-indigo-500">
         <h3 className="text-2xl font-semibold text-white tracking-wide" >{ listTitle }</h3>
         { canAddToList &&
           <div className="text-white">
