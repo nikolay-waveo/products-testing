@@ -1,10 +1,11 @@
-import AddToList from "components/AddToList"
-import Container from "components/Container"
-import List from "components/List"
-import Section from "components/Section"
-import Title from "components/Title"
-import { useState } from "react"
-import { ISubscription } from "types"
+import { AppProvider, Frame } from "@shopify/polaris";
+import AddToList from "components/AddToList";
+import Container from "components/Container";
+import List from "components/List";
+import Section from "components/Section";
+import Title from "components/Title";
+import { useState } from "react";
+import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
@@ -102,53 +103,75 @@ const Admin: React.FC = () => {
   }
 
   return (
-    <Container>
-      <Title>Store Product Sync</Title>
+    <AppProvider 
+      i18n={{
+        Polaris: {
+          ResourceList: {
+            sortingLabel: 'Sort by',
+            defaultItemSingular: 'item',
+            defaultItemPlural: 'items',
+            showing: 'Showing {itemsCount} {resource}',
+            Item: {
+              viewItem: 'View details for {itemName}',
+            },
+          },
+          Common: {
+            checkbox: 'checkbox',
+          },
+        },
+    }} >
+      <Frame>
+        <Container>
+          <Title>Store Product Sync</Title>
 
-      <div className="grid grid-cols-1 gap-10 p-5 pt-0">
-        <Section 
-          sectionTitle="Publish"
-          toggle >
-          <List 
-            listTitle="PENDING"
-            listType="pending"
-            list={incomingSubs} 
-            listUpdateHandler={setIncomingSubs}
-            action={["cancel", "accept"]} />
+          <div className="grid grid-cols-1 gap-10 p-5 pt-0">
+            <Section 
+              sectionTitle="Publish"
+              toggle >
+              <List 
+                listTitle="PENDING"
+                listType="pending"
+                list={incomingSubs} 
+                listUpdateHandler={setIncomingSubs}
+                action={["cancel", "accept"]} />
 
-          <List 
-            listTitle="SUBSCRIBERS"
-            listType="active"
-            list={incomingSubs} 
-            listUpdateHandler={setIncomingSubs}
-            emptyListMessage="There are no subscribers."
-            action={["cancel"]} />
-        </Section>
+              <List 
+                listTitle="SUBSCRIBERS"
+                listType="active"
+                list={incomingSubs} 
+                listUpdateHandler={setIncomingSubs}
+                emptyListMessage="There are no subscribers."
+                action={["cancel"]} />
+            </Section>
 
-        <Section sectionTitle="Subscribe">
-          <AddToList 
-            label="Add New Subscriber"
-            labelName="addSubscriber"
-            placeholder="Subscribe to a shop..." 
-            addToListHandler={outgoingSubscriptionsHandler}/>
+            <Section sectionTitle="Subscribe">
+              <AddToList 
+                label="Add New Subscriber"
+                labelName="addSubscriber"
+                placeholder="Subscribe to a shop..." 
+                addToListHandler={outgoingSubscriptionsHandler}/>
 
-          <List 
-            listTitle="PENDING"
-            listType="pending"
-            list={outgoingSubs} 
-            listUpdateHandler={setOutgoingSubs}
-            action={["cancel"]} />
+              <List 
+                listTitle="PENDING"
+                listType="pending"
+                list={outgoingSubs} 
+                listUpdateHandler={setOutgoingSubs}
+                action={["cancel"]} />
 
-          <List 
-            listTitle="SUBSCRIPTIONS"
-            listType="active"
-            list={outgoingSubs} 
-            listUpdateHandler={setOutgoingSubs}
-            emptyListMessage="There are no subscriptions."
-            action={["cancel"]} />
-        </Section>
-      </div>
-    </Container>
+              <List 
+                listTitle="SUBSCRIPTIONS"
+                listType="active"
+                list={outgoingSubs} 
+                listUpdateHandler={setOutgoingSubs}
+                emptyListMessage="There are no subscriptions."
+                action={["cancel"]} />
+            </Section>
+          </div>
+        </Container>
+        
+      </Frame>      
+    </AppProvider>
+    
   )
 }
 
