@@ -11,16 +11,11 @@ const Admin: React.FC = () => {
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
     { name: "Shopify Store 1", id: "1ACQ", URL: "test.com", status: "pending" },
     { name: "Shopify Store 2", id: "2BDQ", URL: "test.com", status: "active" },
-    { name: "Shopify Store 3", id: "3C0Q", URL: "test.com", status: "active" },
   ]);
 
   const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([
     { name: "Shopify Store 4", id: "1AC0", URL: "test.com", status: "pending" },
     { name: "Shopify Store 5", id: "2BD0", URL: "test.com", status: "active" },
-    { name: "Shopify Store 6", id: "3C00", URL: "test.com", status: "active" },
-    { name: "Shopify Store 4", id: "1AC1", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 5", id: "2BD1", URL: "test.com", status: "active" },
-    { name: "Shopify Store 6", id: "3C01", URL: "test.com", status: "active" },
     { name: "Shopify Store 4", id: "1AC2", URL: "test.com", status: "pending" },
     { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
     { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
@@ -126,6 +121,7 @@ const Admin: React.FC = () => {
           <div className="grid grid-cols-1 gap-10 p-5 pt-0">
             <Section 
               sectionTitle="Publish"
+              sectionDescription="See which stores are subscribed to you."
               toggle >
 
               <List 
@@ -136,7 +132,9 @@ const Admin: React.FC = () => {
                 action={["cancel"]} />
             </Section>
 
-            <Section sectionTitle="Subscribe">
+            <Section 
+              sectionTitle="Subscribe"
+              sectionDescription="Subscribe to a published store and check on pending subscriptions.">
               {/* <AddToList 
                 label="Add New Subscriber"
                 labelName="addSubscriber"

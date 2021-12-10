@@ -17,6 +17,7 @@ export interface ITitle {
 
 export interface ISection {
   sectionTitle: string,
+  sectionDescription: string,
   toggle?: boolean,
   children?: React.ReactNode,
 }

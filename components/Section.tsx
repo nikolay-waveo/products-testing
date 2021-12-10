@@ -6,13 +6,12 @@ import { ISection } from 'types';
 
 const Section: React.FC<ISection> = ({
   sectionTitle,
+  sectionDescription,
   toggle,
   children
 }) => {
 
   const [toggleOn, setToggleOn] = useState(true)
-
-  const sectionDescription = "Subscriber to a published store and check on pending subscriptions."
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
