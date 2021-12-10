@@ -3,6 +3,7 @@ import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import React from "react";
 import { SWRConfig } from "swr";
+import "../styles/custom.css";
 import "../styles/styles.css";
 
 function MyApp({ Component, pageProps }) {
