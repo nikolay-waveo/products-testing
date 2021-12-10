@@ -53,7 +53,7 @@ const List: React.FC<IList> = ({
                   source={ MobilePlusMajor }
                   color="interactive" /> }
               onClick={() => {
-                alert('click')
+                
               }} >
               New Subscriptioin
             </Button>

@@ -22,7 +22,6 @@ const Section: React.FC<ISection> = ({
 
           <span className="text-xl text-gray-500" >{ sectionDescription }</span>
         </div>
-        
 
         { toggle && 
           <Toggle 
