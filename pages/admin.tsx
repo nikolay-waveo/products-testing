@@ -9,12 +9,6 @@ import { ISubscription } from "types"
 const Admin: React.FC = () => {
 
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
-    { name: "Shopify Store 1", id: "1ACA", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 2", id: "2BDA", URL: "test.com", status: "active" },
-    { name: "Shopify Store 3", id: "3C0A", URL: "test.com", status: "active" },
-    { name: "Shopify Store 1", id: "1ACD", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 2", id: "2BDD", URL: "test.com", status: "active" },
-    { name: "Shopify Store 3", id: "3C0D", URL: "test.com", status: "active" },
     { name: "Shopify Store 1", id: "1ACQ", URL: "test.com", status: "pending" },
     { name: "Shopify Store 2", id: "2BDQ", URL: "test.com", status: "active" },
     { name: "Shopify Store 3", id: "3C0Q", URL: "test.com", status: "active" },
@@ -31,6 +25,41 @@ const Admin: React.FC = () => {
     { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
     { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
   ]);
+
+  //? Testing Area
+  //? Start ----->
+
+  // const settings = useSettings()
+
+  // const shop = "dev-subscriber.myshopify.com";
+
+  // const convertToSubscriptionObject = (shopObj: {
+  //   enabled: boolean,
+  //   inventoryLocationId: string,
+  //   shop: string,
+  //   status: string,
+  //   updateAt: string,
+  // }) => {
+  //   return {
+  //     name: shopObj.shop,
+  //     id: shopObj.inventoryLocationId,
+  //     URL: shopObj.shop,
+  //     status: shopObj.status
+  //   }
+  // }
+
+  // const getShopSettings = () => {
+  //   const shopSettings = settings.useGetShopSettings(shop)
+  //   const shopData = shopSettings.data
+  //   const publishedShopData = shopData.published
+
+  //   const test = publishedShopData
+
+  //   console.log(test)
+
+  // }
+
+  //? <------- End
 
   const outgoingSubscriptionsHandler = (subscription: string) => {
     //TODO GET store info and check for existance/duplicate subscription
@@ -58,6 +87,11 @@ const Admin: React.FC = () => {
       status: "pending"
     }
 
+    //? Testing area
+    //? Start ---
+
+    //? End ---
+
     setOutgoingSubs([
       ...outgoingSubs,
       newSubscriptionItem,      
@@ -71,7 +105,7 @@ const Admin: React.FC = () => {
     <Container>
       <Title>Store Product Sync</Title>
 
-      <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 p-5 pt-0">
+      <div className="grid grid-cols-1 gap-10 p-5 pt-0">
         <Section 
           sectionTitle="Publish"
           toggle >
