@@ -7,7 +7,10 @@ import {
 import React, { useCallback, useState } from 'react';
 
 interface IOptions {
-  
+  actionHandlers?: {
+    action: string, 
+    actionHandler(id: string): void
+  }[]
 }
 
 const Options: React.FC<IOptions> = () => {
