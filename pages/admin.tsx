@@ -56,45 +56,7 @@ const Admin: React.FC = () => {
 
   //? <------- End
 
-  const outgoingSubscriptionsHandler = (subscription: string) => {
-    //TODO GET store info and check for existance/duplicate subscription
-
-    // Does store exist?
-    // GET(subscription: string)
-
-    // YES: 
-      // Is the user already subscribed?
-
-      // YES:
-      // return error "You are already subscribed to this store."
-
-      // NO:
-      // PUSH new subscription to backend store list
-      // return {name: string, URL: string, id: string}
-
-    // NO:
-    // return error "This store doesn't exist."
-
-    const newSubscriptionItem = {
-      name: "New Shopify Store",
-      URL: "test.com",
-      id: "44AF",
-      status: "pending"
-    }
-
-    //? Testing area
-    //? Start ---
-
-    //? End ---
-
-    setOutgoingSubs([
-      ...outgoingSubs,
-      newSubscriptionItem,      
-    ])
-
-    //TODO Remove debugging script
-    alert(subscription)
-  }
+  
 
   return (
     <AppProvider 
