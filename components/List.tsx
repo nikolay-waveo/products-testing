@@ -27,18 +27,21 @@ const List: React.FC<IList> = ({
 
   if(action.includes("accept")) itemProps["onAccept"] = onAccept;
 
-  const filteredList = list.filter(item => item.status === listType);
-
-  const isEmpty = (filteredList.length <= 0 && !emptyListMessage);
-  
-  if(isEmpty) return(<></>)
+  const sortedList = list
+    .map((item) => { 
+      return {...item, status: item.status.toUpperCase()}
+    })
+    .sort((item) => {
+      if(item.status === "PENDING") return -1
+      return 1
+    })
 
   return (
     <div>
       <h3 className="text-xl p-5 font-semibold text-white tracking-wide bg-indigo-500" >{ listTitle }</h3>
       <ul className="space-y-1">
-        { filteredList.length > 0
-          ? filteredList
+        { sortedList.length > 0
+          ? sortedList
             .map((item) => 
               <Item 
                 key={ item.id }
