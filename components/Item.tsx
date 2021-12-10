@@ -14,6 +14,9 @@ const Item: React.FC<IItem> = ({
          className="text-xl font-semibold overflow-hidden">
          { item.name }
       </a>
+      <span>
+        { item.status }
+      </span>
       <div className="flex space-x-2">
         { onAccept && 
           <Button type="accept" item={item} onAction={onAccept} />
