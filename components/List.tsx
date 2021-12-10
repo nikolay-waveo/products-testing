@@ -10,21 +10,21 @@ const List: React.FC<IList> = ({
   action=[],
 }) => {
 
-  const onCancel = (id: string) => {
+  const onDisconnect = (id: string) => {
     const newList = list.filter((item) => item.id !== id);
     listUpdateHandler(newList);
   }
 
-  const onAccept = (id: string) => {
+  const onConnect = (id: string) => {
     const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
 
   const itemProps = {}
 
-  if(action.includes("cancel")) itemProps["onCancel"] = onCancel;
+  if(action.includes("disconnect")) itemProps["onDisconnect"] = onDisconnect;
 
-  if(action.includes("accept")) itemProps["onAccept"] = onAccept;
+  if(action.includes("connect")) itemProps["onConnect"] = onConnect;
 
   const sortedList = list
     .map((item) => { 

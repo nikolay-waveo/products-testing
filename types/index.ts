@@ -40,8 +40,8 @@ export interface IList {
 
 export interface IItem {
   item: ISubscription['subscription'],
-  onCancel?(id: string): void, 
-  onAccept?(id: string): void,
+  onDisconnect?(id: string): void, 
+  onConnect?(id: string): void,
 }
 
 export interface IButton {
@@ -50,4 +50,4 @@ export interface IButton {
   onAction(id: string): void,
 }
 
-export type ActionType = "cancel" | "accept";
+export type ActionType = "disconnect" | "connect";
