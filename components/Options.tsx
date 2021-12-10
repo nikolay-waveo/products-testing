@@ -1,18 +1,45 @@
-import { Icon } from '@shopify/polaris';
-import { MobileVerticalDotsMajor } from '@shopify/polaris-icons';
-import React from 'react';
+import { ActionList, Icon, Popover } from '@shopify/polaris';
+import {
+  CancelSmallMinor,
+  MobileVerticalDotsMajor,
+  TickMinor
+} from '@shopify/polaris-icons';
+import React, { useCallback, useState } from 'react';
 
 interface IOptions {
-
+  
 }
 
 const Options: React.FC<IOptions> = () => {
-  return (
-    <button onClick={() => alert('click')}> 
+  const [popoverActive, setPopoverActive] = useState(false);
+
+  const togglePopoverActive = useCallback(() => setPopoverActive(popoverActive => !popoverActive), []);
+
+  const activator = <button onClick={togglePopoverActive}> 
       <Icon
         source={MobileVerticalDotsMajor}
         color="interactive" />
-    </button>
+    </button>;
+
+  const acceptAction = {
+    content: 'Accept',
+    icon: TickMinor,
+    active: true,
+    helpText: "Accept subscription to your store"
+  }
+
+  const cancelAction = {
+    content: 'Deny',
+    icon: CancelSmallMinor,
+    helpText: "Deny subscription to your store"
+  }
+
+  const actionListItems = [acceptAction, cancelAction]
+
+  return (
+    <Popover active={popoverActive} activator={activator} onClose={togglePopoverActive}>
+      <ActionList items={actionListItems} />
+    </Popover>
   )
 }
 
