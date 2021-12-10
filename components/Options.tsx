@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react';
 
 interface IOptions {
   id: string,
-  onConnect(id: string): void,
+  onConnect?(id: string): void,
   onDisconnect(id: string): void,
 }
 
@@ -27,14 +27,6 @@ const Options: React.FC<IOptions> = ({
         color="interactive" />
     </button>;
 
-  const connectAction = {
-    content: 'Connect',
-    icon: TickMinor,
-    active: true,
-    helpText: "Accept subscription to your store",
-    onAction: () => onConnect(id),
-  }
-
   const disconnectAction = {
     content: 'Disconnect',
     icon: CancelSmallMinor,
@@ -43,7 +35,21 @@ const Options: React.FC<IOptions> = ({
     destructive: true,
   }
 
-  const actionListItems = [connectAction, disconnectAction]
+  const connectAction = {
+    content: 'Connect',
+    icon: TickMinor,
+    active: true,
+    helpText: "Accept subscription to your store",
+    onAction: () => onConnect(id),
+  }
+
+  const actionListItems = [];
+  
+  if(onConnect) actionListItems.push(connectAction);
+
+  actionListItems.push(disconnectAction);
+
+  console.log(actionListItems)
 
   return (
     <Popover active={popoverActive} activator={activator} onClose={togglePopoverActive}>

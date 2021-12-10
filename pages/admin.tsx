@@ -90,7 +90,8 @@ const Admin: React.FC = () => {
                 listTitle="SUBSCRIBERS"
                 list={incomingSubs} 
                 listUpdateHandler={setIncomingSubs}
-                emptyListMessage="There are no subscribers." />
+                emptyListMessage="There are no subscribers." 
+                canAcceptConnection />
             </Section>
 
             <Section 
