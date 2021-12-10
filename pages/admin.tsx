@@ -80,7 +80,7 @@ const Admin: React.FC = () => {
         <Container>
           <Title>Store Product Sync</Title>
 
-          <div className="grid grid-cols-1 gap-10 p-5 pt-0">
+          <div className="grid grid-cols-1 gap-10 md:p-5 px-10 pt-0">
             <Section 
               sectionTitle="Publish"
               sectionDescription="See which stores are subscribed to you."
