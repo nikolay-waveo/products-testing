@@ -1,5 +1,4 @@
 import { AppProvider, Frame } from "@shopify/polaris";
-import AddToList from "components/AddToList";
 import Container from "components/Container";
 import List from "components/List";
 import Section from "components/Section";
@@ -128,16 +127,9 @@ const Admin: React.FC = () => {
             <Section 
               sectionTitle="Publish"
               toggle >
-              <List 
-                listTitle="PENDING"
-                listType="pending"
-                list={incomingSubs} 
-                listUpdateHandler={setIncomingSubs}
-                action={["cancel", "accept"]} />
 
               <List 
                 listTitle="SUBSCRIBERS"
-                listType="active"
                 list={incomingSubs} 
                 listUpdateHandler={setIncomingSubs}
                 emptyListMessage="There are no subscribers."
@@ -145,22 +137,14 @@ const Admin: React.FC = () => {
             </Section>
 
             <Section sectionTitle="Subscribe">
-              <AddToList 
+              {/* <AddToList 
                 label="Add New Subscriber"
                 labelName="addSubscriber"
                 placeholder="Subscribe to a shop..." 
-                addToListHandler={outgoingSubscriptionsHandler}/>
-
-              <List 
-                listTitle="PENDING"
-                listType="pending"
-                list={outgoingSubs} 
-                listUpdateHandler={setOutgoingSubs}
-                action={["cancel"]} />
+                addToListHandler={outgoingSubscriptionsHandler}/> */}
 
               <List 
                 listTitle="SUBSCRIPTIONS"
-                listType="active"
                 list={outgoingSubs} 
                 listUpdateHandler={setOutgoingSubs}
                 emptyListMessage="There are no subscriptions."

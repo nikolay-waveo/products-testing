@@ -6,7 +6,6 @@ const List: React.FC<IList> = ({
   list,
   listUpdateHandler,
   listTitle,
-  listType="active",
   emptyListMessage,
   action=[],
 }) => {
