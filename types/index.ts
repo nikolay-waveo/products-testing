@@ -35,7 +35,6 @@ export interface IList {
   listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
   listTitle: string,
   emptyListMessage?: string,
-  action?: ActionType[],
 }
 
 export interface IItem {

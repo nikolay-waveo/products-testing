@@ -128,25 +128,18 @@ const Admin: React.FC = () => {
                 listTitle="SUBSCRIBERS"
                 list={incomingSubs} 
                 listUpdateHandler={setIncomingSubs}
-                emptyListMessage="There are no subscribers."
-                action={["cancel"]} />
+                emptyListMessage="There are no subscribers." />
             </Section>
 
             <Section 
               sectionTitle="Subscribe"
               sectionDescription="Subscribe to a published store and check on pending subscriptions.">
-              {/* <AddToList 
-                label="Add New Subscriber"
-                labelName="addSubscriber"
-                placeholder="Subscribe to a shop..." 
-                addToListHandler={outgoingSubscriptionsHandler}/> */}
 
               <List 
                 listTitle="SUBSCRIPTIONS"
                 list={outgoingSubs} 
                 listUpdateHandler={setOutgoingSubs}
-                emptyListMessage="There are no subscriptions."
-                action={["cancel"]} />
+                emptyListMessage="There are no subscriptions." />
             </Section>
           </div>
         </Container>

@@ -7,7 +7,6 @@ const List: React.FC<IList> = ({
   listUpdateHandler,
   listTitle,
   emptyListMessage,
-  action=[],
 }) => {
 
   const onDisconnect = (id: string) => {
@@ -16,15 +15,16 @@ const List: React.FC<IList> = ({
   }
 
   const onConnect = (id: string) => {
+    // Set store to active
+    // Update list
     const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
 
-  const itemProps = {}
-
-  if(action.includes("disconnect")) itemProps["onDisconnect"] = onDisconnect;
-
-  if(action.includes("connect")) itemProps["onConnect"] = onConnect;
+  const itemProps = {
+    onDisconnect: onDisconnect,
+    onConnect: onConnect,
+  }
 
   const sortedList = list
     .map((item) => { 
