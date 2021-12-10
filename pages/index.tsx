@@ -1,89 +1,80 @@
-import { Button } from "@shopify/polaris";
-import { client } from "helpers/api-client";
-import { usePublish } from "hooks/usePublish";
-import { useSettings } from "hooks/useSettings";
-import { useEffect } from "react";
+import { AppProvider, Frame } from "@shopify/polaris";
+import Container from "components/Container";
+import List from "components/List";
+import Section from "components/Section";
+import Title from "components/Title";
+import { useState } from "react";
+import { ISubscription } from "types";
 
-// todo: get shop dynamically
-// const shop = "fe-dev-publisher.myshopify.com";
-const shop = "dev-subscriber.myshopify.com";
+const Admin: React.FC = () => {
 
-// const ax = axios.create({
-//   baseURL: "https://shopify.perkd.io/products-pubsub-app-dev",
-//   // timeout: 1000,
-// });
+  const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
+    { name: "Shopify Store 1", id: "1ACQ", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 2", id: "2BDQ", URL: "test.com", status: "active" },
+  ]);
 
-// https://products-perkd.com?shop=dev-pub instance 1
-// https://products-perkd.com?shop=sub-pub instance 2
-
-const Main = () => {
-  const { useGetShopSettings, setShopSettings } = useSettings();
-  const { setShopPublishSettings, deleteShopPublishSettings } = usePublish();
-
-  // const { data } = useGetShopSettings(shop);
-
-  // useEffect(() => {
-  //   console.log("shop settings ", data);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   deleteShopPublishSettings({
-  //     publisherShop: "joel-dev-subscriber.myshopify.com",
-  //     subscriberShop: "dev-publisher.myshopify.com",
-  //   }).then((res) =>
-  //     console.log("delete shop publish settings response  ", res)
-  //   );
-  // }, [deleteShopPublishSettings]);
-
-  // useEffect(() => {
-  //   setShopPublishSettings({
-  //     publisherShop: "joel-dev-subscriber.myshopify.com",
-  //     subscriberShop: "dev-publisher.myshopify.com",
-  //     accept: true,
-  //   }).then((res) => console.log("set shop publish settings response  ", res));
-  // }, [setShopPublishSettings]);
-
-  useEffect(() => {
-    client
-      .put("https://shopify.perkd.io/products-pubsub-app-dev/subcribe", {
-        headers: {
-          "x-shopify-shop-domain": `${shop}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inventoryLocationId: "62489591961",
-          shop: "dev-subscriber.myshopify.com",
-        }),
-      })
-      // .delete("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
-      //   headers: {
-      //     "x-shopify-shop-domain": `${shop}`,
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     shop: "dev-publisher.myshopify.com",
-      //   }),
-      // })
-      // .put("https://shopify.perkd.io/products-pubsub-app-dev/publish", {
-      //   headers: {
-      //     "x-shopify-shop-domain": "dev-subscriber.myshopify.com",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     accept: true,
-      //     shop: "dev-publisher.myshopify.com",
-      //   }),
-      // })
-      .then((res) => console.log(" response ", res));
-  }, []);
+  const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([
+    { name: "Shopify Store 4", id: "1AC0", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 5", id: "2BD0", URL: "test.com", status: "active" },
+    { name: "Shopify Store 4", id: "1AC2", URL: "test.com", status: "pending" },
+    { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
+    { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
+  ]);
 
   return (
-    <div className="flex flex-col p-10">
-      <div className="flex mt-8">
-        <Button primary> I am Polaris button </Button>
-      </div>
-    </div>
-  );
-};
+    <AppProvider 
+      i18n={{
+        Polaris: {
+          ResourceList: {
+            sortingLabel: 'Sort by',
+            defaultItemSingular: 'item',
+            defaultItemPlural: 'items',
+            showing: 'Showing {itemsCount} {resource}',
+            Item: {
+              viewItem: 'View details for {itemName}',
+            },
+          },
+          Common: {
+            checkbox: 'checkbox',
+          },
+        },
+    }} >
+      <Frame>
+        <Container>
+          <Title>Store Product Sync</Title>
 
-export default Main;
+          <div className="grid grid-cols-1 gap-10 md:p-5 px-10 pt-0">
+            <Section 
+              sectionTitle="Publish"
+              sectionDescription="See which stores are subscribed to you."
+              toggle >
+
+              <List 
+                listTitle="SUBSCRIBERS"
+                list={incomingSubs} 
+                listUpdateHandler={setIncomingSubs}
+                emptyListMessage="There are no subscribers." 
+                canAcceptConnection />
+            </Section>
+
+            <Section 
+              sectionTitle="Subscribe"
+              sectionDescription="Subscribe to a published store and check on pending subscriptions.">
+
+              <List 
+                listTitle="SUBSCRIPTIONS"
+                list={outgoingSubs} 
+                listUpdateHandler={setOutgoingSubs}
+                emptyListMessage="There are no subscriptions." 
+                canAddToList />
+            </Section>
+          </div>
+        </Container>
+        
+      </Frame>      
+    </AppProvider>
+    
+  )
+}
+
+export default Admin
