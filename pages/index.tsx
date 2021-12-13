@@ -3,7 +3,9 @@ import Container from "components/Container";
 import List from "components/List";
 import Section from "components/Section";
 import Title from "components/Title";
-import { useState } from "react";
+import { useSettings } from "hooks/useSettings";
+import { usePublish } from "hooks/useSubscribe";
+import { useEffect, useState } from "react";
 import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
@@ -20,6 +22,92 @@ const Admin: React.FC = () => {
     { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
     { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
   ]);
+
+  //? ----------------------------------------------------------------------------------
+
+  const shop = "dev-subscriber.myshopify.com";
+
+  const pubShop = "dev-publisher.myshopify.com";
+
+  let getPubList:any[]
+  let getSubList:any[]
+  let putSubList:any[]
+
+  let getPub:any
+  let getSub:any
+  let putSub:any
+
+  useEffect(() => {
+ 
+  }, [getPub, getSub, putSub])
+
+  const {useGetShopSettings: getSettings, setShopSettings: setSettings} = useSettings()
+
+  const getData = getSettings(shop).data
+
+  
+
+
+  try {
+    getPubList = getData.published
+    getSubList = getData.subscribed
+
+    getPub = getPubList
+      .map((item, key) => {
+      return (
+        <p key={key}>
+          {item.shop}/
+          {item.inventoryLocationId}/
+          {item.status}
+        </p>
+      )
+    })
+
+    getSub = getSubList
+      .map((item, key) => {
+      return (
+        <p key={key}>
+          {item.shop}/
+          {item.inventoryLocationId}/
+          {item.status}
+        </p>
+      )
+    })
+  } catch (error) {
+    getPub = ""
+    getSub = ""
+  }
+
+  // const setPub = setSettings(shop, {
+  //   publish: true,
+  //   published: getPubList,
+  //   subscribed: getSubList,
+  // })
+
+  const {setShopPublishSettings: setSubscribe} = usePublish();
+
+  const setSubObject = {
+    publisherShop: pubShop,
+    subscriberShop: shop,
+    accept: true,
+  }
+
+  setSubscribe(setSubObject)
+    .then((r) => { 
+      console.log(r, typeof r)
+      // r.map((item, key) => {
+      //   return (
+      //     <p key={key}>
+      //       {item.shop}/
+      //       {item.inventoryLocationId}/
+      //       {item.status}
+      //     </p>
+      //   )
+      // })  
+    }).catch(() => '')
+
+  //? ----------------------------------------------------------------------------------
+
 
   return (
     <AppProvider 
@@ -42,6 +130,22 @@ const Admin: React.FC = () => {
       <Frame>
         <Container>
           <Title>Store Product Sync</Title>
+
+  {/* //? ---------------------------------------------------------------------------------- */}
+
+          <div>
+            GET pub: { getPub }
+          </div>
+
+          <div>
+            GET sub: { getSub }
+          </div>
+
+          <div>
+            PUT sub: { putSub }
+          </div>
+
+  {/* //? ---------------------------------------------------------------------------------- */}
 
           <div className="grid grid-cols-1 gap-10 md:p-5 px-10 pt-0">
             <Section 
