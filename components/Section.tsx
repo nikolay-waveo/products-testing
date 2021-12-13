@@ -1,7 +1,5 @@
-import { Heading, TextContainer } from '@shopify/polaris';
-import React, { useState } from 'react';
-import Toggle from 'react-toggle';
-import "react-toggle/style.css";
+import { Layout, SettingToggle, TextStyle } from '@shopify/polaris';
+import React, { useCallback, useState } from 'react';
 import { ISection } from 'types';
 
 
@@ -12,45 +10,33 @@ const Section: React.FC<ISection> = ({
   children
 }) => {
 
-  const [toggleOn, setToggleOn] = useState(true)
+  const [active, setActive] = useState(true)
+
+  const handleToggle = useCallback(() => setActive((active) => !active), []);
+
+  const contentStatus = active ? 'Deactivate' : 'Activate';
+  const textStatus = active ? 'activated' : 'deactivated';
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <Layout>
+      <Layout.AnnotatedSection
+        id="storeDetails"
+        title={sectionTitle}
+        description={sectionDescription} >
 
-      <div className="flex justify-between content-center">
-        <TextContainer>
-          <Heading>{ sectionTitle }</Heading>
-          <p>
-            { sectionDescription }
-          </p>
-        </TextContainer>
+        { toggle &&
+          <SettingToggle
+          action={{
+            content: contentStatus,
+            onAction: handleToggle,
+          }}
+          enabled={active}>
+          This setting is <TextStyle variation="strong">{textStatus}</TextStyle>.
+        </SettingToggle> }
 
-        { toggle && 
-          <Toggle 
-            defaultChecked={toggleOn}
-            icons={false}
-            onChange={() => setToggleOn(!toggleOn)} /> }
-      </div>
-
-      { toggleOn 
-        ? <div className="col-span-2 bg-indigo-50 rounded-md overflow-hidden custom-drop-shadow" > { children } </div> 
-        : <div className="md:flex hidden flex-col space-y-5 justify-center content-center p-10 col-span-2 bg-gray-50 rounded-md overflow-hidden custom-drop-shadow" > 
-            <div className="flex self-center h-40 w-40 bg-gray-200">
-              <p
-                className="text-center self-center font-semibold text-gray-500">
-               Placeholder Graphic
-              </p>
-            </div>
-            <h3
-              className="text-4xl text-gray-700 text-center">
-              Your store is hiding.
-            </h3>
-            <span 
-              className="text-lg text-gray-500 text-center"> Toggle ON to publish your store. </span>
-          </div> 
-      }
-
-    </section>
+        { active && <div className="col-span-2" > { children } </div> }
+      </Layout.AnnotatedSection>
+    </Layout>
   )
 }
 
