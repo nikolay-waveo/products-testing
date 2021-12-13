@@ -22,20 +22,15 @@ export interface ISection {
   children?: React.ReactNode,
 }
 
-// export interface IAddToList {
-//   addToListHandler(input: string): void,
-//   label: string, 
-//   labelName: string,
-//   showLabel?: boolean,
-//   placeholder: string,
-// }
-
-export interface IList {
+export interface IListTitle {
   list: ISubscription['subscription'][],
   listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
   listTitle: string,
-  emptyListMessage?: string,
   canAddToList?: boolean,
+}
+
+export interface IList extends IListTitle {
+  emptyListMessage?: string,
   canAcceptConnection?: boolean,
 }
 
