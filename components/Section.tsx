@@ -1,3 +1,4 @@
+import { Heading, TextContainer } from '@shopify/polaris';
 import React, { useState } from 'react';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css";
@@ -16,12 +17,13 @@ const Section: React.FC<ISection> = ({
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-      <div className="flex justify-between content-center md:p-5 md:pt-6">
-        <div>
-          <h2 className="h-10 mb-5 text-3xl font-semibold text-gray-800">{ sectionTitle }</h2>
-
-          <span className="text-xl text-gray-500" >{ sectionDescription }</span>
-        </div>
+      <div className="flex justify-between content-center">
+        <TextContainer>
+          <Heading>{ sectionTitle }</Heading>
+          <p>
+            { sectionDescription }
+          </p>
+        </TextContainer>
 
         { toggle && 
           <Toggle 
