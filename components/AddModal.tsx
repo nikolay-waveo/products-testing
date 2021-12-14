@@ -46,43 +46,39 @@ const AddModal: React.FC<IAddModal> = ({
     handleChange();
   }
 
-  console.log('modal ', modalOpen)
-
   return (
-    <div className="flex justify-between items-center h-24 p-5">
+    <div>
         { canAddToList &&
-          <div>
-            <Modal
-              open={modalOpen}
-              onClose={handleChange}
-              title="Subscribe to a new store" >
-              <Modal.Section>
-                <Stack vertical>
-                  <Stack.Item>
-                    <TextContainer>
-                      <p>
-                        You can add the store subscription link here to subscribe to that
-                        store and recieve product updates from them.
-                      </p>
-                    </TextContainer>
-                  </Stack.Item>
-                  <Stack.Item fill>
-                    <TextField
-                      label="Store Subscription link"
-                      value={input}
-                      onChange={(e) => setInput(e)}
-                      autoComplete="off"
-                      connectedRight={
-                        <Button primary onClick={()=> handleSubmit()}>
-                          Subscribe
-                        </Button>
-                      }
-                    />
-                  </Stack.Item>
-                </Stack>
-              </Modal.Section>
-            </Modal>
-          </div> }
+          <Modal
+            open={modalOpen}
+            onClose={handleChange}
+            title="Subscribe to a new store" >
+            <Modal.Section>
+              <Stack vertical>
+                <Stack.Item>
+                  <TextContainer>
+                    <p>
+                      You can add the store subscription link here to subscribe to that
+                      store and recieve product updates from them.
+                    </p>
+                  </TextContainer>
+                </Stack.Item>
+                <Stack.Item fill>
+                  <TextField
+                    label="Store Subscription link"
+                    value={input}
+                    onChange={(e) => setInput(e)}
+                    autoComplete="off"
+                    connectedRight={
+                      <Button primary onClick={()=> handleSubmit()}>
+                        Subscribe
+                      </Button>
+                    }
+                  />
+                </Stack.Item>
+              </Stack>
+            </Modal.Section>
+          </Modal> }
       </div>
   )
 }
