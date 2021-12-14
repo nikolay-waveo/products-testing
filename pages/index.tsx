@@ -153,7 +153,7 @@ const Admin: React.FC = () => {
                 <List 
                   listText={{
                     title: "Subscribers",
-                    description: "You can accept, deny and track subscriptions to your store.",
+                    description: "You can connect, disconnect and track subscriptions to your store.",
                   }}
                   list={incomingSubs}
                   listUpdateHandler={setIncomingSubs}
