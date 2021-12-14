@@ -23,7 +23,9 @@ const Admin: React.FC = () => {
   //? ----------------------------------------------------------------------------------
 
   //TODO
-  const shop = "dev-publisher.myshopify.com";
+  const pubShop = "dev-publisher.myshopify.com";
+
+  const subShop = "dev-subscriber.myshopify.com"
   //TODO
   
   const {
@@ -31,7 +33,52 @@ const Admin: React.FC = () => {
     setShopSettings: setSettings,
   } = useSettings()
 
-  const {data, isLoading} = getSettings(shop)
+  const {data, isLoading} = getSettings(pubShop)
+
+  // -------- Delete item
+
+  // const {
+  //   setShopPublishSettings: setPublish,
+  //   deleteShopPublishSettings: removePublish,
+  // } = usePublish()
+
+  // const onSetPublish = () => {
+  //   setPublish({
+  //     publisherShop: pubShop,
+  //     subscriberShop: subShop,
+  //     accept: false,
+  //   }).then(r => console.log(r))
+  // }
+
+  // const onRemovePublish = () => {
+  //   removePublish({
+  //     publisherShop: pubShop,
+  //     subscriberShop: subShop,
+  //   }).then(r => console.log(r))
+  // }
+
+  // onSetPublish()
+
+  // onRemovePublish()
+
+  // ------------------------------
+
+  // -------- Sets status to active
+  // const { 
+  //   setShopPublishSettings: setSubscribe
+  // } = usePublish()
+
+  // const onSetSubscribe = () => {
+  //   setSubscribe({
+  //     publisherShop: pubShop,
+  //     subscriberShop: subShop,
+  //     accept: false,
+  //   })
+  // }
+
+  // onSetSubscribe()
+
+  // ------------------------------
 
   //! Figure out what this is supposed to do
   //! Aside from enable publisher permissions
@@ -45,7 +92,7 @@ const Admin: React.FC = () => {
   }
 
   const onSetSettings = () => {
-    setSettings(shop, {
+    setSettings(pubShop, {
       publish: true,
       subscribed: [testData],
     }).then(r => console.log('response: ', r))
@@ -83,10 +130,6 @@ const Admin: React.FC = () => {
       setOutgoingSubs(outgoingSubsData)
       
     }
-
-    // PUT outgoing subscription
-
-    // console.log(setStoreData)
 
   }, [data, isLoading,])
 

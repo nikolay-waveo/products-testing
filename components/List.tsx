@@ -1,4 +1,6 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
+import * as usePublish from "hooks/usePublish";
+import * as useSubscribe from 'hooks/useSubscribe';
 import React, { useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
@@ -14,14 +16,44 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
+  //TODO
+  const pubShop = "dev-publisher.myshopify.com"; //turn into env var
+
+  const subShop = "joel-dev-subscriber.myshopify.com"
+  //TODO
+
+  const { 
+    setShopPublishSettings: setSubscribe
+  } = useSubscribe.usePublish()
+
+  const {
+    setShopPublishSettings: setPublish,
+    deleteShopPublishSettings: removePublish,
+  } = usePublish.usePublish()
+
+  const onSetSubscribe = () => {
+    setSubscribe({
+      publisherShop: pubShop,
+      subscriberShop: subShop,
+      accept: false,
+    });
+  }
+  
+  const onRemovePublish = () => {
+    removePublish({
+      publisherShop: pubShop,
+      subscriberShop: subShop,
+    })
+  }
+
   const onDisconnect = (id: string) => {
+    onRemovePublish()
     const newList = list.filter((item) => item.id !== id);
     listUpdateHandler(newList);
   }
 
   const onConnect = (id: string) => {
-    // Set store to active
-    // Update list
+    onSetSubscribe();
     const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
