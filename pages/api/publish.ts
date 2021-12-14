@@ -3,7 +3,7 @@ import { client } from "helpers/api-client";
 export default async function handler(req, res) {
   let response = null;
   const { API_ENDPOINT } = process.env;
-  const shop = req.body?.shop;
+  // const shop = req.body?.shop;
   const domain = req.headers["x-shopify-shop-domain"];
 
   // console.log(" shop ", shop);
