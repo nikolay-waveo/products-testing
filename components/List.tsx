@@ -1,7 +1,8 @@
-import React from 'react';
+import { Badge, Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer, TextStyle } from '@shopify/polaris';
+import React, { useState } from 'react';
 import { IList } from 'types';
-import Item from './Item';
-import ListTitle from './ListTitle';
+import AddModal from './AddModal';
+import Options from './Options';
 
 const List: React.FC<IList> = ({
   list,
@@ -32,36 +33,99 @@ const List: React.FC<IList> = ({
       if(item.status === "PENDING") return -1
       return 1
     })
+    
+
+  //? -----------------------------------------------------------------------------------------
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const resourceName = {
+    singular: 'Subscriber',
+    plural: 'Subscribers',
+  };
+
+  let cardProps = {}
+
+  if(canAddToList) cardProps["actions"] = {
+    content: "New Subscription",
+    onAction: () => setModalOpen(!modalOpen),
+  };
+
+  const emptyStateMarkup = (
+    <EmptySearchResult
+      title={'No subscriptions yet'}
+      description={'Try changing the subscribing to stores'}
+      withIllustration
+    />
+  );
 
   return (
-    <div>
-      <ListTitle 
-        list={list}
-        listUpdateHandler={listUpdateHandler}
-        listTitle={listTitle}
-        canAddToList={canAddToList} />
-      <ul className="space-y-1">
-        { sortedList.length > 0
-          ? sortedList
-            .map((item) => {
-              const itemProps = {
-                onDisconnect: onDisconnect,
-              }
-              if(canAcceptConnection && item.status === 'PENDING') {
-                itemProps['onConnect'] = onConnect
-              }
-              return (
-                <Item 
-                  key={ item.id }
-                  item={ item } 
-                  {...itemProps} />
+    <Card title={listTitle}
+      {...cardProps}>
+      <Card.Header  />
+      <Card.Section>
+        <TextContainer>
+            You can use sales reports to see information about your customers’ orders
+            based on criteria such as sales over time, by channel, or by staff.
+          </TextContainer>
+      </Card.Section>
+
+      <Card.Section title="Subscription List">
+        <AddModal 
+          modalOpen={modalOpen}
+          modalHandler={setModalOpen}
+          list={list} 
+          listUpdateHandler={listUpdateHandler} 
+          canAddToList />
+
+        <ResourceList 
+          resourceName={resourceName}
+          items={sortedList} 
+          emptyState={emptyStateMarkup}
+          renderItem={(item) => {
+            const {name, id, status} = item
+            const itemProps = {
+              onDisconnect: onDisconnect,
+            }
+
+            if(canAcceptConnection && status === 'PENDING') {
+              itemProps['onConnect'] = onConnect
+            }
+
+            const capitalizedStatus = status.charAt(0) + status.slice(1).toLowerCase()
+
+            return (
+              <ResourceItem
+                id={id}
+                // media={media}
+                accessibilityLabel={`View details for ${name}`}
+                onClick={() => {}}>
+                  <div className="grid grid-cols-9">
+                    <h3 className="col-span-2 truncate">
+                      <TextStyle variation="strong">{name}</TextStyle>
+                    </h3>
+                    <div className="ml-10">
+                      <Badge 
+                        status={status === "ACTIVE" ? "success" : "warning"}
+                        size="small">
+                          {capitalizedStatus}
+                      </Badge>
+                    </div>
+                    <div className="grid justify-end col-start-9">
+                      <Options id={id} {...itemProps} />
+                    </div>
+                  </div>
+            </ResourceItem>
               )
-            })
-          : <li 
-              className="text-2xl p-5 font-normal bg-white" >{ emptyListMessage || "" }</li>
-        }
-      </ul>
-    </div>
+            }} />
+      </Card.Section>
+      {/* { canAddToList && 
+        <Card.Section title="Add Subscription">
+          <TextContainer>
+            You can use sales reports to see information about your customers’ orders
+            based on criteria such as sales over time, by channel, or by staff.
+          </TextContainer>
+        </Card.Section>} */}
+    </Card>
   )
 }
 
