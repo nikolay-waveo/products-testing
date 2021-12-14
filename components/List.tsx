@@ -1,4 +1,4 @@
-import { Card, EmptySearchResult, ResourceList, TextContainer } from '@shopify/polaris';
+import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
 import React, { useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
@@ -79,11 +79,16 @@ const List: React.FC<IList> = ({
           emptyState={emptyStateMarkup}
           renderItem={(item) => { 
             return (
-              <Item 
-                item={item}
-                onDisconnect={onDisconnect}
-                onConnect={onConnect}
-                canAcceptConnection={canAcceptConnection} />
+              <ResourceItem
+                id={item.id}
+                accessibilityLabel={`View details for ${item.storeURL}`}
+                onClick={() => {}}>
+                <Item 
+                  item={item}
+                  onDisconnect={onDisconnect}
+                  onConnect={onConnect}
+                  canAcceptConnection={canAcceptConnection} />
+                </ResourceItem> 
               )
             }} />
       </Card.Section>
