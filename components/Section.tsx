@@ -25,14 +25,16 @@ const Section: React.FC<ISection> = ({
         description={sectionDescription} >
 
         { toggle &&
-          <SettingToggle
-          action={{
-            content: contentStatus,
-            onAction: handleToggle,
-          }}
-          enabled={active}>
-          This setting is <TextStyle variation="strong">{textStatus}</TextStyle>.
-        </SettingToggle> }
+          <div className={active && "mb-10"}>
+            <SettingToggle
+              action={{
+                content: contentStatus,
+                onAction: handleToggle,
+              }}
+              enabled={active}>
+              This setting is <TextStyle variation="strong">{textStatus}</TextStyle>.
+            </SettingToggle> 
+          </div> }
 
         { active && <div className="col-span-2" > { children } </div> }
       </Layout.AnnotatedSection>
