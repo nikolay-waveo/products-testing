@@ -65,7 +65,7 @@ const List: React.FC<IList> = ({
           </TextContainer>
       </Card.Section>
 
-      <Card.Section title="Subscription List">
+      <Card.Section>
         <AddModal 
           modalOpen={modalOpen}
           modalHandler={setModalOpen}
