@@ -1,8 +1,6 @@
-import { AppProvider, Frame } from "@shopify/polaris";
-import Container from "components/Container";
+import { AppProvider, Frame, Page } from "@shopify/polaris";
 import List from "components/List";
 import Section from "components/Section";
-import Title from "components/Title";
 import { useSettings } from "hooks/useSettings";
 import { usePublish } from "hooks/useSubscribe";
 import { useEffect, useState } from "react";
@@ -44,9 +42,6 @@ const Admin: React.FC = () => {
   const {useGetShopSettings: getSettings, setShopSettings: setSettings} = useSettings()
 
   const getData = getSettings(shop).data
-
-  
-
 
   try {
     getPubList = getData.published
@@ -128,12 +123,14 @@ const Admin: React.FC = () => {
         },
     }} >
       <Frame>
-        <Container>
-          <Title>Store Product Sync</Title>
+          <Page
+            title="Store Product Sync"
+            fullWidth={true}
+            divider >
 
   {/* //? ---------------------------------------------------------------------------------- */}
 
-          <div>
+          {/* <div>
             GET pub: { getPub }
           </div>
 
@@ -143,37 +140,49 @@ const Admin: React.FC = () => {
 
           <div>
             PUT sub: { putSub }
-          </div>
+          </div> */}
 
   {/* //? ---------------------------------------------------------------------------------- */}
 
-          <div className="grid grid-cols-1 gap-10 md:p-5 px-10 pt-0">
-            <Section 
-              sectionTitle="Publish"
-              sectionDescription="See which stores are subscribed to you."
-              toggle >
+            <div className="grid grid-cols-1 gap-10">
+              <Section 
+                sectionTitle="Publish"
+                sectionDescription="See which stores are subscribed to you."
+                toggle >
 
-              <List 
-                listTitle="SUBSCRIBERS"
-                list={incomingSubs} 
-                listUpdateHandler={setIncomingSubs}
-                emptyListMessage="There are no subscribers." 
-                canAcceptConnection />
-            </Section>
+                <List 
+                  listText={{
+                    title: "Subscribers",
+                    description: "You can accept, deny and track subscriptions to your store.",
+                  }}
+                  list={incomingSubs}
+                  listUpdateHandler={setIncomingSubs}
+                  emptyListText={{
+                    title: "No subscripters yet",
+                    description: "Track user subscriptions to your store."
+                  }}
+                  canAcceptConnection />
+              </Section>
 
-            <Section 
-              sectionTitle="Subscribe"
-              sectionDescription="Subscribe to a published store and check on pending subscriptions.">
+              <Section 
+                sectionTitle="Subscribe"
+                sectionDescription="Subscribe to a published store and check on pending subscriptions.">
 
-              <List 
-                listTitle="SUBSCRIPTIONS"
-                list={outgoingSubs} 
-                listUpdateHandler={setOutgoingSubs}
-                emptyListMessage="There are no subscriptions." 
-                canAddToList />
-            </Section>
-          </div>
-        </Container>
+                <List 
+                  listText={{
+                    title: "Subscriptions",
+                    description: "A list of all of your subscriptions to other stores.",
+                  }}
+                  list={outgoingSubs} 
+                  listUpdateHandler={setOutgoingSubs}
+                  emptyListText={{
+                    title: "No subscriptions yet",
+                    description: "Track your subscriptions from stores."
+                  }} 
+                  canAddToList />
+              </Section>
+            </div>
+          </Page>
         
       </Frame>      
     </AppProvider>
