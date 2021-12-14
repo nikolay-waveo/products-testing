@@ -7,14 +7,6 @@ export interface ISubscription {
   },
 }
 
-export interface IContainer {
-  children: React.ReactNode,
-}
-
-export interface ITitle {
-  children: React.ReactNode,
-}
-
 export interface ISection {
   sectionTitle: string,
   sectionDescription: string,
@@ -22,15 +14,18 @@ export interface ISection {
   children?: React.ReactNode,
 }
 
-export interface IListTitle {
+export interface IList {
   list: ISubscription['subscription'][],
   listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
-  listTitle: string,
+  listText: {
+    title: string,
+    description?: string,
+  },
+  emptyListText: {
+    title: string, 
+    description?: string,
+  },
   canAddToList?: boolean,
-}
-
-export interface IList extends IListTitle {
-  emptyListMessage?: string,
   canAcceptConnection?: boolean,
 }
 
@@ -38,12 +33,5 @@ export interface IItem {
   item: ISubscription['subscription'],
   onDisconnect?(id: string): void, 
   onConnect?(id: string): void,
+  canAcceptConnection?: boolean,
 }
-
-export interface IButton {
-  item: ISubscription['subscription'],
-  type: ActionType,
-  onAction(id: string): void,
-}
-
-export type ActionType = "disconnect" | "connect";
