@@ -9,16 +9,16 @@ import { ISubscription } from "types";
 const Admin: React.FC = () => {
 
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
-    { name: "Shopify Store 1", id: "1ACQ", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 2", id: "2BDQ", URL: "test.com", status: "active" },
+    { storeURL: "test.com", id: "1ACQ", status: "pending" },
+    { storeURL: "test.com", id: "2BDQ", status: "active" },
   ]);
 
   const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([
-    { name: "Shopify Store 4", id: "1AC0", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 5", id: "2BD0", URL: "test.com", status: "active" },
-    { name: "Shopify Store 4", id: "1AC2", URL: "test.com", status: "pending" },
-    { name: "Shopify Store 5", id: "2BD2", URL: "test.com", status: "active" },
-    { name: "Shopify Store 6", id: "3C02", URL: "test.com", status: "active" },
+    { storeURL: "test.com", id: "1AC0", status: "pending" },
+    { storeURL: "test.com", id: "2BD0", status: "active" },
+    { storeURL: "test.com", id: "1AC2", status: "pending" },
+    { storeURL: "test.com", id: "2BD2", status: "active" },
+    { storeURL: "test.com", id: "3C02", status: "active" },
   ]);
 
   //? ----------------------------------------------------------------------------------

@@ -1,8 +1,7 @@
 export interface ISubscription {
   subscription: {
-    name: string,
+    storeURL: string,
     id: string,
-    URL: string,
     status: string,
   },
 }

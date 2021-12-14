@@ -10,7 +10,7 @@ const Item: React.FC<IItem> = ({
   canAcceptConnection,
 }) => {
 
-  const {name, id, status} = item;
+  const {storeURL, id, status} = item;
 
   const itemProps = {
     onDisconnect: onDisconnect,
@@ -25,11 +25,11 @@ const Item: React.FC<IItem> = ({
   return (
     <ResourceItem
       id={id}
-      accessibilityLabel={`View details for ${name}`}
+      accessibilityLabel={`View details for ${storeURL}`}
       onClick={() => {}}>
         <div className="grid grid-cols-9">
           <h3 className="col-span-7 truncate">
-            <TextStyle variation="strong">{name}</TextStyle>
+            <TextStyle variation="strong">{storeURL}</TextStyle>
           </h3>
           <div className="col-start-8 justify-self-center">
             <Badge 

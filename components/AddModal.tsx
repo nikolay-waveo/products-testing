@@ -28,8 +28,7 @@ const AddModal: React.FC<IAddModal> = ({
 
   const outgoingSubscriptionsHandler = () => {  
     const newSubscriptionItem = {
-      name: "New Shopify Store",
-      URL: "test.com",
+      storeURL: "test.com",
       id: "44AF",
       status: "pending"
     }
