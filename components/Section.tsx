@@ -1,5 +1,6 @@
 import { Layout, SettingToggle, TextStyle } from '@shopify/polaris';
-import React, { useCallback, useState } from 'react';
+import { useSettings } from 'hooks/useSettings';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
 
 
@@ -11,6 +12,18 @@ const Section: React.FC<ISection> = ({
 }) => {
 
   const [active, setActive] = useState(true)
+
+  const { setShopSettings: setSettings } = useSettings();
+
+  //TODO 
+  const shop = "dev-publisher.myshopify.com";
+  //TODO
+
+  useEffect(() => {
+    setSettings(shop, {
+      publish: active
+    })
+  }, [active, setSettings])
 
   const handleToggle = useCallback(() => setActive((active) => !active), []);
 
