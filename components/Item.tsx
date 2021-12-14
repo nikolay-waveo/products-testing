@@ -1,3 +1,4 @@
+import { Badge, ResourceItem, TextStyle } from '@shopify/polaris';
 import React from 'react';
 import { IItem } from 'types';
 import Options from './Options';
@@ -6,37 +7,42 @@ const Item: React.FC<IItem> = ({
   item,
   onDisconnect,
   onConnect,
+  canAcceptConnection,
 }) => {
 
-  let statusStyle = " ";
+  const {name, id, status} = item;
 
-  switch(item.status) {
-    case 'PENDING': 
-      statusStyle += "text-yellow-600"
-      break;
-    case 'ACTIVE':
-      statusStyle += "text-shopify-success"
-      break;
-    default:
-      break;
+  const itemProps = {
+    onDisconnect: onDisconnect,
   }
 
+  if(canAcceptConnection && status === 'PENDING') {
+    itemProps['onConnect'] = onConnect
+  }
+
+  const capitalizedStatus = status.charAt(0) + status.slice(1).toLowerCase()
+
   return (
-    <li
-      className="grid grid-flow-col grid-cols-9 justify-between items-center p-5 bg-white" >
-      <a href={ item.URL }
-         className="col-span-2 text-xl font-semibold overflow-hidden">
-         { item.name }
-      </a>
-      <span
-        className={"col-span-1 text-lg text-left font-semibold" + statusStyle } >
-        { item.status }
-      </span>
-      <span className="col-span-5"></span>
-      <div className="col-span-1 ml-auto">
-        <Options id={item.id} onConnect={onConnect} onDisconnect={onDisconnect} />
-      </div>
-    </li>
+    <ResourceItem
+      id={id}
+      accessibilityLabel={`View details for ${name}`}
+      onClick={() => {}}>
+        <div className="grid grid-cols-9">
+          <h3 className="col-span-7 truncate">
+            <TextStyle variation="strong">{name}</TextStyle>
+          </h3>
+          <div className="col-start-8 justify-self-center">
+            <Badge 
+              status={status === "ACTIVE" ? "success" : "warning"}
+              size="small">
+                {capitalizedStatus}
+            </Badge>
+          </div>
+          <div className="grid justify-end col-start-9">
+            <Options id={id} {...itemProps} />
+          </div>
+        </div>
+    </ResourceItem>
   )
 }
 
