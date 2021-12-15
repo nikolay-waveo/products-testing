@@ -1,13 +1,13 @@
 import { client } from "helpers/api-client";
 
-type TPublishProps = {
+type TSubscribeProps = {
   publisherShop: string;
   subscriberShop: string;
   accept: boolean;
 };
 
-async function setShopPublishSettings(props: TPublishProps) {
-  return await client.put(`api/publish`, {
+async function useSETShopSubscribeSettings(props: TSubscribeProps) {
+  return await client.put(`api/subscribe`, {
     headers: {
       "x-shopify-shop-domain": `${props.publisherShop}`,
     },
@@ -18,8 +18,8 @@ async function setShopPublishSettings(props: TPublishProps) {
   });
 }
 
-export function usePublish() {
+export function useSubscribe() {
   return {
-    setShopPublishSettings,
+    useSETShopSubscribeSettings,
   };
 }

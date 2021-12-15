@@ -1,9 +1,9 @@
 import { AppProvider, Frame, Page } from "@shopify/polaris";
 import List from "components/List";
 import Section from "components/Section";
-// import * as usePublish from "hooks/usePublish";
+// import { usePublish } from "hooks/usePublish";
 import { useSettings } from "hooks/useSettings";
-import * as useSubscribe from "hooks/useSubscribe";
+import { useSubscribe } from "hooks/useSubscribe";
 import { useEffect, useState } from "react";
 import { ISubscription } from "types";
 
@@ -30,11 +30,11 @@ const Admin: React.FC = () => {
 
   // const {
   //   setShopPublishSettings: setPublish,
-  // } = usePublish.usePublish();
+  // } = usePublish();
 
   const {
-    setShopPublishSettings: setSubscribe,
-  } = useSubscribe.usePublish();
+    useSETShopSubscribeSettings: setSubscribe,
+  } = useSubscribe();
 
   setSubscribe({
     publisherShop: pubShop,

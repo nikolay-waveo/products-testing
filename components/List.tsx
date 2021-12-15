@@ -1,6 +1,6 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
-import * as usePublish from "hooks/usePublish";
-import * as useSubscribe from 'hooks/useSubscribe';
+import { usePublish } from "hooks/usePublish";
+import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
@@ -23,13 +23,13 @@ const List: React.FC<IList> = ({
   //TODO
 
   const { 
-    setShopPublishSettings: setSubscribe
-  } = useSubscribe.usePublish()
+    useSETShopSubscribeSettings: setSubscribe
+  } = useSubscribe()
 
   const {
     useSETShopPublishSettings: setPublish,
     useDELETEShopPublishSettings: deletePublish,
-  } = usePublish.usePublish()
+  } = usePublish()
 
   const onSetSubscribe = () => {
     setSubscribe({
