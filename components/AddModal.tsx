@@ -68,6 +68,7 @@ const AddModal: React.FC<IAddModal> = ({
                     value={input}
                     onChange={(e) => setInput(e)}
                     autoComplete="off"
+                    placeholder="Example: store.myshopify.com"
                     connectedRight={
                       <Button primary onClick={()=> handleSubmit()}>
                         Subscribe
