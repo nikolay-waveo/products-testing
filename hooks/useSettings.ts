@@ -10,11 +10,18 @@ interface IShop {
 
 type TShopSettings = {
   publish: boolean;
-  published?: Array<IShop>;
-  subscribed?: Array<IShop>;
 };
 
-function useGetShopSettings(shop: string) {
+interface TShopSettingsResult extends TShopSettings {
+  published?: Array<IShop>;
+  subscribed?: Array<IShop>;
+}
+
+function useGETShopSettings(shop: string): ({
+  data: TShopSettingsResult,
+  isLoading: boolean,
+  isError: any,
+}) {
   const { data, error } = useSWR(`/api/settings?shop=${shop}`);
 
   return {
@@ -32,7 +39,7 @@ function useGetShopSettings(shop: string) {
  * @returns
  */
 
-async function setShopSettings(shop: string, settings: TShopSettings) {
+async function useSETShopSettings(shop: string, settings: TShopSettings) {
   return await client.post(`api/settings`, {
     headers: {
       "x-shopify-shop-domain": `${shop}`,
@@ -45,7 +52,7 @@ async function setShopSettings(shop: string, settings: TShopSettings) {
 
 export function useSettings() {
   return {
-    useGetShopSettings,
-    setShopSettings,
+    useGETShopSettings,
+    useSETShopSettings,
   };
 }

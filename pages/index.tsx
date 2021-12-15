@@ -1,24 +1,17 @@
 import { AppProvider, Frame, Page } from "@shopify/polaris";
 import List from "components/List";
 import Section from "components/Section";
+// import * as usePublish from "hooks/usePublish";
 import { useSettings } from "hooks/useSettings";
+import * as useSubscribe from "hooks/useSubscribe";
 import { useEffect, useState } from "react";
 import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
-  const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([
-    // { storeURL: "test.com", id: "1ACQ", status: "pending" },
-    // { storeURL: "test.com", id: "2BDQ", status: "active" },
-  ]);
+  const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
 
-  const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([
-    // { storeURL: "test.com", id: "1AC0", status: "pending" },
-    // { storeURL: "test.com", id: "2BD0", status: "active" },
-    // { storeURL: "test.com", id: "1AC2", status: "pending" },
-    // { storeURL: "test.com", id: "2BD2", status: "active" },
-    // { storeURL: "test.com", id: "3C02", status: "active" },
-  ]);
+  const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([]);
 
   //? ----------------------------------------------------------------------------------
 
@@ -29,74 +22,42 @@ const Admin: React.FC = () => {
   //TODO
   
   const {
-    useGetShopSettings: getSettings, 
-    setShopSettings: setSettings,
+    useGETShopSettings: getSettings, 
+    useSETShopSettings: setSettings,
   } = useSettings()
 
   const {data, isLoading} = getSettings(pubShop)
 
-  // -------- Delete item
-
   // const {
   //   setShopPublishSettings: setPublish,
-  //   deleteShopPublishSettings: removePublish,
-  // } = usePublish()
+  // } = usePublish.usePublish();
 
-  // const onSetPublish = () => {
-  //   setPublish({
-  //     publisherShop: pubShop,
-  //     subscriberShop: subShop,
-  //     accept: false,
-  //   }).then(r => console.log(r))
-  // }
+  const {
+    setShopPublishSettings: setSubscribe,
+  } = useSubscribe.usePublish();
 
-  // const onRemovePublish = () => {
-  //   removePublish({
-  //     publisherShop: pubShop,
-  //     subscriberShop: subShop,
-  //   }).then(r => console.log(r))
-  // }
-
-  // onSetPublish()
-
-  // onRemovePublish()
-
-  // ------------------------------
-
-  // -------- Sets status to active
-  // const { 
-  //   setShopPublishSettings: setSubscribe
-  // } = usePublish()
-
-  // const onSetSubscribe = () => {
-  //   setSubscribe({
-  //     publisherShop: pubShop,
-  //     subscriberShop: subShop,
-  //     accept: false,
-  //   })
-  // }
-
-  // onSetSubscribe()
-
-  // ------------------------------
+  setSubscribe({
+    publisherShop: pubShop,
+    subscriberShop: "joel-dev-subscriber.myshopify.com",
+    accept: true,
+  }).then(r => console.log("Subscription res: ", r))
 
   //! Figure out what this is supposed to do
   //! Aside from enable publisher permissions
 
-  const testData = {
-    "shop": "dev-subscriber-test.myshopify.com",
-    "status": "pending",
-    "enabled": true,
-    "inventoryLocationId": "62489591961",
-    "updatedAt": "2021-12-09T05:02:58.399Z"
-  }
+  // const testData = {
+  //   "shop": subShop,
+  //   "inventoryLocationId": "88888888888",
+  // }
 
-  const onSetSettings = () => {
-    setSettings(pubShop, {
-      publish: true,
-      subscribed: [testData],
-    }).then(r => console.log('response: ', r))
-  }
+  // const onSetSettings = () => {
+  //   setSettings(pubShop, {
+  //     publish: true,
+  //     published: [testData],
+  //   }).then(r => console.log('response: ', r))
+  // }
+
+  // console.log(testData)
 
   // onSetSettings()
 
@@ -105,6 +66,7 @@ const Admin: React.FC = () => {
   useEffect(() => {
     // GET incoming and outgoing subscriptions
     if(!isLoading) {
+      console.log(data.published, data.subscribed)
       const incomingSubsData = data
       .published
       .map((storeData) => {
@@ -127,11 +89,25 @@ const Admin: React.FC = () => {
         })
       })
 
-      setOutgoingSubs(outgoingSubsData)
-      
+      setOutgoingSubs(outgoingSubsData) 
     }
 
-  }, [data, isLoading,])
+  }, [data, isLoading, ])
+
+  // useEffect(() => {
+  //   client
+  //     .put("https://shopify.perkd.io/products-pubsub-app-dev/subscribe", {
+  //       headers: {
+  //         "x-shopify-shop-domain": `${pubShop}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         inventoryLocationId: "00000000000",
+  //         shop: subShop,
+  //       }),
+  //     })
+  //     .then((res) => console.log(" response ", res));
+  // }, []);
 
   //? ----------------------------------------------------------------------------------
 
@@ -173,7 +149,7 @@ const Admin: React.FC = () => {
                   list={incomingSubs}
                   listUpdateHandler={setIncomingSubs}
                   emptyListText={{
-                    title: "No subscripters yet",
+                    title: "No subscribers yet",
                     description: "Track user subscriptions to your store."
                   }}
                   canAcceptConnection />

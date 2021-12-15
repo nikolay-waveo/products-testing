@@ -13,7 +13,7 @@ const Section: React.FC<ISection> = ({
 
   const [active, setActive] = useState(true)
 
-  const { setShopSettings: setSettings } = useSettings();
+  const { useSETShopSettings: setSettings } = useSettings();
 
   //TODO 
   const shop = "dev-publisher.myshopify.com";
