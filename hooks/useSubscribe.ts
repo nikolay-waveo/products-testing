@@ -1,7 +1,7 @@
 import { client } from "helpers/api-client";
 
 type TSubscribeProps = {
-  publisherShop: string;
+  origin: string;
   subscriberShop: string;
   accept: boolean;
 };
@@ -9,7 +9,7 @@ type TSubscribeProps = {
 async function useSETShopSubscribeSettings(props: TSubscribeProps) {
   return await client.put(`api/subscribe`, {
     headers: {
-      "x-shopify-shop-domain": `${props.publisherShop}`,
+      "x-shopify-shop-domain": `${props.origin}`,
     },
     body: JSON.stringify({
       accept: props?.accept,
