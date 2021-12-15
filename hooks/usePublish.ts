@@ -6,7 +6,7 @@ type TPublishProps = {
   accept?: boolean;
 };
 
-async function setShopPublishSettings(props: TPublishProps) {
+async function useSETShopPublishSettings(props: TPublishProps) {
   return await client.put(`api/publish`, {
     headers: {
       "x-shopify-shop-domain": `${props.publisherShop}`,
@@ -18,7 +18,7 @@ async function setShopPublishSettings(props: TPublishProps) {
   });
 }
 
-async function deleteShopPublishSettings(props: Omit<TPublishProps, "accept">) {
+async function useDELETEShopPublishSettings(props: Omit<TPublishProps, "accept">) {
   return await client.delete(`api/publish`, {
     headers: {
       "x-shopify-shop-domain": `${props.publisherShop}`,
@@ -31,7 +31,7 @@ async function deleteShopPublishSettings(props: Omit<TPublishProps, "accept">) {
 
 export function usePublish() {
   return {
-    setShopPublishSettings,
-    deleteShopPublishSettings,
+    useSETShopPublishSettings,
+    useDELETEShopPublishSettings,
   };
 }

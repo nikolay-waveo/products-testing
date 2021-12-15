@@ -27,8 +27,8 @@ const List: React.FC<IList> = ({
   } = useSubscribe.usePublish()
 
   const {
-    setShopPublishSettings: setPublish,
-    deleteShopPublishSettings: removePublish,
+    useSETShopPublishSettings: setPublish,
+    useDELETEShopPublishSettings: deletePublish,
   } = usePublish.usePublish()
 
   const onSetSubscribe = () => {
@@ -40,9 +40,9 @@ const List: React.FC<IList> = ({
   }
   
   const onRemovePublish = () => {
-    removePublish({
+    deletePublish({
       publisherShop: pubShop,
-      subscriberShop: subShop,
+      subscriberShop: "nik-dev.myshopify.com",
     })
   }
 
