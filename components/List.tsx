@@ -17,13 +17,13 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, _] = useState(false)
 
   const onLoading = useCallback(
     () => {
       //TODO Check if undefined
     },
-    [list],
+    [],
   )
 
   useEffect(() => {

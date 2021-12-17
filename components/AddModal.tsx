@@ -8,6 +8,7 @@ import React, { useCallback, useState } from 'react';
 import { ISubscription } from 'types';
 
 interface IAddModal {
+  user: string,
   modalOpen: boolean,
   modalHandler: React.Dispatch<React.SetStateAction<boolean>>,
   list: ISubscription['subscription'][],
@@ -16,6 +17,7 @@ interface IAddModal {
 }
 
 const AddModal: React.FC<IAddModal> = ({
+  user,
   modalOpen,
   modalHandler,
   list,
@@ -35,12 +37,15 @@ const AddModal: React.FC<IAddModal> = ({
 
     //! Find a way to get inventoryLocationId
     // (url: string) => (id: string)
-    const getStoreDataIfExists = (url: string): string => "10000000001"
+    const getStoreDataIfExists = (url: string): string => {
+      console.log(url)
+      return "10000000001"
+    }
     const storeID = getStoreDataIfExists(url)
     // --------------------------------------
     
     setSubscribe({
-      origin: "testing-pub-dev.myshopify.com",
+      origin: user,
       subscriberShop: url,
       id: storeID,
     })

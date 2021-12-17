@@ -27,7 +27,6 @@ const Admin: React.FC = () => {
   // GET lists
   const {
     useGETShopSettings: getSettings, 
-    useSETShopSettings: setSettings,
   } = useSettings()
 
   const {data, isLoading} = getSettings(user)
