@@ -3,13 +3,16 @@ import { client } from "helpers/api-client";
 type TSubscribeProps = {
   origin: string;
   subscriberShop: string;
+};
+
+type TSETSubscribeProps = TSubscribeProps & {
   accept?: boolean;
   id: string;
-};
+}
 
 const { API_ENDPOINT } = process.env;
 
-async function useSETShopSubscribeSettings(props: TSubscribeProps) {
+async function useSETShopSubscribeSettings(props: TSETSubscribeProps) {
   return await client.put(`${API_ENDPOINT}/subscribe`, {
     headers: {
       "x-shopify-shop-domain": `${props.origin}`,
@@ -23,7 +26,7 @@ async function useSETShopSubscribeSettings(props: TSubscribeProps) {
   });
 }
 
-async function useDELETEShopSubscribeSettings(props: Omit<TSubscribeProps, "accept">) {
+async function useDELETEShopSubscribeSettings(props: TSubscribeProps) {
   return await client.delete(`${API_ENDPOINT}/subscribe`, {
     headers: {
       "x-shopify-shop-domain": `${props.origin}`,
