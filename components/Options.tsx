@@ -7,13 +7,13 @@ import {
 import React, { useCallback, useState } from 'react';
 
 interface IOptions {
-  id: string,
-  onConnect?(id: string): void,
-  onDisconnect(id: string): void,
+  store: string,
+  onConnect?(store: string): void,
+  onDisconnect(store: string): void,
 }
 
 const Options: React.FC<IOptions> = ({
-  id,
+  store,
   onConnect,
   onDisconnect,
 }) => {
@@ -31,7 +31,7 @@ const Options: React.FC<IOptions> = ({
     content: 'Disconnect',
     icon: CancelSmallMinor,
     helpText: "Deny subscription to your store",
-    onAction: () => onDisconnect(id),
+    onAction: () => onDisconnect(store),
     destructive: true,
   }
 
@@ -40,7 +40,7 @@ const Options: React.FC<IOptions> = ({
     icon: TickMinor,
     active: true,
     helpText: "Accept subscription to your store",
-    onAction: () => onConnect(id),
+    onAction: () => onConnect(store),
   }
 
   const actionListItems = [];

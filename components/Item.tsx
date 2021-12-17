@@ -10,7 +10,7 @@ const Item: React.FC<IItem> = ({
   canAcceptConnection,
 }) => {
 
-  const {storeURL, id, status} = item;
+  const {storeURL, status} = item;
 
   const itemProps = {
     onDisconnect: onDisconnect,
@@ -36,7 +36,7 @@ const Item: React.FC<IItem> = ({
         </Badge>
       </div>
       <div className="grid justify-end col-start-9">
-        <Options id={id} {...itemProps} />
+        <Options store={storeURL} {...itemProps} />
       </div>
     </div>
   )
