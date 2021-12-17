@@ -1,7 +1,7 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
 import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
 import Item from './Item';
@@ -18,6 +18,19 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
+  const [isLoading, setIsLoading] = useState(false)
+
+  const onLoading = useCallback(
+    () => {
+      //TODO Check if undefined
+    },
+    [list],
+  )
+
+  useEffect(() => {
+    onLoading()
+  }, [list, isLoading, onLoading])
+
   const {
     useSETShopPublishSettings: setPublish,
     useDELETEShopPublishSettings: deletePublish,
@@ -27,11 +40,24 @@ const List: React.FC<IList> = ({
     useDELETEShopSubscribeSettings: deleteSubscribe
   } = useSubscribe()
 
-  const onDisconnect = (store: string) => {
+  const onDisconnect = (store: string, subscribed?: string) => {
     if(listType === "publishTo") {
+
+      if(subscribed === "active") {
+        deletePublish({
+          origin: user,
+          publisherShop: store,
+        })
+      }
+      else {
+        setPublish({
+        origin: user,
+        publisherShop: store,
+        accept: false,
+      })
+    }
       
     }
-
     if(listType === "subscribeTo") {
       deleteSubscribe({
         origin: user,
@@ -96,6 +122,7 @@ const List: React.FC<IList> = ({
           resourceName={resourceName}
           items={sortedList} 
           emptyState={emptyStateMarkup}
+          loading={isLoading}
           renderItem={(item) => { 
             return (
               <ResourceItem

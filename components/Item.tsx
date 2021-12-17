@@ -29,14 +29,13 @@ const Item: React.FC<IItem> = ({
       </h3>
       <div className="col-start-8 justify-self-center">
         <Badge 
-          status={status === "ACTIVE" ? "success" : "warning"}
+          status={status === "active" ? "success" : "warning"}
           size="small">
-            {status} 
-            {/* {capitalizedStatus} */}
+            {status}
         </Badge>
       </div>
       <div className="grid justify-end col-start-9">
-        <Options store={storeURL} {...itemProps} />
+        <Options store={storeURL} status={status} {...itemProps} />
       </div>
     </div>
   )

@@ -8,12 +8,14 @@ import React, { useCallback, useState } from 'react';
 
 interface IOptions {
   store: string,
+  status: string,
   onConnect?(store: string): void,
-  onDisconnect(store: string): void,
+  onDisconnect(store: string, subscribed: string): void,
 }
 
 const Options: React.FC<IOptions> = ({
   store,
+  status,
   onConnect,
   onDisconnect,
 }) => {
@@ -31,7 +33,7 @@ const Options: React.FC<IOptions> = ({
     content: 'Disconnect',
     icon: CancelSmallMinor,
     helpText: "Deny subscription to your store",
-    onAction: () => onDisconnect(store),
+    onAction: () => onDisconnect(store, status),
     destructive: true,
   }
 
