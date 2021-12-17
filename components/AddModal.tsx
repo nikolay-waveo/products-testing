@@ -3,6 +3,7 @@ import {
   Stack, TextContainer,
   TextField
 } from '@shopify/polaris';
+import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useState } from 'react';
 import { ISubscription } from 'types';
 
@@ -24,23 +25,48 @@ const AddModal: React.FC<IAddModal> = ({
 
   const [input, setInput] = useState('')
 
+  const {
+    useSETShopSubscribeSettings: setSubscribe
+  } = useSubscribe();
+
   const handleChange = useCallback(() => modalHandler(!modalOpen), [modalOpen, modalHandler]);
 
-  const outgoingSubscriptionsHandler = () => {  
-    const newSubscriptionItem = {
-      storeURL: "test.com",
-      id: "44AF",
-      status: "pending"
-    }
+  const outgoingSubscriptionsHandler = (url: string) => {  
 
-    listUpdateHandler([
-      ...list,
-      newSubscriptionItem,      
-    ])
+    //! Find a way to get inventoryLocationId
+    // (url: string) => (id: string)
+    const getStoreDataIfExists = (url: string): string => "10000000001"
+    const storeID = getStoreDataIfExists(url)
+    // --------------------------------------
+    
+    setSubscribe({
+      origin: "testing-pub-dev.myshopify.com",
+      subscriberShop: url,
+      id: storeID,
+    })
+    .then(({
+      shop,
+      inventoryLocationId,
+      status,
+    }) => {
+      console.log({
+        shop,
+        inventoryLocationId,
+        status,
+      })
+      listUpdateHandler([
+        ...list,
+        {
+          storeURL: shop,
+          id: inventoryLocationId,
+          status: status,
+        }
+      ]) 
+    })
   }
 
   const handleSubmit = () => {
-    outgoingSubscriptionsHandler()
+    outgoingSubscriptionsHandler(input)
     setInput('')
     handleChange();
   }
