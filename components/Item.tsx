@@ -20,7 +20,7 @@ const Item: React.FC<IItem> = ({
     itemProps['onConnect'] = onConnect
   }
 
-  const capitalizedStatus = status.charAt(0) + status.slice(1).toLowerCase()
+  // const capitalizedStatus = status.charAt(0) + status.slice(1).toLowerCase()
 
   return (
     <div className="grid grid-cols-9">
@@ -31,7 +31,8 @@ const Item: React.FC<IItem> = ({
         <Badge 
           status={status === "ACTIVE" ? "success" : "warning"}
           size="small">
-            {capitalizedStatus}
+            {status} 
+            {/* {capitalizedStatus} */}
         </Badge>
       </div>
       <div className="grid justify-end col-start-9">
