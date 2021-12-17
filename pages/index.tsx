@@ -7,7 +7,7 @@ import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
-  const [user, _] = useState("testing-pub-dev.myshopify.com")
+  const [user, _] = useState("dev-subscriber.myshopify.com")
 
   //change to PublishedToList
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
