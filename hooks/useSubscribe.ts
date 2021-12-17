@@ -9,7 +9,6 @@ type TSubscribeProps = {
 
 const { API_ENDPOINT } = process.env;
 
-//! Needs inventoryLocationId
 async function useSETShopSubscribeSettings(props: TSubscribeProps) {
   return await client.put(`${API_ENDPOINT}/subscribe`, {
     headers: {
