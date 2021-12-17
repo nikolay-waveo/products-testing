@@ -49,11 +49,6 @@ const AddModal: React.FC<IAddModal> = ({
       inventoryLocationId,
       status,
     }) => {
-      console.log({
-        shop,
-        inventoryLocationId,
-        status,
-      })
       listUpdateHandler([
         ...list,
         {
