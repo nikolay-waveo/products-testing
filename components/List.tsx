@@ -1,6 +1,4 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
-import { usePublish } from "hooks/usePublish";
-import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
@@ -16,54 +14,21 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  //TODO
-  const pubShop = "dev-publisher.myshopify.com"; //turn into env var
-
-  const subShop = "joel-dev-subscriber.myshopify.com"
-  //TODO
-
-  const { 
-    useSETShopSubscribeSettings: setSubscribe
-  } = useSubscribe()
-
-  const {
-    useSETShopPublishSettings: setPublish,
-    useDELETEShopPublishSettings: deletePublish,
-  } = usePublish()
-
-  const onSetSubscribe = () => {
-    setSubscribe({
-      publisherShop: pubShop,
-      subscriberShop: subShop,
-      accept: false,
-    });
-  }
-  
-  const onRemovePublish = () => {
-    deletePublish({
-      publisherShop: pubShop,
-      subscriberShop: "nik-dev.myshopify.com",
-    })
-  }
-
   const onDisconnect = (id: string) => {
-    onRemovePublish()
+
     const newList = list.filter((item) => item.id !== id);
     listUpdateHandler(newList);
   }
 
   const onConnect = (id: string) => {
-    onSetSubscribe();
+    
     const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
 
   const sortedList = list
-    .map((item) => { 
-      return {...item, status: item.status.toUpperCase()}
-    })
     .sort((item) => {
-      if(item.status === "PENDING") return -1
+      if(item.status === "pending") return -1
       return 1
     })
     
