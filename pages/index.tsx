@@ -7,7 +7,7 @@ import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
-  const [user, _] = useState("dev-subscriber.myshopify.com")
+  const [user, _] = useState("testing-pub-dev.myshopify.com")
 
   //change to PublishedToList
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
@@ -15,14 +15,12 @@ const Admin: React.FC = () => {
   //change to SubscribedToList
   const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([]);
 
-  //? ----------------------------------------------------------------------------------
-
   //TODO
-  const pubShop = "dev-publisher.myshopify.com"
+  // const pubShop = "dev-publisher.myshopify.com"
 
-  const subShop = "dev-subscriber.myshopify.com"
+  // const subShop = "dev-subscriber.myshopify.com"
 
-  const tubShop = "testing-pub-dev.myshopify.com"
+  // const tubShop = "testing-pub-dev.myshopify.com"
   //TODO
   
 
@@ -33,51 +31,6 @@ const Admin: React.FC = () => {
   } = useSettings()
 
   const {data, isLoading} = getSettings(user)
-
-  // SET user to Publisher mode
-
-  setSettings(user, {
-    publish: true
-  })
-
-  // Subscribe to other user
-
-  // const {
-  //   useSETShopSubscribeSettings: setSubscribe,
-  //   useDELETEShopSubscribeSettings: deleteSubscribe,
-  // } = useSubscribe();
-
-  //? Adds to Origin SubscribedTo list and Destination PublishedTo list
-  // //! Find out how to get inventoryLocationId
-  // setSubscribe({
-  //   origin: tubShop,
-  //   subscriberShop: pubShop,
-  //   accept: true,
-  //   id: '00000000001'
-  // })
-  // .then(r => console.log("SUB SET", r))
-
-  //? Deletes from SubscribedTo list
-  // deleteSubscribe({
-  //   origin: tubShop,
-  //   subscriberShop: pubShop,
-  // }).then(r => console.log("SUB DEL", r))
-
-  
-  // const {
-  //   useSETShopPublishSettings: setPublish,
-  //   useDELETEShopPublishSettings: deletePublish,
-  // } = usePublish();
-
-  //? Confirms subscription
-  // setPublish({
-  //   origin: pubShop,
-  //   publisherShop: subShop,
-  //   accept: true,
-  // })
-  // .then(r => console.log("PUB SET", r))
-
-  //! =======================================
 
   useEffect(() => {
     // GET incoming and outgoing subscriptions
@@ -157,8 +110,7 @@ const Admin: React.FC = () => {
                   emptyListText={{
                     title: "No subscribers yet",
                     description: "Track user subscriptions to your store."
-                  }}
-                  canAcceptConnection />
+                  }} />
               </Section>
 
               <Section 

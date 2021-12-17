@@ -7,8 +7,9 @@ const Item: React.FC<IItem> = ({
   item,
   onDisconnect,
   onConnect,
-  canAcceptConnection,
+  listType,
 }) => {
+  console.log(listType === "publishTo")
 
   const {storeURL, status} = item;
 
@@ -16,7 +17,7 @@ const Item: React.FC<IItem> = ({
     onDisconnect: onDisconnect,
   }
 
-  if(canAcceptConnection && status === 'PENDING') {
+  if(listType === "publishTo" && status === "pending") {
     itemProps['onConnect'] = onConnect
   }
 

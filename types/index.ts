@@ -14,6 +14,8 @@ export interface ISection {
   children?: React.ReactNode,
 }
 
+
+
 export interface IList {
   user: string,
   listType: "subscribeTo" | "publishTo",
@@ -28,12 +30,11 @@ export interface IList {
     description?: string,
   },
   canAddToList?: boolean,
-  canAcceptConnection?: boolean,
 }
 
 export interface IItem {
   item: ISubscription['subscription'],
   onDisconnect?(id: string): void, 
   onConnect?(id: string): void,
-  canAcceptConnection?: boolean,
+  listType: "subscribeTo" | "publishTo",
 }

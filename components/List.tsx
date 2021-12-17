@@ -14,7 +14,6 @@ const List: React.FC<IList> = ({
   listText,
   canAddToList,
   emptyListText,
-  canAcceptConnection,
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -51,11 +50,11 @@ const List: React.FC<IList> = ({
       }
       else {
         setPublish({
-        origin: user,
-        publisherShop: store,
-        accept: false,
-      })
-    }
+          origin: user,
+          publisherShop: store,
+          accept: false,
+        })
+      }
       
     }
     if(listType === "subscribeTo") {
@@ -68,9 +67,13 @@ const List: React.FC<IList> = ({
     listUpdateHandler(newList);
   }
 
-  const onConnect = (id: string) => {
-    
-    const newList = list.map((item) => item.id === id ? {...item, status: "active"} : item )
+  const onConnect = (store: string) => {
+    setPublish({
+      origin: user,
+      publisherShop: store,
+      accept: true,
+    })
+    const newList = list.map((item) => item.storeURL === store ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
 
@@ -112,6 +115,7 @@ const List: React.FC<IList> = ({
 
       <Card.Section>
         <AddModal 
+          user={user}
           modalOpen={modalOpen}
           modalHandler={setModalOpen}
           list={list} 
@@ -133,7 +137,7 @@ const List: React.FC<IList> = ({
                   item={item}
                   onDisconnect={onDisconnect}
                   onConnect={onConnect}
-                  canAcceptConnection={canAcceptConnection} />
+                  listType={listType} />
                 </ResourceItem> 
               )
             }} />
