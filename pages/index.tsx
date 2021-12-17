@@ -7,7 +7,7 @@ import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
-  const [user, _] = useState("testing-pub-dev.myshopify.com")
+  const [user, _] = useState("dev-subscriber.myshopify.com")
 
   //change to PublishedToList
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
@@ -22,7 +22,7 @@ const Admin: React.FC = () => {
 
   const subShop = "dev-subscriber.myshopify.com"
 
-  const tubShop = "testing-pub-dev.myshopify.com" //Pub Sub
+  const tubShop = "testing-pub-dev.myshopify.com"
   //TODO
   
 
@@ -147,6 +147,7 @@ const Admin: React.FC = () => {
 
                 <List 
                   user={user}
+                  listType="publishTo"
                   listText={{
                     title: "Subscribers",
                     description: "You can connect, disconnect and track subscriptions to your store.",
@@ -167,6 +168,7 @@ const Admin: React.FC = () => {
 
                 <List 
                   user={user}
+                  listType="subscribeTo"
                   listText={{
                     title: "Subscriptions",
                     description: "A list of all of your subscriptions to other stores.",

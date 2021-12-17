@@ -16,6 +16,7 @@ export interface ISection {
 
 export interface IList {
   user: string,
+  listType: "subscribeTo" | "publishTo",
   list: ISubscription['subscription'][],
   listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
   listText: {
