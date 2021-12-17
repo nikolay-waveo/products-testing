@@ -3,6 +3,8 @@ import React from 'react';
 import { IItem } from 'types';
 import Options from './Options';
 
+declare type Status = 'success' | 'info' | 'critical' | 'warning' | 'new'
+
 const Item: React.FC<IItem> = ({
   item,
   onDisconnect,
@@ -21,6 +23,32 @@ const Item: React.FC<IItem> = ({
     itemProps['onConnect'] = onConnect
   }
 
+  let badgeStatus = {}
+
+  switch (status) {
+    case 'active':
+      badgeStatus = { 
+        status: "success"
+      }
+      break;
+    case 'stopped': 
+      badgeStatus = { 
+        status: "critical"
+      }
+      break;
+    case 'declined':
+      badgeStatus = { 
+        status: "warning"
+      }
+      break;
+    case 'pending':
+    default:    
+      badgeStatus = { 
+        status: "new"
+      }
+      break;
+  }
+
   // const capitalizedStatus = status.charAt(0) + status.slice(1).toLowerCase()
 
   return (
@@ -30,7 +58,7 @@ const Item: React.FC<IItem> = ({
       </h3>
       <div className="col-start-8 justify-self-center">
         <Badge 
-          status={status === "active" ? "success" : "warning"}
+          {...badgeStatus}
           size="small">
             {status}
         </Badge>
