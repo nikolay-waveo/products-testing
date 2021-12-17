@@ -1,10 +1,12 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
+import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useState } from 'react';
 import { IList } from 'types';
 import AddModal from './AddModal';
 import Item from './Item';
 
 const List: React.FC<IList> = ({
+  user,
   list,
   listUpdateHandler,
   listText,
@@ -14,9 +16,16 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const onDisconnect = (id: string) => {
+  const {
+    useDELETEShopSubscribeSettings: deleteSubscribe
+  } = useSubscribe()
 
-    const newList = list.filter((item) => item.id !== id);
+  const onDisconnect = (store: string) => {
+    deleteSubscribe({
+      origin: user,
+      subscriberShop: store
+    })
+    const newList = list.filter((item) => item.storeURL !== store);
     listUpdateHandler(newList);
   }
 

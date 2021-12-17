@@ -5,6 +5,7 @@ import { ISection } from 'types';
 
 
 const Section: React.FC<ISection> = ({
+  user,
   sectionTitle,
   sectionDescription,
   toggle,
@@ -15,15 +16,11 @@ const Section: React.FC<ISection> = ({
 
   const { useSETShopSettings: setSettings } = useSettings();
 
-  //TODO 
-  const shop = "dev-publisher.myshopify.com";
-  //TODO
-
   useEffect(() => {
-    setSettings(shop, {
+    setSettings(user, {
       publish: active
     })
-  }, [active, setSettings])
+  }, [active, setSettings, user])
 
   const handleToggle = useCallback(() => setActive((active) => !active), []);
 

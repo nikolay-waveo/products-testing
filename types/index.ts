@@ -7,6 +7,7 @@ export interface ISubscription {
 }
 
 export interface ISection {
+  user: string,
   sectionTitle: string,
   sectionDescription: string,
   toggle?: boolean,
@@ -14,6 +15,7 @@ export interface ISection {
 }
 
 export interface IList {
+  user: string,
   list: ISubscription['subscription'][],
   listUpdateHandler: React.Dispatch<React.SetStateAction<IList['list']>>,
   listText: {

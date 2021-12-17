@@ -7,6 +7,8 @@ import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
+  const [user, _] = useState("testing-pub-dev.myshopify.com")
+
   //change to PublishedToList
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
 
@@ -30,11 +32,11 @@ const Admin: React.FC = () => {
     useSETShopSettings: setSettings,
   } = useSettings()
 
-  const {data, isLoading} = getSettings(tubShop)
+  const {data, isLoading} = getSettings(user)
 
   // SET user to Publisher mode
 
-  setSettings(pubShop, {
+  setSettings(user, {
     publish: true
   })
 
@@ -138,11 +140,13 @@ const Admin: React.FC = () => {
 
             <div className="grid grid-cols-1 gap-10 mb-20">
               <Section 
+                user={user}
                 sectionTitle="Publish"
                 sectionDescription="See which stores are subscribed to you."
                 toggle >
 
                 <List 
+                  user={user}
                   listText={{
                     title: "Subscribers",
                     description: "You can connect, disconnect and track subscriptions to your store.",
@@ -157,10 +161,12 @@ const Admin: React.FC = () => {
               </Section>
 
               <Section 
+                user={user}
                 sectionTitle="Subscribe"
                 sectionDescription="Subscribe to a published store and check on pending subscriptions.">
 
                 <List 
+                  user={user}
                   listText={{
                     title: "Subscriptions",
                     description: "A list of all of your subscriptions to other stores.",
