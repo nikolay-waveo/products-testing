@@ -33,7 +33,7 @@ const Section: React.FC<ISection> = ({
   )
 
   const handleToggle = useCallback(() => {
-    setActive((active) => !active)
+    setActive(true)
     if(active && !showModal) {
       setShowModal(true)
     }
