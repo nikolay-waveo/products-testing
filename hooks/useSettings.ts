@@ -1,4 +1,5 @@
 import { client, useSWR } from "helpers/api-client";
+import { mutate } from "swr";
 
 interface IShop {
   shop?: string;
@@ -22,7 +23,9 @@ function useGETShopSettings(shop: string): ({
   isLoading: boolean,
   isError: any,
 }) {
-  const { data, error } = useSWR(`/api/settings?shop=${shop}`);
+  const { data, error} = useSWR(`/api/settings?shop=${shop}`);
+
+  mutate(`/api/settings?shop=${shop}`);
 
   return {
     data,
