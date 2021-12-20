@@ -2,6 +2,7 @@ import { Heading, Layout, SettingToggle, TextContainer } from '@shopify/polaris'
 import { useSettings } from 'hooks/useSettings';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
+import Modal from './Modal';
 
 const Section: React.FC<ISection> = ({
   user,
@@ -54,6 +55,8 @@ const Section: React.FC<ISection> = ({
     )
   }
 
+  console.log(active)
+
   return (
     <Layout>
       <Layout.AnnotatedSection
@@ -71,6 +74,24 @@ const Section: React.FC<ISection> = ({
               enabled={active}>
               { toggleTextMarkup() }
             </SettingToggle> 
+            <Modal
+              title="Deactivate Publishing"
+              content="Deactivating this setting will stop others from finding your store 
+                and suspend all current subscription to you. Do you want to continue?" 
+              isModalOpen={!active}
+              modalHandler={() => setActive(!active)} 
+              primaryAction={{
+                actionText: "Deactivate",
+                actionHandler: () => {},
+                destructive: true
+              }}
+              secondaryActions={[
+                {
+                  actionText: "Cancel",
+                  actionHandler: () => {},
+                },
+              ]}
+              />
           </div> }
 
         { active && <div className="col-span-2" > { children } </div> }
