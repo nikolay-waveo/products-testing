@@ -1,6 +1,6 @@
 import { Heading, Layout, SettingToggle, TextContainer } from '@shopify/polaris';
 import { useSettings } from 'hooks/useSettings';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ISection } from 'types';
 import Modal from './Modal';
 
@@ -16,15 +16,36 @@ const Section: React.FC<ISection> = ({
 
   const [active, setActive] = useState(publishStatus)
 
+  const [showModal, setShowModal] = useState(false)
+
   const { useSETShopSettings: setSettings } = useSettings();
 
-  useEffect(() => {
-    setSettings(user, {
-      publish: active
-    })
-  }, [active, setSettings, user])
+  const handleDeactivatePublish = useCallback(
+    () => {
+      setSettings(user, {
+        publish: false
+      })
+      .then(r => console.log(r))
+      setActive(false)
+      setShowModal(false)
+    },
+    [setSettings, user],
+  )
 
-  const handleToggle = useCallback(() => setActive((active) => !active), []);
+  const handleToggle = useCallback(() => {
+    setActive((active) => !active)
+    if(active && !showModal) {
+      setShowModal(true)
+    }
+    else {
+      setShowModal(false)
+    }
+  }, [active, showModal]);
+
+  const handleCloseModal = () => {
+    setActive(true)
+    setShowModal(false)
+  }
 
   const contentStatus = active ? 'Deactivate' : 'Activate';
 
@@ -55,8 +76,6 @@ const Section: React.FC<ISection> = ({
     )
   }
 
-  console.log(active)
-
   return (
     <Layout>
       <Layout.AnnotatedSection
@@ -78,17 +97,17 @@ const Section: React.FC<ISection> = ({
               title="Deactivate Publishing"
               content="Deactivating this setting will stop others from finding your store 
                 and suspend all current subscription to you. Do you want to continue?" 
-              isModalOpen={!active}
-              modalHandler={() => setActive(!active)} 
+              isModalOpen={showModal}
+              modalHandler={handleToggle} 
               primaryAction={{
                 actionText: "Deactivate",
-                actionHandler: () => {},
+                actionHandler: handleDeactivatePublish,
                 destructive: true
               }}
               secondaryActions={[
                 {
                   actionText: "Cancel",
-                  actionHandler: () => {},
+                  actionHandler: handleCloseModal,
                 },
               ]}
               />
