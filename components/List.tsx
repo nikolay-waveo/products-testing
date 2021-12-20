@@ -17,13 +17,32 @@ const List: React.FC<IList> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const [isLoading, _] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const onLoading = useCallback(
     () => {
       //TODO Check if undefined
+      const hasData = list
+        .every(({
+          storeURL,
+          id,
+          status
+        }) => {
+          console.log(storeURL === undefined)
+          console.log(id === undefined)
+          console.log(status === undefined)
+          console.log(storeURL, id, status)
+          return (
+            storeURL === undefined ||
+            id === undefined ||
+            status === undefined
+          )
+        })
+        
+      if(!hasData) setIsLoading(true)
+      else setIsLoading(false)
     },
-    [],
+    [list],
   )
 
   useEffect(() => {
@@ -126,7 +145,6 @@ const List: React.FC<IList> = ({
           resourceName={resourceName}
           items={sortedList} 
           emptyState={emptyStateMarkup}
-          loading={isLoading}
           renderItem={(item) => { 
             return (
               <ResourceItem
@@ -137,6 +155,7 @@ const List: React.FC<IList> = ({
                   item={item}
                   onDisconnect={onDisconnect}
                   onConnect={onConnect}
+                  loading={isLoading}
                   listType={listType} />
                 </ResourceItem> 
               )

@@ -36,5 +36,6 @@ export interface IItem {
   item: ISubscription['subscription'],
   onDisconnect?(id: string): void, 
   onConnect?(id: string): void,
+  loading: boolean,
   listType: "subscribeTo" | "publishTo",
 }
