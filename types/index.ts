@@ -10,11 +10,16 @@ export interface ISection {
   user: string,
   sectionTitle: string,
   sectionDescription: string,
+  publishStatus?: boolean,
   toggle?: boolean,
+  toggleText?: 
+    string | {
+      title?: string, 
+      content: string,
+      destructive?: boolean,
+    }[],
   children?: React.ReactNode,
 }
-
-
 
 export interface IList {
   user: string,

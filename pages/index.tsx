@@ -7,7 +7,7 @@ import { ISubscription } from "types";
 
 const Admin: React.FC = () => {
 
-  const [user, _] = useState("dev-subscriber.myshopify.com")
+  const [user, _] = useState("testing-pub-dev.myshopify.com")
 
   //change to PublishedToList
   const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
@@ -15,12 +15,20 @@ const Admin: React.FC = () => {
   //change to SubscribedToList
   const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([]);
 
+  const [publishStatus, setPublishStatus] = useState(false)
+
   //TODO
   // const pubShop = "dev-publisher.myshopify.com"
 
+  // dev-publisher.myshopify.com
+
   // const subShop = "dev-subscriber.myshopify.com"
 
+  // dev-subscriber.myshopify.com
+
   // const tubShop = "testing-pub-dev.myshopify.com"
+
+  // testing-pub-dev.myshopify.com
   //TODO
   
 
@@ -63,6 +71,10 @@ const Admin: React.FC = () => {
       }) || []
 
       setOutgoingSubs(outgoingSubsData) 
+
+      const publishResponse = data.publish
+      
+      setPublishStatus(publishResponse)
     }
   }, [data, isLoading, ])
 
@@ -95,7 +107,18 @@ const Admin: React.FC = () => {
                 user={user}
                 sectionTitle="Publish"
                 sectionDescription="See which stores are subscribed to you."
-                toggle >
+                toggle 
+                toggleText={[
+                  {
+                    title: "Disable Publishing",
+                    content: "Stop others from finding your store and remove all currently subscribed stores.",
+                    destructive: true,
+                  },
+                  {
+                    title: "Enable Publishing",
+                    content: "Allow others to find and subscribe to your store.",
+                  }]}
+                publishStatus={publishStatus} >
 
                 <List 
                   user={user}

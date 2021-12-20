@@ -1,18 +1,19 @@
-import { Layout, SettingToggle, TextStyle } from '@shopify/polaris';
+import { Heading, Layout, SettingToggle, TextContainer } from '@shopify/polaris';
 import { useSettings } from 'hooks/useSettings';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
-
 
 const Section: React.FC<ISection> = ({
   user,
   sectionTitle,
   sectionDescription,
+  publishStatus=true,
   toggle,
+  toggleText,
   children
 }) => {
 
-  const [active, setActive] = useState(true)
+  const [active, setActive] = useState(publishStatus)
 
   const { useSETShopSettings: setSettings } = useSettings();
 
@@ -25,7 +26,33 @@ const Section: React.FC<ISection> = ({
   const handleToggle = useCallback(() => setActive((active) => !active), []);
 
   const contentStatus = active ? 'Deactivate' : 'Activate';
-  const textStatus = active ? 'activated' : 'deactivated';
+
+  const toggleTextMarkup = () => {
+    // If passed a string
+    if(typeof toggleText == "string") return toggleText
+
+    // If passed an array of objects
+    const [activateText, deactivateText] = toggleText.map(({
+      title,
+      content,
+      destructive,
+    }, key) => {
+      return (
+        <TextContainer key={key}>
+          { title && <Heading>{title}</Heading> }
+          <p className={destructive ? "text-shopify-critical" : undefined}>
+            {content}
+          </p>
+        </TextContainer>
+      )
+    })
+ 
+    return (
+      active
+      ? activateText
+      : deactivateText
+    )
+  }
 
   return (
     <Layout>
@@ -35,14 +62,14 @@ const Section: React.FC<ISection> = ({
         description={sectionDescription} >
 
         { toggle &&
-          <div className={active && "mb-10"}>
+          <div className={active ? "mb-10" : undefined}>
             <SettingToggle
               action={{
                 content: contentStatus,
                 onAction: handleToggle,
               }}
               enabled={active}>
-              This setting is <TextStyle variation="strong">{textStatus}</TextStyle>.
+              { toggleTextMarkup() }
             </SettingToggle> 
           </div> }
 
