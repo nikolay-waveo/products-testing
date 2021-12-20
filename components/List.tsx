@@ -28,10 +28,6 @@ const List: React.FC<IList> = ({
           id,
           status
         }) => {
-          console.log(storeURL === undefined)
-          console.log(id === undefined)
-          console.log(status === undefined)
-          console.log(storeURL, id, status)
           return (
             storeURL === undefined ||
             id === undefined ||
