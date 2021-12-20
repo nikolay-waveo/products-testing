@@ -25,6 +25,7 @@ function useGETShopSettings(shop: string): ({
 }) {
   const { data, error} = useSWR(`/api/settings?shop=${shop}`);
 
+  // Bind this to only work on submit
   mutate(`/api/settings?shop=${shop}`);
 
   return {
