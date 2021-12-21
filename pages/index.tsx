@@ -1,7 +1,7 @@
 import { AppProvider, Frame, Page } from "@shopify/polaris";
 import List from "components/List";
 import Section from "components/Section";
-import TestingCard from "components/testingCard";
+import TestingCard from "components/TestingCard";
 import { useSettings } from "hooks/useSettings";
 import { useEffect, useState } from "react";
 import { ISubscription } from "types";
