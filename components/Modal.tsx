@@ -148,7 +148,10 @@ const Modal: React.FC<IModal> = ({
                   requiredIndicator={inputAction.requiredIndicator}
                   error={hasError}
                   placeholder={inputAction.placeholder}
-                  connectedRight={primaryActionButtonMarkup} />
+                  connectedRight={primaryActionButtonMarkup}
+                  onFocus={() => {
+                    setHasError(false)
+                  }} />
 
                   { hasError &&
                     <div className='mt-4'>
