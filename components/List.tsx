@@ -187,8 +187,10 @@ const List: React.FC<IList> = ({
             requiredIndicator: true,
             errorMessage: "Invalid input",
             errorHandler: (input) => {
+              // Error checking for shopify store name URLs
+              const storeURLPattern = /(\w+-)*\w+(.myshopify.com)/
               if(!input) return true
-              return false
+              return !storeURLPattern.test(input)
             }
           }}
           toast={{
