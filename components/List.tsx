@@ -181,8 +181,15 @@ const List: React.FC<IList> = ({
             actionHandler: (e) => outgoingSubscriptionsHandler(e)
           }}
           inputAction={{
+            id: "modalInput",
             label: "Store Subscription Link",
             placeholder: "Example: store.myshopify.com",
+            requiredIndicator: true,
+            errorMessage: "Invalid input",
+            errorHandler: (input) => {
+              if(!input) return true
+              return false
+            }
           }}
           toast={{
             content: "Request sent",

@@ -1,12 +1,16 @@
 import * as polaris from '@shopify/polaris';
 import {
   Button,
+  InlineError,
   Stack,
   TextContainer,
   TextField,
   Toast
 } from '@shopify/polaris';
+import useAsyncState from 'hooks/useAsyncState';
 import React, { useCallback, useState } from 'react';
+
+declare type Type = 'text' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week' | 'currency';
 
 interface IModal {
   title: string,
@@ -14,8 +18,13 @@ interface IModal {
   isModalOpen: boolean,
   modalHandler: React.Dispatch<React.SetStateAction<boolean>>,
   inputAction?: {
+    id: string,
     label: string,
     placeholder: string,
+    type?: Type,
+    requiredIndicator?: boolean,
+    errorMessage?: string,
+    errorHandler?: (input: string) => boolean,
   }
   primaryAction: {
     actionText: string, 
@@ -48,6 +57,8 @@ const Modal: React.FC<IModal> = ({
 
   const [showModal, setShowModal] = useState(isModalOpen)
 
+  const [hasError, setHasError] = useAsyncState(false)
+
   const toggleShowModal = useCallback(() => setShowModal((showModal) => !showModal), []);
 
   const handleChange = useCallback(() => modalHandler(!isModalOpen), [isModalOpen, modalHandler]);
@@ -59,12 +70,27 @@ const Modal: React.FC<IModal> = ({
     toggleShowModal()
   }
 
+  // --------------
+
+  const checkErrorOnClick = async () => {
+    if(inputAction?.errorHandler) {
+      const error = await setHasError(inputAction.errorHandler(input))
+      if (!error) handleSubmit()
+    }
+    else {
+      handleSubmit()
+    } 
+  }
+  // --------------
+
   const toastMarkup = (toast && showModal)
     ? (<Toast content={toast.content} onDismiss={toggleShowModal} duration={toast.duration}/>) 
     : null
 
   const primaryActionButtonMarkup = (
-    <Button primary onClick={()=> handleSubmit()}>
+    <Button 
+      primary 
+      onClick={()=> checkErrorOnClick()}>
       {primaryAction.actionText}
     </Button>
   )
@@ -112,12 +138,23 @@ const Modal: React.FC<IModal> = ({
             { inputAction &&
               <Stack.Item fill>
                 <TextField
+                  id={inputAction.id}
                   label={inputAction.label}
                   value={input}
                   onChange={(e) => setInput(e)}
                   autoComplete="off"
+                  autoFocus={true}
+                  type={inputAction.type}
+                  requiredIndicator={inputAction.requiredIndicator}
+                  error={hasError}
                   placeholder={inputAction.placeholder}
                   connectedRight={primaryActionButtonMarkup} />
+
+                  { hasError &&
+                    <div className='mt-4'>
+                      <InlineError message={inputAction.errorMessage} fieldID={inputAction.id} />
+                    </div>
+                  }
               </Stack.Item> 
             }
             </Stack>
