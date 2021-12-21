@@ -3,8 +3,8 @@ import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IList } from 'types';
-import AddModal from './AddModal';
 import Item from './Item';
+import Modal from './Modal';
 
 const List: React.FC<IList> = ({
   user,
@@ -118,6 +118,47 @@ const List: React.FC<IList> = ({
     />
   );
 
+  // Modal handler ----------------------------------------------
+
+  const {
+    useSETShopSubscribeSettings: setSubscribe
+  } = useSubscribe();
+
+  const outgoingSubscriptionsHandler = (url: string) => {  
+
+    //! Find a way to get inventoryLocationId
+    // (url: string) => (id: string)
+    const getStoreDataIfExists = (url: string): string => {
+      console.log(url)
+      return "10000000001"
+    }
+    const storeID = getStoreDataIfExists(url)
+    // --------------------------------------
+    
+    setSubscribe({
+      origin: user,
+      subscriberShop: url,
+      id: storeID,
+    })
+    .then(({
+      shop,
+      inventoryLocationId,
+      status,
+    }) => {
+      console.log(shop, inventoryLocationId, status)
+      listUpdateHandler([
+        ...list,
+        {
+          storeURL: shop,
+          id: inventoryLocationId,
+          status: status,
+        }
+      ]) 
+    })
+  }
+
+  // ------------------------------------------------------------
+
   return (
     <Card 
       title={ listText.title }
@@ -129,13 +170,24 @@ const List: React.FC<IList> = ({
       </Card.Section>
 
       <Card.Section>
-        <AddModal 
-          user={user}
-          modalOpen={modalOpen}
+        <Modal
+          title="Subscribe to a new store"
+          content="You can add the store subscription link here to subscribe to that
+            store and recieve product updates from them."
+          isModalOpen={modalOpen}
           modalHandler={setModalOpen}
-          list={list} 
-          listUpdateHandler={listUpdateHandler} 
-          canAddToList />
+          primaryAction={{
+            actionText: "Subscribe",
+            actionHandler: (e) => outgoingSubscriptionsHandler(e)
+          }}
+          inputAction={{
+            label: "Store Subscription Link",
+            placeholder: "Example: store.myshopify.com",
+          }}
+          toast={{
+            content: "Request sent",
+            duration: 3000,
+          }} />
 
         <ResourceList 
           resourceName={resourceName}
