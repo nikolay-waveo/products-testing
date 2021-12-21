@@ -1,6 +1,6 @@
 import { Heading, Layout, SettingToggle, TextContainer } from '@shopify/polaris';
 import { useSettings } from 'hooks/useSettings';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
 import Modal from './Modal';
 
@@ -20,12 +20,15 @@ const Section: React.FC<ISection> = ({
 
   const { useSETShopSettings: setSettings } = useSettings();
 
+  useEffect(() => {
+    setActive(publishStatus)
+  }, [publishStatus])
+
   const handleDeactivatePublish = useCallback(
     () => {
       setSettings(user, {
         publish: false
       })
-      .then(r => console.log(r))
       setActive(false)
       setShowModal(false)
     },
@@ -33,6 +36,9 @@ const Section: React.FC<ISection> = ({
   )
 
   const handleToggle = useCallback(() => {
+    setSettings(user, {
+      publish: true
+    })
     setActive(true)
     if(active && !showModal) {
       setShowModal(true)
