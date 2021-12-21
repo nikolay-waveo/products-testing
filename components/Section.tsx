@@ -11,6 +11,7 @@ const Section: React.FC<ISection> = ({
   publishStatus=true,
   toggle,
   toggleText,
+  enableModal, 
   children
 }) => {
 
@@ -24,32 +25,59 @@ const Section: React.FC<ISection> = ({
     setActive(publishStatus)
   }, [publishStatus])
 
+  // const handleDeactivatePublish = useCallback(
+  //   () => {
+  //     setSettings(user, {
+  //       publish: false
+  //     })
+  //     setActive(false)
+  //     setShowModal(false)
+  //   },
+  //   [setSettings, user],
+  // )
+
+  // const handleToggle = useCallback(() => {
+  //   setSettings(user, {
+  //     publish: true
+  //   })
+  //   setActive(true)
+  //   if(active && !showModal && enableModal) {
+  //     setShowModal(true)
+  //   }
+  //   else {
+  //     setShowModal(false)
+  //   }
+  // }, [active, enableModal, setSettings, showModal, user]);
+
+  // const handleCloseModal = () => {
+  //   setActive(true)
+  //   setShowModal(false)
+  // }
+
   const handleDeactivatePublish = useCallback(
     () => {
       setSettings(user, {
         publish: false
       })
       setActive(false)
-      setShowModal(false)
+      handleCloseModal()
     },
     [setSettings, user],
   )
 
   const handleToggle = useCallback(() => {
-    setSettings(user, {
-      publish: true
-    })
-    setActive(true)
-    if(active && !showModal) {
+    if(enableModal && active) {
       setShowModal(true)
     }
     else {
-      setShowModal(false)
-    }
-  }, [active, showModal]);
+      setSettings(user, {
+        publish: !active
+      })
+      setActive(!active)
+    }  
+  }, [active, enableModal, setSettings, user]);
 
   const handleCloseModal = () => {
-    setActive(true)
     setShowModal(false)
   }
 
@@ -102,9 +130,9 @@ const Section: React.FC<ISection> = ({
             <Modal
               title="Deactivate Publishing"
               content="Deactivating this setting will stop others from finding your store 
-                and suspend all current subscription to you. Do you want to continue?" 
+                and suspend all current subscriptions to you. Do you want to continue?" 
               isModalOpen={showModal}
-              modalHandler={handleToggle} 
+              modalHandler={setShowModal} 
               primaryAction={{
                 actionText: "Deactivate",
                 actionHandler: handleDeactivatePublish,

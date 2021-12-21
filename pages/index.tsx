@@ -19,21 +19,6 @@ const Admin: React.FC = () => {
 
   const [publishStatus, setPublishStatus] = useState(false)
 
-  //TODO
-  // const pubShop = "dev-publisher.myshopify.com"
-
-  // dev-publisher.myshopify.com
-
-  // const subShop = "dev-subscriber.myshopify.com"
-
-  // dev-subscriber.myshopify.com
-
-  // const tubShop = "testing-pub-dev.myshopify.com"
-
-  // testing-pub-dev.myshopify.com
-  //TODO
-  
-
   // GET lists
   const {
     useGETShopSettings: getSettings, 
@@ -120,14 +105,15 @@ const Admin: React.FC = () => {
                 toggleText={[
                   {
                     title: "Disable Publishing",
-                    content: "Stop others from finding your store and remove all currently subscribed stores.",
+                    content: "Stop others from finding your store and suspend all currently subscribed stores.",
                     destructive: true,
                   },
                   {
                     title: "Enable Publishing",
                     content: "Allow others to find and subscribe to your store.",
                   }]}
-                publishStatus={publishStatus} >
+                publishStatus={publishStatus} 
+                enableModal={incomingSubs.length > 0} >
 
                 <List 
                   user={user}

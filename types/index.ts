@@ -18,6 +18,7 @@ export interface ISection {
       content: string,
       destructive?: boolean,
     }[],
+  enableModal?: boolean,
   children?: React.ReactNode,
 }
 
