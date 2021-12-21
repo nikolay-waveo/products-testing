@@ -68,9 +68,8 @@ const Modal: React.FC<IModal> = ({
     setInput('')
     handleChange()
     toggleShowModal()
+    setHasError(false)
   }
-
-  // --------------
 
   const checkErrorOnClick = async () => {
     if(inputAction?.errorHandler) {
@@ -81,7 +80,6 @@ const Modal: React.FC<IModal> = ({
       handleSubmit()
     } 
   }
-  // --------------
 
   const toastMarkup = (toast && showModal)
     ? (<Toast content={toast.content} onDismiss={toggleShowModal} duration={toast.duration}/>) 
@@ -90,7 +88,9 @@ const Modal: React.FC<IModal> = ({
   const primaryActionButtonMarkup = (
     <Button 
       primary 
-      onClick={()=> checkErrorOnClick()}>
+      onClick={()=> {
+        checkErrorOnClick()
+      }}>
       {primaryAction.actionText}
     </Button>
   )
