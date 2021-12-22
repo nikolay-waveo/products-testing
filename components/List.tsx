@@ -1,4 +1,8 @@
 import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer, Toast } from '@shopify/polaris';
+import {
+  CancelSmallMinor,
+  TickMinor
+} from '@shopify/polaris-icons';
 import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -249,7 +253,22 @@ const List: React.FC<IList> = ({
                         statusStyle: "critical",
                       },
                     ]}
-                    options={[]} />
+                    options={[
+                      {
+                        content: 'Connect',
+                        icon: TickMinor,
+                        helpText: "Accept subscription to your store",
+                        onAction: () => onConnect(item.storeURL),
+                        active: true,
+                      },
+                      {
+                        content: 'Disconnect',
+                        helpText: "Deny subscription to your store",
+                        icon: CancelSmallMinor,
+                        onAction: () => {},
+                        destructive: true,
+                      },
+                    ]} />
                 </ResourceItem> 
               )
           }} />

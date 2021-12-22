@@ -1,5 +1,6 @@
 import { Badge, SkeletonDisplayText, Spinner, TextStyle, Tooltip } from '@shopify/polaris'
-import React from 'react'
+import React, { FC, SVGProps } from 'react'
+import OptionsNew from './OptionsNew'
 
 declare type Status = 'success' | 'info' | 'critical' | 'warning' | 'new'
 declare type Progress = 'incomplete' | 'partiallyComplete' | 'complete'
@@ -16,10 +17,11 @@ interface IItem {
     statusStyle?: Status,
     progress?: Progress,
   }[],
-  options: {
+  options?: {
     content: string,
     helpText: string,
-    onAction: (itemKey: string) => void,
+    icon?: FC<SVGProps<SVGSVGElement>>,
+    onAction: () => void,
     active?: boolean,
     destructive?: boolean,
   }[],
@@ -71,7 +73,8 @@ const ItemNew: React.FC<IItem> = ({
           </Tooltip> }
       </div>
       <div className="grid justify-end col-start-9">
-        {/* <Options store={storeURL} status={status} {...itemProps} /> */}
+        { options && 
+          <OptionsNew options={options} />}
       </div>
     </div>
   )
