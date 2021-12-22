@@ -25,35 +25,6 @@ const Section: React.FC<ISection> = ({
     setActive(publishStatus)
   }, [publishStatus])
 
-  // const handleDeactivatePublish = useCallback(
-  //   () => {
-  //     setSettings(user, {
-  //       publish: false
-  //     })
-  //     setActive(false)
-  //     setShowModal(false)
-  //   },
-  //   [setSettings, user],
-  // )
-
-  // const handleToggle = useCallback(() => {
-  //   setSettings(user, {
-  //     publish: true
-  //   })
-  //   setActive(true)
-  //   if(active && !showModal && enableModal) {
-  //     setShowModal(true)
-  //   }
-  //   else {
-  //     setShowModal(false)
-  //   }
-  // }, [active, enableModal, setSettings, showModal, user]);
-
-  // const handleCloseModal = () => {
-  //   setActive(true)
-  //   setShowModal(false)
-  // }
-
   const handleDeactivatePublish = useCallback(
     () => {
       setSettings(user, {
