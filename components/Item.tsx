@@ -1,78 +1,80 @@
-import { Badge, SkeletonDisplayText, Spinner, TextStyle, Tooltip } from '@shopify/polaris';
-import React from 'react';
-import { IItem } from 'types';
-import Options from './Options';
+import { Badge, SkeletonDisplayText, Spinner, TextStyle, Tooltip } from '@shopify/polaris'
+import React, { FC, SVGProps } from 'react'
+import OptionsNew from './OptionsNew'
 
 declare type Status = 'success' | 'info' | 'critical' | 'warning' | 'new'
+declare type Progress = 'incomplete' | 'partiallyComplete' | 'complete'
+
+interface IItem {
+  item: {
+    storeURL: string,
+    id: string,
+    status: string,
+  },
+  badges?: {
+    status: string,
+    tooltip: string,
+    statusStyle?: Status,
+    progress?: Progress,
+  }[],
+  options?: {
+    content: string,
+    helpText: string,
+    icon?: FC<SVGProps<SVGSVGElement>>,
+    onAction: () => void,
+    active?: boolean,
+    destructive?: boolean,
+  }[],
+  loading?: {
+    isLoading: boolean,
+    accessibilityLabel: string,
+  },
+}
 
 const Item: React.FC<IItem> = ({
   item,
-  onDisconnect,
-  onConnect,
+  badges = [],
+  options,
   loading,
-  listType,
 }) => {
 
-  const {storeURL, status} = item;
+  const {
+    storeURL,
+    status,
+  } = item
 
-  const itemProps = {
-    onDisconnect: onDisconnect,
-  }
+  const {
+    isLoading,
+    accessibilityLabel,
+  } = loading || {}
 
-  if(listType === "publishTo" && status === "pending") {
-    itemProps['onConnect'] = onConnect
-  }
-
-  let badgeStatus = {}
-
-  switch (status) {
-    case 'active':
-      badgeStatus = { 
-        status: "success"
-      }
-      break;
-    case 'stopped': 
-      badgeStatus = { 
-        status: "critical"
-      }
-      break;
-    case 'declined':
-      badgeStatus = { 
-        status: "warning"
-      }
-      break;
-    case 'pending':
-    default:    
-      badgeStatus = { 
-        status: "new"
-      }
-      break;
-  }
+  const badge = badges.find(badge => status === badge.status)
 
   const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)
 
   return (
     <div className="grid grid-cols-9">
       <h3 className="col-span-7 truncate">
-        { !loading
-          ? <SkeletonDisplayText size="small" />
-          : <TextStyle variation="strong">{storeURL}</TextStyle> }
+        { isLoading
+          ? <TextStyle variation="strong">{storeURL}</TextStyle>
+          : <SkeletonDisplayText size="small" /> }
       </h3>
       <div className="col-start-8 justify-self-center">
-        { !loading 
-          ? <Spinner accessibilityLabel="Sending request" size="small" />
-          : <Tooltip 
-              content={'blah'}
-              preferredPosition='above'>
+        { !isLoading && <Spinner accessibilityLabel={accessibilityLabel} size="small" /> }
+        { isLoading && badge && 
+          <Tooltip 
+            content={badge.tooltip}
+            preferredPosition='above' >
               <Badge 
-                {...badgeStatus}
-                size="small">
-                  {capitalize(status)}
-              </Badge>
-            </Tooltip> }
+                size="small"
+                {...{status: badge.statusStyle}} >
+                {capitalize(status)}
+            </Badge>
+          </Tooltip> }
       </div>
       <div className="grid justify-end col-start-9">
-        <Options store={storeURL} status={status} {...itemProps} />
+        { options && 
+          <OptionsNew options={options} />}
       </div>
     </div>
   )

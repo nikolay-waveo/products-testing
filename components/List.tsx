@@ -7,7 +7,7 @@ import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IList, ISubscription } from 'types';
-import ItemNew from './ItemNew';
+import Item from './Item';
 import Modal from './Modal';
 
 const List: React.FC<IList> = ({
@@ -225,7 +225,7 @@ const List: React.FC<IList> = ({
               <ResourceItem
                 id={item.id}
                 onClick={() => {}}>
-                  <ItemNew 
+                  <Item
                     item={item} 
                     loading={{
                       isLoading: isLoading,
