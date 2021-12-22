@@ -14,7 +14,7 @@ declare type Type = 'text' | 'email' | 'number' | 'password' | 'search' | 'tel' 
 
 interface IModal {
   title: string,
-  content: string,
+  content: React.ReactNode | string,
   isModalOpen: boolean,
   modalHandler: React.Dispatch<React.SetStateAction<boolean>>,
   inputAction?: {
@@ -135,9 +135,9 @@ const Modal: React.FC<IModal> = ({
             <Stack vertical>
               <Stack.Item>
                 <TextContainer>
-                  <p>
-                    {content}
-                  </p>
+                { typeof content == "string"
+                  ? <p>{content}</p>
+                  : content }
                 </TextContainer>
               </Stack.Item>
             { inputAction &&
