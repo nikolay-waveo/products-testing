@@ -55,46 +55,11 @@ const List: React.FC<IList> = ({
   } = usePublish()
 
   const {
+    useSETShopSubscribeSettings: setSubscribe,
     useDELETEShopSubscribeSettings: deleteSubscribe
   } = useSubscribe()
 
-  // const onDisconnect = (store: string, subscribed?: string) => {
-  //   if(listType === "publishTo") {
-
-  //     if(subscribed === "active") {
-  //       deletePublish({
-  //         origin: user,
-  //         publisherShop: store,
-  //       })
-  //     }
-  //     else {
-  //       setPublish({
-  //         origin: user,
-  //         publisherShop: store,
-  //         accept: false,
-  //       })
-  //     }
-      
-  //   }
-  //   if(listType === "subscribeTo") {
-  //     deleteSubscribe({
-  //       origin: user,
-  //       subscriberShop: store
-  //     })
-  //   }
-  //   const newList = list.filter((item) => item.storeURL !== store);
-  //   listUpdateHandler(newList);
-  // }
-
-  // const onConnect = (store: string) => {
-  //   setPublish({
-  //     origin: user,
-  //     publisherShop: store,
-  //     accept: true,
-  //   })
-  //   const newList = list.map((item) => item.storeURL === store ? {...item, status: "active"} : item )
-  //   listUpdateHandler(newList);
-  // }
+  // Options handlers --------------------------------------------
 
   const onDisconnect = ({
     storeURL,
@@ -140,10 +105,6 @@ const List: React.FC<IList> = ({
   }
 
   // Modal handler ----------------------------------------------
-
-  const {
-    useSETShopSubscribeSettings: setSubscribe
-  } = useSubscribe();
 
   const outgoingSubscriptionsHandler = (url: string) => {  
     //! Find a way to get inventoryLocationId
@@ -264,19 +225,12 @@ const List: React.FC<IList> = ({
               <ResourceItem
                 id={item.id}
                 onClick={() => {}}>
-                {/* <Item 
-                  item={item}
-                  onDisconnect={onDisconnect}
-                  onConnect={onConnect}
-                  loading={isLoading}
-                  listType={listType} /> */}
-
                   <ItemNew 
                     item={item} 
-                    // loading={{
-                    //   isLoading: isLoading,
-                    //   accessibilityLabel: "Sending request",
-                    // }}
+                    loading={{
+                      isLoading: isLoading,
+                      accessibilityLabel: "Sending request",
+                    }}
                     badges={[
                       {
                         status: "pending",
@@ -302,8 +256,8 @@ const List: React.FC<IList> = ({
                     options={[
                       {
                         content: 'Connect',
-                        icon: TickMinor,
                         helpText: "Accept subscription to your store",
+                        icon: TickMinor,
                         onAction: () => onConnect(item),
                         active: true,
                       },
