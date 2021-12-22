@@ -38,7 +38,8 @@ interface IModal {
   }[],
   toast?: {
     content: string,
-    duration: number,
+    duration?: number,
+    error?: boolean,
   }
 }
 
@@ -82,7 +83,11 @@ const Modal: React.FC<IModal> = ({
   }
 
   const toastMarkup = (toast && showModal)
-    ? (<Toast content={toast.content} onDismiss={toggleShowModal} duration={toast.duration}/>) 
+    ? (<Toast 
+        error={toast.error}
+        content={toast.content} 
+        onDismiss={toggleShowModal} 
+        duration={toast.duration}/>) 
     : null
 
   const primaryActionButtonMarkup = (
