@@ -1,6 +1,6 @@
 import { Badge, SkeletonDisplayText, Spinner, TextStyle, Tooltip } from '@shopify/polaris'
 import React, { FC, SVGProps } from 'react'
-import OptionsNew from './OptionsNew'
+import Options from './Options'
 
 declare type Status = 'success' | 'info' | 'critical' | 'warning' | 'new'
 declare type Progress = 'incomplete' | 'partiallyComplete' | 'complete'
@@ -74,7 +74,7 @@ const Item: React.FC<IItem> = ({
       </div>
       <div className="grid justify-end col-start-9">
         { options && 
-          <OptionsNew options={options} />}
+          <Options options={options} />}
       </div>
     </div>
   )

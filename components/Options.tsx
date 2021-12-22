@@ -1,23 +1,22 @@
 import { ActionList, Icon, Popover } from '@shopify/polaris';
 import {
-  CancelSmallMinor,
-  MobileVerticalDotsMajor,
-  TickMinor
+  MobileVerticalDotsMajor
 } from '@shopify/polaris-icons';
-import React, { useCallback, useState } from 'react';
+import React, { FC, SVGProps, useCallback, useState } from 'react';
 
 interface IOptions {
-  store: string,
-  status: string,
-  onConnect?(store: string): void,
-  onDisconnect(store: string, subscribed: string): void,
+  options: {
+    content: string,
+    helpText: string,
+    icon?: FC<SVGProps<SVGSVGElement>>,
+    onAction: () => void,
+    active?: boolean,
+    destructive?: boolean,
+  }[],
 }
 
 const Options: React.FC<IOptions> = ({
-  store,
-  status,
-  onConnect,
-  onDisconnect,
+  options,
 }) => {
   const [popoverActive, setPopoverActive] = useState(false);
 
@@ -29,27 +28,9 @@ const Options: React.FC<IOptions> = ({
         color="interactive" />
     </button>;
 
-  const disconnectAction = {
-    content: 'Disconnect',
-    icon: CancelSmallMinor,
-    helpText: "Deny subscription to your store",
-    onAction: () => onDisconnect(store, status),
-    destructive: true,
-  }
-
-  const connectAction = {
-    content: 'Connect',
-    icon: TickMinor,
-    active: true,
-    helpText: "Accept subscription to your store",
-    onAction: () => onConnect(store),
-  }
-
-  const actionListItems = [];
-  
-  if(onConnect) actionListItems.push(connectAction);
-
-  actionListItems.push(disconnectAction);
+  const actionListItems = [
+    ...options
+  ];
 
   return (
     <Popover 
