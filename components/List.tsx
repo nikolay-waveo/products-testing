@@ -1,4 +1,4 @@
-import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer } from '@shopify/polaris';
+import { Card, EmptySearchResult, ResourceItem, ResourceList, TextContainer, Toast } from '@shopify/polaris';
 import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -16,12 +16,12 @@ const List: React.FC<IList> = ({
   emptyListText,
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
-
   const [isLoading, setIsLoading] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
 
   const onLoading = useCallback(
     () => {
-      //TODO Check if undefined
       const hasData = list
         .every(({
           storeURL,
@@ -92,6 +92,52 @@ const List: React.FC<IList> = ({
     listUpdateHandler(newList);
   }
 
+  // Modal handler ----------------------------------------------
+
+  const {
+    useSETShopSubscribeSettings: setSubscribe
+  } = useSubscribe();
+
+  const outgoingSubscriptionsHandler = (url: string) => {  
+    //! Find a way to get inventoryLocationId
+    // (url: string) => (id: string)
+    const getStoreDataIfExists = (url: string): string => {
+      console.log(url)
+      return "10000000001"
+    }
+    const storeID = getStoreDataIfExists(url)
+    // --------------------------------------
+    
+    setSubscribe({
+      origin: user,
+      subscriberShop: url,
+      id: storeID,
+    })
+    .then(({
+      shop,
+      inventoryLocationId,
+      status,
+      code, 
+      message,
+    }) => {
+      if(code === "not_publishing") {
+        setErrorMessage(message)
+        setHasError(true)
+      } else {
+        listUpdateHandler([
+          ...list,
+          {
+            storeURL: shop,
+            id: inventoryLocationId,
+            status: status,
+          }
+        ])
+      } 
+    })
+  }
+  
+  // ------------------------------------------------------------
+
   const sortedList = list
     .sort((item) => {
       if(item.status === "pending") return -1
@@ -118,51 +164,16 @@ const List: React.FC<IList> = ({
     />
   );
 
-  // Modal handler ----------------------------------------------
+  const toggleHasError = useCallback(() => setHasError((hasError) => !hasError),[])
 
-  const {
-    useSETShopSubscribeSettings: setSubscribe
-  } = useSubscribe();
-
-  const outgoingSubscriptionsHandler = (url: string) => {  
-
-    //! Find a way to get inventoryLocationId
-    // (url: string) => (id: string)
-    const getStoreDataIfExists = (url: string): string => {
-      console.log(url)
-      return "10000000001"
-    }
-    const storeID = getStoreDataIfExists(url)
-    // --------------------------------------
-    
-    setSubscribe({
-      origin: user,
-      subscriberShop: url,
-      id: storeID,
-    })
-    .then(({
-      shop,
-      inventoryLocationId,
-      status,
-    }) => {
-      console.log(shop, inventoryLocationId, status)
-      listUpdateHandler([
-        ...list,
-        {
-          storeURL: shop,
-          id: inventoryLocationId,
-          status: status,
-        }
-      ]) 
-    })
-  }
-
-  // ------------------------------------------------------------
+  const errorToastMarkup = hasError ? (
+    <Toast content={errorMessage} error onDismiss={toggleHasError} />
+  ) : null;
 
   return (
     <Card 
       title={ listText.title }
-      {...cardProps}>
+      {...cardProps}> 
       <Card.Section>
         <TextContainer>
             { listText.description}
@@ -194,8 +205,7 @@ const List: React.FC<IList> = ({
             }
           }}
           toast={{
-            content: "Request sent",
-            duration: 3000,
+            content: "Request Sent",
           }} />
 
         <ResourceList 
@@ -216,7 +226,9 @@ const List: React.FC<IList> = ({
                   listType={listType} />
                 </ResourceItem> 
               )
-            }} />
+          }} />
+
+        { errorToastMarkup }
       </Card.Section>
     </Card>
   )
