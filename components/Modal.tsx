@@ -55,20 +55,17 @@ const Modal: React.FC<IModal> = ({
 }) => {
 
   const [input, setInput] = useState('')
-
-  const [showModal, setShowModal] = useState(isModalOpen)
-
+  const [showToast, setShowToast] = useState(false)
   const [hasError, setHasError] = useAsyncState(false)
 
-  const toggleShowModal = useCallback(() => setShowModal((showModal) => !showModal), []);
-
+  const toggleShowToast = useCallback(() => setShowToast(false), []);
   const handleChange = useCallback(() => modalHandler(!isModalOpen), [isModalOpen, modalHandler]);
 
   const handleSubmit = () => {
     primaryAction.actionHandler(input)
     setInput('')
     handleChange()
-    toggleShowModal()
+    setShowToast(true)
     setHasError(false)
   }
 
@@ -82,11 +79,11 @@ const Modal: React.FC<IModal> = ({
     } 
   }
 
-  const toastMarkup = (toast && showModal)
+  const toastMarkup = toast
     ? (<Toast 
         error={toast.error}
         content={toast.content} 
-        onDismiss={toggleShowModal} 
+        onDismiss={toggleShowToast} 
         duration={toast.duration}/>) 
     : null
 
@@ -105,7 +102,7 @@ const Modal: React.FC<IModal> = ({
   if(!inputAction) {
     modalActions['primaryAction'] = {
       content: primaryAction.actionText,
-      onAction: primaryAction.actionHandler,
+      onAction: handleSubmit,
       destructive: primaryAction?.destructive,
     }
   }
@@ -169,7 +166,7 @@ const Modal: React.FC<IModal> = ({
           </polaris.Modal.Section>
 
       </polaris.Modal>
-      {toastMarkup}
+      {showToast && toastMarkup}
     </>
   )
 }
