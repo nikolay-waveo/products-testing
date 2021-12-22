@@ -3,7 +3,7 @@ import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IList } from 'types';
-import Item from './Item';
+import ItemNew from './ItemNew';
 import Modal from './Modal';
 
 const List: React.FC<IList> = ({
@@ -218,12 +218,38 @@ const List: React.FC<IList> = ({
                 id={item.id}
                 accessibilityLabel={`View details for ${item.storeURL}`}
                 onClick={() => {}}>
-                <Item 
+                {/* <Item 
                   item={item}
                   onDisconnect={onDisconnect}
                   onConnect={onConnect}
                   loading={isLoading}
-                  listType={listType} />
+                  listType={listType} /> */}
+
+                  <ItemNew 
+                    item={item} 
+                    badges={[
+                      {
+                        status: "pending",
+                        tooltip: "Waiting for publisher confirmation",
+                        statusStyle: "new",
+                      },
+                      {
+                        status: "active",
+                        tooltip: "There is an active subscription",
+                        statusStyle: "success",
+                      },
+                      {
+                        status: "stopped",
+                        tooltip: "The publisher has stopped the connection",
+                        statusStyle: "critical",
+                      },
+                      {
+                        status: "declined",
+                        tooltip: "The publisher has declined your subscription request",
+                        statusStyle: "critical",
+                      },
+                    ]}
+                    options={[]} />
                 </ResourceItem> 
               )
           }} />
