@@ -6,7 +6,7 @@ import {
 import { usePublish } from 'hooks/usePublish';
 import { useSubscribe } from 'hooks/useSubscribe';
 import React, { useCallback, useEffect, useState } from 'react';
-import { IList } from 'types';
+import { IList, ISubscription } from 'types';
 import ItemNew from './ItemNew';
 import Modal from './Modal';
 
@@ -58,19 +58,60 @@ const List: React.FC<IList> = ({
     useDELETEShopSubscribeSettings: deleteSubscribe
   } = useSubscribe()
 
-  const onDisconnect = (store: string, subscribed?: string) => {
+  // const onDisconnect = (store: string, subscribed?: string) => {
+  //   if(listType === "publishTo") {
+
+  //     if(subscribed === "active") {
+  //       deletePublish({
+  //         origin: user,
+  //         publisherShop: store,
+  //       })
+  //     }
+  //     else {
+  //       setPublish({
+  //         origin: user,
+  //         publisherShop: store,
+  //         accept: false,
+  //       })
+  //     }
+      
+  //   }
+  //   if(listType === "subscribeTo") {
+  //     deleteSubscribe({
+  //       origin: user,
+  //       subscriberShop: store
+  //     })
+  //   }
+  //   const newList = list.filter((item) => item.storeURL !== store);
+  //   listUpdateHandler(newList);
+  // }
+
+  // const onConnect = (store: string) => {
+  //   setPublish({
+  //     origin: user,
+  //     publisherShop: store,
+  //     accept: true,
+  //   })
+  //   const newList = list.map((item) => item.storeURL === store ? {...item, status: "active"} : item )
+  //   listUpdateHandler(newList);
+  // }
+
+  const onDisconnect = ({
+    storeURL,
+    status,
+  }: ISubscription['subscription']) => {
     if(listType === "publishTo") {
 
-      if(subscribed === "active") {
+      if(status === "active") {
         deletePublish({
           origin: user,
-          publisherShop: store,
+          publisherShop: storeURL,
         })
       }
       else {
         setPublish({
           origin: user,
-          publisherShop: store,
+          publisherShop: storeURL,
           accept: false,
         })
       }
@@ -79,20 +120,22 @@ const List: React.FC<IList> = ({
     if(listType === "subscribeTo") {
       deleteSubscribe({
         origin: user,
-        subscriberShop: store
+        subscriberShop: storeURL
       })
     }
-    const newList = list.filter((item) => item.storeURL !== store);
+    const newList = list.filter((item) => item.storeURL !== storeURL);
     listUpdateHandler(newList);
   }
 
-  const onConnect = (store: string) => {
+  const onConnect = ({
+    storeURL,
+  }: ISubscription['subscription']) => {
     setPublish({
       origin: user,
-      publisherShop: store,
+      publisherShop: storeURL,
       accept: true,
     })
-    const newList = list.map((item) => item.storeURL === store ? {...item, status: "active"} : item )
+    const newList = list.map((item) => item.storeURL === storeURL ? {...item, status: "active"} : item )
     listUpdateHandler(newList);
   }
 
@@ -149,8 +192,8 @@ const List: React.FC<IList> = ({
     })
     
   const resourceName = {
-    singular: 'Subscriber',
-    plural: 'Subscribers',
+    singular: 'Subscription',
+    plural: 'Subscriptions',
   };
 
   let cardProps = {}
@@ -220,7 +263,6 @@ const List: React.FC<IList> = ({
             return (
               <ResourceItem
                 id={item.id}
-                accessibilityLabel={`View details for ${item.storeURL}`}
                 onClick={() => {}}>
                 {/* <Item 
                   item={item}
@@ -231,6 +273,10 @@ const List: React.FC<IList> = ({
 
                   <ItemNew 
                     item={item} 
+                    // loading={{
+                    //   isLoading: isLoading,
+                    //   accessibilityLabel: "Sending request",
+                    // }}
                     badges={[
                       {
                         status: "pending",
@@ -250,7 +296,7 @@ const List: React.FC<IList> = ({
                       {
                         status: "declined",
                         tooltip: "The publisher has declined your subscription request",
-                        statusStyle: "critical",
+                        statusStyle: "warning",
                       },
                     ]}
                     options={[
@@ -258,14 +304,14 @@ const List: React.FC<IList> = ({
                         content: 'Connect',
                         icon: TickMinor,
                         helpText: "Accept subscription to your store",
-                        onAction: () => onConnect(item.storeURL),
+                        onAction: () => onConnect(item),
                         active: true,
                       },
                       {
                         content: 'Disconnect',
                         helpText: "Deny subscription to your store",
                         icon: CancelSmallMinor,
-                        onAction: () => {},
+                        onAction: () => onDisconnect(item),
                         destructive: true,
                       },
                     ]} />
