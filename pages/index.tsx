@@ -11,15 +11,10 @@ const Admin: React.FC = () => {
   //TODO remove setUser
   const [user, setUser] = useState("dev-subscriber.myshopify.com")
 
-  //change to PublishedToList
-  const [incomingSubs, setIncomingSubs] = useState<ISubscription['subscription'][]>([]);
-
-  //change to SubscribedToList
-  const [outgoingSubs, setOutgoingSubs] = useState<ISubscription['subscription'][]>([]);
-
+  const [publishedTo, setPublishedTo] = useState<ISubscription['subscription'][]>([]);
+  const [subscribedTo, setSubscribedTo] = useState<ISubscription['subscription'][]>([]);
   const [publishStatus, setPublishStatus] = useState(false)
 
-  // GET lists
   const {
     useGETShopSettings: getSettings, 
   } = useSettings()
@@ -29,7 +24,7 @@ const Admin: React.FC = () => {
   useEffect(() => {
     // GET incoming and outgoing subscriptions
     if(!isLoading) {
-      const incomingSubsData = data
+      const publishedToData = data
       .published?.map(({
         shop,
         inventoryLocationId,
@@ -42,9 +37,9 @@ const Admin: React.FC = () => {
         })
       }) || []
 
-      setIncomingSubs(incomingSubsData)
+      setPublishedTo(publishedToData)
 
-      const outgoingSubsData = data
+      const subscribedToData = data
       .subscribed?.map(({
         shop,
         inventoryLocationId,
@@ -57,7 +52,7 @@ const Admin: React.FC = () => {
         })
       }) || []
 
-      setOutgoingSubs(outgoingSubsData) 
+      setSubscribedTo(subscribedToData) 
 
       const publishResponse = data.publish
       
@@ -113,7 +108,7 @@ const Admin: React.FC = () => {
                     content: "Allow others to find and subscribe to your store.",
                   }]}
                 publishStatus={publishStatus} 
-                enableModal={incomingSubs.length > 0} >
+                enableModal={publishedTo.length > 0} >
 
                 <List 
                   user={user}
@@ -122,8 +117,8 @@ const Admin: React.FC = () => {
                     title: "Subscribers",
                     description: "You can connect, disconnect and track subscriptions to your store.",
                   }}
-                  list={incomingSubs}
-                  listUpdateHandler={setIncomingSubs}
+                  list={publishedTo}
+                  listUpdateHandler={setPublishedTo}
                   emptyListText={{
                     title: "No subscribers yet",
                     description: "Track user subscriptions to your store."
@@ -142,8 +137,8 @@ const Admin: React.FC = () => {
                     title: "Subscriptions",
                     description: "A list of all of your subscriptions to other stores.",
                   }}
-                  list={outgoingSubs} 
-                  listUpdateHandler={setOutgoingSubs}
+                  list={subscribedTo} 
+                  listUpdateHandler={setSubscribedTo}
                   emptyListText={{
                     title: "No subscriptions yet",
                     description: "Track your subscriptions from stores."
