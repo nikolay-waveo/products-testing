@@ -1,7 +1,8 @@
-import { Heading, Layout, SettingToggle, TextContainer } from '@shopify/polaris';
+import { Heading, Layout, SettingToggle, TextContainer, TextStyle } from '@shopify/polaris';
 import { useSettings } from 'hooks/useSettings';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
+import CalloutCard from './CalloutCard';
 import Modal from './Modal';
 
 const Section: React.FC<ISection> = ({
@@ -16,9 +17,9 @@ const Section: React.FC<ISection> = ({
 }) => {
 
   const [active, setActive] = useState(publishStatus)
-
-  const [showModal, setShowModal] = useState(false)
-
+  const [showDeactivationModal, setShowDeactivationModal] = useState(false)
+  const [showCalloutCard, setShowCalloutCard] = useState(active)
+  const [showCalloutCardModal, setShowCalloutCardModal] = useState(false)
   const { useSETShopSettings: setSettings } = useSettings();
 
   useEffect(() => {
@@ -31,26 +32,23 @@ const Section: React.FC<ISection> = ({
         publish: false
       })
       setActive(false)
-      handleCloseModal()
+      setShowDeactivationModal(false)
     },
     [setSettings, user],
   )
 
   const handleToggle = useCallback(() => {
     if(enableModal && active) {
-      setShowModal(true)
+      setShowDeactivationModal(true)
     }
     else {
       setSettings(user, {
         publish: !active
       })
       setActive(!active)
+      setShowCalloutCard(!active)
     }  
   }, [active, enableModal, setSettings, user]);
-
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
 
   const contentStatus = active ? 'Deactivate' : 'Activate';
 
@@ -98,12 +96,49 @@ const Section: React.FC<ISection> = ({
               enabled={active}>
               { toggleTextMarkup() }
             </SettingToggle> 
+
+            { active && 
+              showCalloutCard &&
+              <CalloutCard 
+                title="Get your store link"
+                content="Share your store link with other businesses to allow them to subscribe to your store."
+                illustrationSRC="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
+                primaryAction={{
+                  content: 'Get store link',
+                  onAction: () => setShowCalloutCardModal(true),
+                }} 
+                onDismiss={() => setShowCalloutCard(false)} /> }
+
+            <Modal 
+              title="Get your store link"
+              content={
+                <p>Your store link is <TextStyle variation="strong">{user}</TextStyle>. Share it with others so that they can find and subscribe to your store.</p>
+              }
+              isModalOpen={showCalloutCardModal}
+              modalHandler={setShowCalloutCardModal} 
+              primaryAction={{
+                actionText: "Copy Link",
+                actionHandler: () => {
+                  navigator.clipboard.writeText(user)
+                  setShowCalloutCardModal(false)
+                },
+              }}
+              secondaryActions={[
+                {
+                  actionText: "Cancel",
+                  actionHandler: () => setShowCalloutCardModal(false),
+                },
+              ]}
+              toast={{
+                content: "Copied to clipboard"
+              }} />
+
             <Modal
               title="Deactivate Publishing"
               content="Deactivating this setting will stop others from finding your store 
                 and suspend all current subscriptions to you. Do you want to continue?" 
-              isModalOpen={showModal}
-              modalHandler={setShowModal} 
+              isModalOpen={showDeactivationModal}
+              modalHandler={setShowDeactivationModal} 
               primaryAction={{
                 actionText: "Deactivate",
                 actionHandler: handleDeactivatePublish,
@@ -112,9 +147,12 @@ const Section: React.FC<ISection> = ({
               secondaryActions={[
                 {
                   actionText: "Cancel",
-                  actionHandler: handleCloseModal,
+                  actionHandler: () => setShowDeactivationModal(false),
                 },
               ]}
+              toast={{
+                content: "Copied to clipboard"
+              }}
               />
           </div> }
 
