@@ -1,4 +1,4 @@
-import { Badge, SkeletonDisplayText, Spinner, TextStyle } from '@shopify/polaris';
+import { Badge, SkeletonDisplayText, Spinner, TextStyle, Tooltip } from '@shopify/polaris';
 import React from 'react';
 import { IItem } from 'types';
 import Options from './Options';
@@ -61,11 +61,15 @@ const Item: React.FC<IItem> = ({
       <div className="col-start-8 justify-self-center">
         { !loading 
           ? <Spinner accessibilityLabel="Sending request" size="small" />
-          : <Badge 
-              {...badgeStatus}
-              size="small">
-                {capitalize(status)}
-            </Badge> }
+          : <Tooltip 
+              content={'blah'}
+              preferredPosition='above'>
+              <Badge 
+                {...badgeStatus}
+                size="small">
+                  {capitalize(status)}
+              </Badge>
+            </Tooltip> }
       </div>
       <div className="grid justify-end col-start-9">
         <Options store={storeURL} status={status} {...itemProps} />
