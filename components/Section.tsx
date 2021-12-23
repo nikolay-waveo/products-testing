@@ -1,9 +1,10 @@
-import { Heading, Layout, SettingToggle, TextContainer, TextStyle } from '@shopify/polaris';
+import { Layout, TextStyle } from '@shopify/polaris';
 import { useSettings } from 'hooks/useSettings';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ISection } from 'types';
 import CalloutCard from './CalloutCard';
 import Modal from './Modal';
+import Toggle from './Toggle';
 
 const Section: React.FC<ISection> = ({
   user,
@@ -11,7 +12,6 @@ const Section: React.FC<ISection> = ({
   sectionDescription,
   publishStatus=true,
   toggle,
-  toggleText,
   enableModal, 
   children
 }) => {
@@ -50,35 +50,6 @@ const Section: React.FC<ISection> = ({
     }  
   }, [active, enableModal, setSettings, user]);
 
-  const contentStatus = active ? 'Deactivate' : 'Activate';
-
-  const toggleTextMarkup = () => {
-    // If passed a string
-    if(typeof toggleText == "string") return toggleText
-
-    // If passed an array of objects
-    const [activateText, deactivateText] = toggleText.map(({
-      title,
-      content,
-      destructive,
-    }, key) => {
-      return (
-        <TextContainer key={key}>
-          { title && <Heading>{title}</Heading> }
-          <p className={destructive ? "text-shopify-critical" : undefined}>
-            {content}
-          </p>
-        </TextContainer>
-      )
-    })
- 
-    return (
-      active
-      ? activateText
-      : deactivateText
-    )
-  }
-
   return (
     <Layout>
       <Layout.AnnotatedSection
@@ -88,14 +59,32 @@ const Section: React.FC<ISection> = ({
 
         { toggle &&
           <div className={active ? "mb-10" : undefined}>
-            <SettingToggle
-              action={{
-                content: contentStatus,
-                onAction: handleToggle,
+
+            <Toggle 
+              activated={active}
+              onAction={handleToggle} 
+              onActivate={{
+                title: "Deactivate Publishing",
+                content: "Stop others from finding your store and suspend all currently subscribed stores.",
+                contentStyle: "negative",
+                primaryAction: {
+                  content: "Deactivate",
+                  onAction: () => console.log("deactivate")
+                },
+                secondaryAction: {
+                  content: "Activate",
+                  onAction: () => console.log("deactivate"),
+                },
               }}
-              enabled={active}>
-              { toggleTextMarkup() }
-            </SettingToggle> 
+              onDeactivate={{
+                title: "Activate Publishing",
+                content: "Allow others to find and subscribe to your store.",
+                primaryAction: {
+                  content: "Activate",
+                  onAction: () => console.log("Activate"),
+                },
+                primary: true,
+              }} />
 
             { active && 
               showCalloutCard &&
@@ -112,7 +101,10 @@ const Section: React.FC<ISection> = ({
             <Modal 
               title="Get your store link"
               content={
-                <p>Your store link is <TextStyle variation="strong">{user}</TextStyle>. Share it with others so that they can find and subscribe to your store.</p>
+                <p>
+                  Your store link is <TextStyle variation="strong">{user}</TextStyle>. 
+                  Share it with others so that they can find and subscribe to your store.
+                </p>
               }
               isModalOpen={showCalloutCardModal}
               modalHandler={setShowCalloutCardModal} 
@@ -130,7 +122,8 @@ const Section: React.FC<ISection> = ({
                 },
               ]}
               toast={{
-                content: "Copied to clipboard"
+                content: "Copied to clipboard",
+                duration: 3000
               }} />
 
             <Modal
@@ -151,7 +144,7 @@ const Section: React.FC<ISection> = ({
                 },
               ]}
               toast={{
-                content: "Copied to clipboard"
+                content: "Publishing Disabled"
               }}
               />
           </div> }

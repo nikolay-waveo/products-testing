@@ -97,16 +97,6 @@ const Admin: React.FC = () => {
                 sectionTitle="Publish"
                 sectionDescription="See which stores are subscribed to you."
                 toggle 
-                toggleText={[
-                  {
-                    title: "Disable Publishing",
-                    content: "Stop others from finding your store and suspend all currently subscribed stores.",
-                    destructive: true,
-                  },
-                  {
-                    title: "Enable Publishing",
-                    content: "Allow others to find and subscribe to your store.",
-                  }]}
                 publishStatus={publishStatus} 
                 enableModal={publishedTo.length > 0} >
 
