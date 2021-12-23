@@ -7,7 +7,7 @@ interface ICalloutCard {
   primaryAction: polaris.Action,
   secondaryAction?: polaris.Action,
   illustrationSRC?: string,
-  onDismiss: () => void,
+  onDismiss?: () => void,
 }
 
 const CalloutCard: React.FC<ICalloutCard> = ({
