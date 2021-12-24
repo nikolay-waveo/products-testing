@@ -6,8 +6,8 @@ declare type Variation = 'positive' | 'negative' | 'strong' | 'subdued' | 'code'
 
 declare type ToggleState = {
   title?: string,
-  content: string,
-  contentStyle?: Variation,
+  content: string | React.ReactNode,
+  contentStyle?: Variation | string,
   primaryAction: polaris.ComplexAction,
   secondaryAction?: polaris.ComplexAction,
   primary?: boolean,
@@ -44,13 +44,15 @@ const Toggle: React.FC<IToggle> = ({
     onAction()
   }
 
+  const style = contentStyle as Variation
+
   return (
     <Card sectioned >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-5">
         <div className="flex flex-col">
           <Heading>{title}</Heading>
           <span className="mt-4">
-            <TextStyle variation={contentStyle}>
+            <TextStyle variation={style}>
               {content}
             </TextStyle>
           </span>
