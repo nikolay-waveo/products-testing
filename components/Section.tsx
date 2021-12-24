@@ -81,7 +81,7 @@ const Section: React.FC<ISection> = ({
 
   // ..............
 
-  const [toggleOn, setToggleOn] = useState(true)
+  // const [toggleOn, setToggleOn] = useState(true)
 
   // ..............
 
