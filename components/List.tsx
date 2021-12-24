@@ -106,6 +106,50 @@ const List: React.FC<IList> = ({
 
   // Modal handler ----------------------------------------------
 
+  //! -----------------------------------------------------------
+
+  const testHandler = (store: {
+    url: string,
+    id: string,
+  }) => {  
+
+    const {
+      url,
+      id,
+    } = store
+
+    const storeID = id
+    
+    setSubscribe({
+      origin: user,
+      subscriberShop: url,
+      id: storeID,
+    })
+    .then(({
+      shop,
+      inventoryLocationId,
+      status,
+      code, 
+      message,
+    }) => {
+      if(code === "not_publishing") {
+        setErrorMessage(message)
+        setHasError(true)
+      } else {
+        listUpdateHandler([
+          ...list,
+          {
+            storeURL: shop,
+            id: inventoryLocationId,
+            status: status,
+          }
+        ])
+      } 
+    })
+  }
+
+  //! --------------------------------------------------------
+
   const outgoingSubscriptionsHandler = (url: string) => {  
     //! Find a way to get inventoryLocationId
     // (url: string) => (id: string)
@@ -214,7 +258,13 @@ const List: React.FC<IList> = ({
           }}
           toast={{
             content: "Request Sent",
-          }} />
+          }} 
+          //! --------------------------
+          testAction={{
+            actionHandler: (e) => testHandler(e)
+          }}
+          //! --------------------------
+          />
 
         <ResourceList 
           resourceName={resourceName}

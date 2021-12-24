@@ -1,6 +1,8 @@
 import * as polaris from '@shopify/polaris';
 import {
   Button,
+  Form,
+  FormLayout,
   InlineError,
   Stack,
   TextContainer,
@@ -40,7 +42,17 @@ interface IModal {
     content: string,
     duration?: number,
     error?: boolean,
+  },
+
+  //!-----------------------------------------------
+  testAction?: {
+    actionHandler: (input: {
+      url: string,
+      id: string,
+    }) => void,
   }
+  //!-----------------------------------------------
+
 }
 
 const Modal: React.FC<IModal> = ({
@@ -52,6 +64,9 @@ const Modal: React.FC<IModal> = ({
   primaryAction,
   secondaryActions,
   toast,
+  //!-----------------------------------------------
+  testAction
+  //!-----------------------------------------------
 }) => {
 
   const [input, setInput] = useState('')
@@ -62,22 +77,31 @@ const Modal: React.FC<IModal> = ({
   const handleChange = useCallback(() => modalHandler(!isModalOpen), [isModalOpen, modalHandler]);
 
   const handleSubmit = () => {
-    primaryAction.actionHandler(input)
+    //!-----------------------------------------------
+    if(testAction) {
+      testAction.actionHandler({url: input, id: inputID})
+      console.log({url: input, id: inputID})
+      setInputID('')
+    }
+    //!-----------------------------------------------
+    else { 
+      primaryAction.actionHandler(input) 
+    }
     setInput('')
     handleChange()
     setShowToast(true)
     setHasError(false)
   }
 
-  const checkErrorOnClick = async () => {
-    if(inputAction?.errorHandler) {
-      const error = await setHasError(inputAction.errorHandler(input))
-      if (!error) handleSubmit()
-    }
-    else {
-      handleSubmit()
-    } 
-  }
+  // const checkErrorOnClick = async () => {
+  //   if(inputAction?.errorHandler) {
+  //     const error = await setHasError(inputAction.errorHandler(input))
+  //     if (!error) handleSubmit()
+  //   }
+  //   else {
+  //     handleSubmit()
+  //   } 
+  // }
 
   const toastMarkup = toast
     ? (<Toast 
@@ -87,15 +111,15 @@ const Modal: React.FC<IModal> = ({
         duration={toast.duration}/>) 
     : null
 
-  const primaryActionButtonMarkup = (
-    <Button 
-      primary 
-      onClick={()=> {
-        checkErrorOnClick()
-      }}>
-      {primaryAction.actionText}
-    </Button>
-  )
+  // const primaryActionButtonMarkup = (
+  //   <Button 
+  //     primary 
+  //     onClick={()=> {
+  //       checkErrorOnClick()
+  //     }}>
+  //     {primaryAction.actionText}
+  //   </Button>
+  // )
 
   const modalActions = {}
 
@@ -120,6 +144,10 @@ const Modal: React.FC<IModal> = ({
       }))
     ]
   }
+
+  // ?------------------------
+
+  const [inputID, setInputID] = useState("")
   
   return (
     <>
@@ -139,7 +167,29 @@ const Modal: React.FC<IModal> = ({
               </Stack.Item>
             { inputAction &&
               <Stack.Item fill>
-                <TextField
+
+  {/* //! --------------------------------------------- */}
+  <Form onSubmit={handleSubmit}>
+    <FormLayout>
+      <TextField
+        label="Inventory Location ID"
+        value={inputID}
+        onChange={(e) => setInputID(e)}
+        autoComplete="off"
+        />
+      <TextField
+        label={inputAction.label}
+        value={input}
+        onChange={(e) => setInput(e)}
+        autoComplete="off"
+        />
+
+      <Button submit primary>{primaryAction.actionText}</Button>
+    </FormLayout>
+  </Form>
+  {/* //! --------------------------------------------- */}
+
+                {/* <TextField
                   id={inputAction.id}
                   label={inputAction.label}
                   value={input}
@@ -153,7 +203,7 @@ const Modal: React.FC<IModal> = ({
                   connectedRight={primaryActionButtonMarkup}
                   onFocus={() => {
                     setHasError(false)
-                  }} />
+                  }} /> */}
 
                   { hasError &&
                     <div className='mt-4'>
