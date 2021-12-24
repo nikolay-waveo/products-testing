@@ -1,111 +1,107 @@
-import { Layout, TextStyle } from '@shopify/polaris';
-import { useSettings } from 'hooks/useSettings';
-import React, { useEffect, useState } from 'react';
+import { Layout } from '@shopify/polaris';
+import React from 'react';
 import { ISection } from 'types';
-import CalloutCard from './CalloutCard';
-import Modal from './Modal';
-import Toggle from './Toggle';
 
 const Section: React.FC<ISection> = ({
-  user,
-  sectionTitle,
-  sectionDescription,
-  publishStatus=true,
-  toggle,
-  enableModal, 
-  children
+  // user,
+  // sectionTitle,
+  // sectionDescription,
+  // publishStatus=true,
+  // toggle,
+  // enableModal, 
+  // children
 }) => {
 
-  const [active, setActive] = useState(publishStatus)
-  const [showDeactivationModal, setShowDeactivationModal] = useState(false)
-  const [showCalloutCard, setShowCalloutCard] = useState(active)
-  const [showCalloutCardModal, setShowCalloutCardModal] = useState(false)
-  const { useSETShopSettings: setSettings } = useSettings();
+  // const [active, setActive] = useState(publishStatus)
+  // const [showDeactivationModal, setShowDeactivationModal] = useState(false)
+  // const [showCalloutCard, setShowCalloutCard] = useState(active)
+  // const [showCalloutCardModal, setShowCalloutCardModal] = useState(false)
+  // const { useSETShopSettings: setSettings } = useSettings();
 
-  useEffect(() => {
-    setActive(publishStatus)
-  }, [publishStatus])
+  // useEffect(() => {
+  //   setActive(publishStatus)
+  // }, [publishStatus])
 
-  // const handleDeactivatePublish = useCallback(
-  //   () => {
-  //     setSettings(user, {
-  //       publish: false
-  //     })
-  //     setActive(false)
-  //     setShowDeactivationModal(false)
-  //   },
-  //   [setSettings, user],
-  // )
+  // // const handleDeactivatePublish = useCallback(
+  // //   () => {
+  // //     setSettings(user, {
+  // //       publish: false
+  // //     })
+  // //     setActive(false)
+  // //     setShowDeactivationModal(false)
+  // //   },
+  // //   [setSettings, user],
+  // // )
 
-  // const handleToggle = useCallback(() => {
-  //   if(enableModal && active) {
-  //     setShowDeactivationModal(true)
+  // // const handleToggle = useCallback(() => {
+  // //   if(enableModal && active) {
+  // //     setShowDeactivationModal(true)
+  // //   }
+  // //   else {
+  // //     setSettings(user, {
+  // //       publish: !active
+  // //     })
+  // //     setActive(!active)
+  // //     setShowCalloutCard(!active)
+  // //   }  
+  // // }, [active, enableModal, setSettings, user]);
+
+  // // -------------------------------
+
+  // const [paused, setPaused] = useState(false)
+
+  // const isPaused = paused 
+  //   ? {
+  //     content: "Pause",
+  //     onAction: () => {
+  //       setSettings(user, {
+  //         publish: false
+  //       })
+  //       setPaused(false)
+  //     },
   //   }
-  //   else {
-  //     setSettings(user, {
-  //       publish: !active
-  //     })
-  //     setActive(!active)
-  //     setShowCalloutCard(!active)
-  //   }  
-  // }, [active, enableModal, setSettings, user]);
+  //   : {
+  //     content: "Unpause",
+  //     onAction: () => {
+  //       setSettings(user, {
+  //         publish: true
+  //       })
+  //       setPaused(true)
+  //     },
+  //   }
 
-  // -------------------------------
-
-  const [paused, setPaused] = useState(false)
-
-  const isPaused = paused 
-    ? {
-      content: "Pause",
-      onAction: () => {
-        setSettings(user, {
-          publish: false
-        })
-        setPaused(false)
-      },
-    }
-    : {
-      content: "Unpause",
-      onAction: () => {
-        setSettings(user, {
-          publish: true
-        })
-        setPaused(true)
-      },
-    }
-
-  const isListEmpty = !true
-    ? {
-      title: "Deactivate Publishing",
-      content: "Stop others from finding and subscribing to your store.",
-      contentStyle: "negative",
-      primaryAction: {
-        content: "Deactivate",
-        onAction: () => console.log("deactivate")
-      },
-    }
-    : {
-      title: "Deactivate Publishing",
-      content: (
-        <>
-          <TextStyle variation="strong">Pause</TextStyle> publishing to keep subscriptions to your store 
-          or <TextStyle variation="strong">deactivate</TextStyle> publishing to remove all subscriptions.
-        </>
-      ),
-      primaryAction: {
-        content: "Deactivate",
-        onAction: () => {
+  // const isListEmpty = !true
+  //   ? {
+  //     title: "Deactivate Publishing",
+  //     content: "Stop others from finding and subscribing to your store.",
+  //     contentStyle: "negative",
+  //     primaryAction: {
+  //       content: "Deactivate",
+  //       onAction: () => console.log("deactivate")
+  //     },
+  //   }
+  //   : {
+  //     title: "Deactivate Publishing",
+  //     content: (
+  //       <>
+  //         <TextStyle variation="strong">Pause</TextStyle> publishing to keep subscriptions to your store 
+  //         or <TextStyle variation="strong">deactivate</TextStyle> publishing to remove all subscriptions.
+  //       </>
+  //     ),
+  //     primaryAction: {
+  //       content: "Deactivate",
+  //       onAction: () => {
           
-        },
-      },
-      secondaryAction: isPaused,
-      destructive: true,
-    }
+  //       },
+  //     },
+  //     secondaryAction: isPaused,
+  //     destructive: true,
+  //   }
 
 
   return (
     <Layout>
-      <Layout.AnnotatedSection
+      {/* <Layout.AnnotatedSection
         id="storeDetails"
         title={sectionTitle}
         description={sectionDescription} >
@@ -192,7 +188,7 @@ const Section: React.FC<ISection> = ({
           </div> }
 
         { active && <div className="col-span-2" > { children } </div> }
-      </Layout.AnnotatedSection>
+      </Layout.AnnotatedSection> */}
     </Layout>
   )
 }
