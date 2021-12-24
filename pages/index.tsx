@@ -1,7 +1,6 @@
 import { Frame, Page } from "@shopify/polaris";
 import List from "components/List";
 import Section from "components/Section";
-import TestingCard from "components/TestingCard";
 import { useSettings } from "hooks/useSettings";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -75,12 +74,6 @@ const Admin: React.FC = () => {
           divider >
 
           <div className="grid grid-cols-1 gap-10 mb-20">
-
-{/* //? --------------------------------------------------------------- */}
-
-            <TestingCard user={user} setUser={setUser} />
-
-{/* //? --------------------------------------------------------------- */}
 
             <Section 
               user={user}
