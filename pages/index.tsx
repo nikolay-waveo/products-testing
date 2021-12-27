@@ -10,11 +10,11 @@ const Admin: React.FC = () => {
 
   //? Get query params
   const router = useRouter()
-  const store = router.query.store as string
+  const shop = router.query.shop as string
   //? ----------------
 
   //TODO remove setUser
-  const [user, setUser] = useState(store)
+  const [user, setUser] = useState(shop)
 
   const [publishedTo, setPublishedTo] = useState<ISubscription['subscription'][]>([]);
   const [subscribedTo, setSubscribedTo] = useState<ISubscription['subscription'][]>([]);
@@ -27,7 +27,7 @@ const Admin: React.FC = () => {
   const {data, isLoading} = getSettings(user)
 
   useEffect(() => {
-    setUser(store)
+    setUser(shop)
     // GET incoming and outgoing subscriptions
     if(!isLoading) {
       const publishedToData = data
@@ -64,7 +64,7 @@ const Admin: React.FC = () => {
       
       setPublishStatus(publishResponse)
     }
-  }, [data, isLoading, store, user])
+  }, [data, isLoading, shop, user])
 
   return (
     <Frame>
