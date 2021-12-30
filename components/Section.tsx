@@ -118,7 +118,7 @@ const Section: React.FC<ISection> = ({
             </SettingToggle> 
 
             { active && 
-              showCalloutCard &&
+              // showCalloutCard &&
               <CalloutCard 
                 title="Get your store link"
                 content="Share your store link with other businesses to allow them to subscribe to your store."
@@ -126,8 +126,7 @@ const Section: React.FC<ISection> = ({
                 primaryAction={{
                   content: 'Get store link',
                   onAction: () => setShowCalloutCardModal(true),
-                }} 
-                onDismiss={() => setShowCalloutCard(false)} /> }
+                }} /> }
 
             <Modal 
               title="Get your store link"
