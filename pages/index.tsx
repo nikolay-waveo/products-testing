@@ -72,7 +72,7 @@ const Index: React.FC = () => {
   return (
     <Frame>
       <Page
-        title="Store Product Sync"
+        title="Store Product Sync v0.1"
         fullWidth={true}>
         <div className="grid grid-cols-1 gap-10 mb-20">
           <Section 
